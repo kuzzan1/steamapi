@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "steam",
+    "style": "less",
+    "postcss": true
+  }
+}
