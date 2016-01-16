@@ -15,6 +15,7 @@ import java.util.HashMap;
  */
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8000")
 public class GameItems {
 
     HashMap<String, String> cached = new HashMap<>();
@@ -22,7 +23,6 @@ public class GameItems {
     @Autowired
     RestTemplateBean restTemplate;
 
-    @CrossOrigin(origins = "http://localhost:8000")
     @RequestMapping("/app/games")
     public @ResponseBody String getGames() throws Exception {
         if(cached.get("ISteamApps") == null) {

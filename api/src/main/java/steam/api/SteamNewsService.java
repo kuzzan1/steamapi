@@ -12,6 +12,7 @@ import steam.bean.SteamApiKey;
  */
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8000")
 public class SteamNewsService {
 
     @Autowired
@@ -19,7 +20,6 @@ public class SteamNewsService {
 
     private String URL = "https://api.steampowered.com/ISteamNews/";
 
-    @CrossOrigin(origins = "http://localhost:8000")
     @RequestMapping("/app/news/{id}")
     public @ResponseBody
     String getNewsForApp(@PathVariable("id") final String appId) {

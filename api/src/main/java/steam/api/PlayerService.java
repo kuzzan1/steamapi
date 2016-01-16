@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
  * Created by jonas on 2016-01-14.
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:8000")
 public class PlayerService {
 
     @Autowired
@@ -17,7 +18,6 @@ public class PlayerService {
 
     private String URL = "https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1"+ SteamApiKey.getApiKey();
 
-    @CrossOrigin(origins = "http://localhost:8000")
     @RequestMapping("app/{id}/playedGames/{count}")
     public @ResponseBody String getPlayedGamesWithCOunt(@PathVariable("id") final String playerId, @PathVariable("count") final String count) throws Exception{
         String innerCount = count != null ? "&count=" + count : "";
