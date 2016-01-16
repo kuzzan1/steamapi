@@ -1,4 +1,4 @@
-package main.java.steam.filter;
+package steam.filter;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 

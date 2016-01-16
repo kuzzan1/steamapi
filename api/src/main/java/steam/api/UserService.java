@@ -1,8 +1,8 @@
 package main.java.steam.api;
 
-import main.java.steam.bean.RestTemplateBean;
-import main.java.steam.bean.SteamApiKey;
-import main.java.steam.filter.CORSFilter;
+import steam.bean.RestTemplateBean;
+import steam.bean.SteamApiKey;
+import steam.filter.CORSFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.PathVariable;
