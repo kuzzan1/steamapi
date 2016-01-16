@@ -56,7 +56,7 @@ module.exports = {
         loader: 'style-loader!css-loader!postcss-loader!sass-loader?outputStyle=expanded'
       },
       {
-        test: /\.less/,
+        test: /\.less$/,
         loader: 'style-loader!css-loader!postcss-loader!less-loader'
       },
       {
@@ -72,6 +72,6 @@ module.exports = {
   postcss: function () {
     require('autoprefixer')({
       browsers: ['last 2 versions', 'ie >= 8']
-    });
+    })
   }
 };
