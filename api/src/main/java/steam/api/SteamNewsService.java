@@ -2,12 +2,9 @@ package steam.api;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import steam.bean.RestTemplateBean;
 import steam.bean.SteamApiKey;
-import steam.filter.CORSFilter;
 
 
 /**
@@ -15,15 +12,17 @@ import steam.filter.CORSFilter;
  */
 
 @RestController
-public class SteamNewsService extends CORSFilter {
+public class SteamNewsService {
 
     @Autowired
     RestTemplateBean restTemplateBean;
 
     private String URL = "https://api.steampowered.com/ISteamNews/";
 
+    @CrossOrigin(origins = "http://localhost:8000")
     @RequestMapping("/app/news/{id}")
-    public String getNewsForApp(@PathVariable("id") final String appId) {
+    public @ResponseBody
+    String getNewsForApp(@PathVariable("id") final String appId) {
         return restTemplateBean.exchange(URL + "GetNewsForApp/v2?key=" + SteamApiKey.getApiKey() + "&appid=" + appId);
     }
 

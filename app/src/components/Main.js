@@ -1,4 +1,4 @@
-/* global $ */
+﻿/* global $ */
 require('normalize.css');
 require('styles/App.less');
 
@@ -19,7 +19,7 @@ class AppComponent extends React.Component {
     
     componentDidMount() {
         $.ajax({
-            url: '/images/test.json',
+            url: 'http://localhost/app/76561198012071744/summary',
             dataType: 'json',
             cache: false,
             success: function(data) {

@@ -1,10 +1,10 @@
 package steam.api;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ResponseBody;
 import steam.bean.RestTemplateBean;
-import steam.filter.CORSFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,15 +15,16 @@ import java.util.HashMap;
  */
 
 @RestController
-public class GameItems extends CORSFilter{
+public class GameItems {
 
     HashMap<String, String> cached = new HashMap<>();
 
     @Autowired
     RestTemplateBean restTemplate;
 
+    @CrossOrigin(origins = "http://localhost:8000")
     @RequestMapping("/app/games")
-    public String getGames() throws Exception {
+    public @ResponseBody String getGames() throws Exception {
         if(cached.get("ISteamApps") == null) {
             cached.put("ISteamApps", restTemplate.getObject().exchange(
                     "https://api.steampowered.com/ISteamApps/GetAppList/v1", HttpMethod.GET, null,
