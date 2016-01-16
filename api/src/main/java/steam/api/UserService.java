@@ -15,7 +15,7 @@ public class UserService  {
     @Autowired
     RestTemplateBean restTemplate;
 
-    private String URL = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2?key="+ SteamApiKey.getApiKey();
+    private String URL = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2"+ SteamApiKey.getApiKey();
 
     @CrossOrigin(origins = "http://localhost:8000")
     @RequestMapping("app/{id}/summary")

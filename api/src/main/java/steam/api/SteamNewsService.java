@@ -23,7 +23,7 @@ public class SteamNewsService {
     @RequestMapping("/app/news/{id}")
     public @ResponseBody
     String getNewsForApp(@PathVariable("id") final String appId) {
-        return restTemplateBean.exchange(URL + "GetNewsForApp/v2?key=" + SteamApiKey.getApiKey() + "&appid=" + appId);
+        return restTemplateBean.exchange(URL + "GetNewsForApp/v2" + SteamApiKey.getApiKey() + "&appid=" + appId);
     }
 
 }

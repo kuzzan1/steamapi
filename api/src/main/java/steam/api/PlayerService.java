@@ -15,7 +15,7 @@ public class PlayerService {
     @Autowired
     RestTemplateBean restTemplate;
 
-    private String URL = "https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1?key="+ SteamApiKey.getApiKey();
+    private String URL = "https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1"+ SteamApiKey.getApiKey();
 
     @CrossOrigin(origins = "http://localhost:8000")
     @RequestMapping("app/{id}/playedGames/{count}")
