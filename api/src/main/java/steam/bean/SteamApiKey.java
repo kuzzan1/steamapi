@@ -1,4 +1,4 @@
-package steam.bean;
+package main.java.steam.bean;;
 
 /**
  * Created by jonas on 2016-01-14.

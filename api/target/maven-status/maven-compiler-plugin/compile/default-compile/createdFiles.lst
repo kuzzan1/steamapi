@@ -1,0 +1,9 @@
+main\java\steam\SteamApplication.class
+main\java\steam\bean\SteamApiKey.class
+main\java\steam\api\SteamNewsService.class
+main\java\steam\bean\HttpComponentsClientHttpRequestFactoryBasicAuth.class
+main\java\steam\api\UserService.class
+main\java\steam\api\PlayerService.class
+main\java\steam\bean\RestTemplateBean.class
+main\java\steam\filter\CORSFilter.class
+main\java\steam\api\GameItems.class

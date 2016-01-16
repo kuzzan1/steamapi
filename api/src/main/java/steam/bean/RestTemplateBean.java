@@ -1,4 +1,4 @@
-package steam.bean;
+package main.java.steam.bean;;
 
 import org.apache.http.HttpHost;
 import org.springframework.beans.factory.FactoryBean;

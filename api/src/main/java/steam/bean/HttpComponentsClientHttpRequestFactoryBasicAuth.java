@@ -1,4 +1,4 @@
-package steam.bean;
+package main.java.steam.bean;
 
 import org.apache.http.HttpHost;
 import org.apache.http.client.AuthCache;
