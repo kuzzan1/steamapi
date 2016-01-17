@@ -19,7 +19,7 @@ public class UserService  {
     private String URL = "https://api.steampowered.com/ISteamUser/";
 
     @RequestMapping("/app/{id}/summary")
-    public @ResponseBody String getPlayerSummaries(@PathVariable("id") final String playerId) throws Exception{
+    public @ResponseBody String GetPlayerSummaries(@PathVariable("id") final String playerId) throws Exception{
 
         String innerUrl = URL + "GetPlayerSummaries/v2" + SteamApiKey.getApiKey() + "&steamids=" + playerId;
         return restTemplate.getObject().exchange(innerUrl, HttpMethod.GET, null,
@@ -27,9 +27,9 @@ public class UserService  {
     }
 
     @RequestMapping("/app/{username}/steamid")
-    public @ResponseBody String getSteamId(@PathVariable("username") final String userName) throws Exception{
+    public @ResponseBody String ResolveVanityURL(@PathVariable("username") final String userName) throws Exception{
 
-        String innerUrl = URL + "/ResolveVanityURL/v0001/" + SteamApiKey.getApiKey() + "&vanityurl=" +userName;
+        String innerUrl = URL + "ResolveVanityURL/v0001/" + SteamApiKey.getApiKey() + "&vanityurl=" +userName;
         return restTemplate.getObject().exchange(innerUrl, HttpMethod.GET, null,
                                           String.class).getBody();
     }

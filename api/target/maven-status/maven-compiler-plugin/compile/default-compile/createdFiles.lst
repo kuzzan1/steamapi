@@ -1,6 +1,7 @@
 steam\MethodContainer.class
 steam\api\PlayerService.class
 steam\bean\SteamApiKey.class
+steam\api\SteamUserService.class
 steam\api\UserService.class
 steam\api\SteamNewsService.class
 steam\MethodList.class

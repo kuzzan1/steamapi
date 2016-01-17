@@ -24,7 +24,7 @@ public class GameItems {
     RestTemplateBean restTemplate;
 
     @RequestMapping("/app/games")
-    public @ResponseBody String getGames() throws Exception {
+    public @ResponseBody String GetAppList() throws Exception {
         if(cached.get("ISteamApps") == null) {
             cached.put("ISteamApps", restTemplate.getObject().exchange(
                     "https://api.steampowered.com/ISteamApps/GetAppList/v1", HttpMethod.GET, null,

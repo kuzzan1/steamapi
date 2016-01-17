@@ -19,7 +19,7 @@ public class PlayerService {
     private String URL = "https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1"+ SteamApiKey.getApiKey();
 
     @RequestMapping("app/{id}/playedGames/{count}")
-    public @ResponseBody String getPlayedGamesWithCOunt(@PathVariable("id") final String playerId, @PathVariable("count") final String count) throws Exception{
+    public @ResponseBody String GetRecentlyPlayedGames(@PathVariable("id") final String playerId, @PathVariable("count") final String count) throws Exception{
         String innerCount = count != null ? "&count=" + count : "";
         String innerUrl = URL + "&steamid=" + playerId+ innerCount;
 
