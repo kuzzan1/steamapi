@@ -1,4 +1,3 @@
-require('normalize.css');
 require('./UserModule.less');
 
 import React from 'react';

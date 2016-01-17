@@ -1,4 +1,3 @@
-require('normalize.css');
 require('./Sidebar.less');
 
 import React from 'react';
