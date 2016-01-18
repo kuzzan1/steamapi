@@ -1,4 +1,4 @@
-require('./UserModule.less');
+require('./user-module.less');
 
 import React from 'react';
 

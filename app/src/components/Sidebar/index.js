@@ -1,7 +1,7 @@
-require('./Sidebar.less');
+require('./sidebar.less');
 
 import React from 'react';
-import UserModule from 'components/UserModule/UserModule';
+import UserModule from '../user-module/index';
 
 class SidebarComponent extends React.Component {
 	render(){

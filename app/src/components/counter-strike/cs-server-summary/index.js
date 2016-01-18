@@ -1,5 +1,5 @@
-///* global $ */
-require('./CsGoServerSummary.less');
+/* global $ */
+require('./cs-server-summary.less');
 
 import React from 'react';
 
@@ -39,8 +39,6 @@ class CsGoServerSummary extends React.Component {
     }
     
     render(){
-
-
         return (
             <div className={'cs-go-server-summary component ' + this.props.size}>
                 <div className="item">
@@ -67,13 +65,5 @@ class CsGoServerSummary extends React.Component {
         );
     }
 }
-
-CsGoServerSummary.propTypes = {
-
-};
-
-CsGoServerSummary.defaultProps = {
-
-};
 
 export default CsGoServerSummary;
