@@ -45,6 +45,10 @@ public class RestTemplateBean implements FactoryBean<RestTemplate>, Initializing
     }
 
     public <T>T exchange(String url, Class<T> clazz) {
+        return exchange(url, clazz, HttpMethod.GET);
+    }
+
+    public <T> T exchange( String url, Class<T> clazz, HttpMethod get ) {
         T body = null;
         try {
             body = clazz.newInstance();
@@ -61,4 +65,5 @@ public class RestTemplateBean implements FactoryBean<RestTemplate>, Initializing
         }
         return body;
     }
+
 }

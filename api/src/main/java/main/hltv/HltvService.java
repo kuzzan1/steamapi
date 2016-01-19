@@ -24,4 +24,6 @@ public class HltvService {
         Rss exchange = restTemplateBean.exchange(URL + "?pri=15", Rss.class);
         return exchange;
     }
+
+
 }
