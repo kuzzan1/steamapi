@@ -7,7 +7,6 @@ export default class CounterStrike extends React.Component {
         return (
             <div className="page counter-strike">
                 <h1>Counter Strike: Global ÖFFENSIVE</h1>
-                <CsGoUpcomingMatches size="medium" url="http://localhost:8090/app/getTopLiveGame" />
             </div>
         );
     }

@@ -55,6 +55,8 @@
     "mocha": "^2.2.5",
     "null-loader": "^0.1.1",
     "open": "0.0.5",
+    "parse": "^1.6.14",
+    "parse-react": "^0.5.0",
     "phantomjs": "^1.9.18",
     "postcss": "^5.0.11",
     "postcss-loader": "^0.8.0",
