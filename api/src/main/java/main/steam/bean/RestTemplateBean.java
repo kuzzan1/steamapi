@@ -1,9 +1,12 @@
 package main.steam.bean;;
 
+import main.toornament.domain.Oauth2;
 import org.apache.http.HttpHost;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,21 +37,15 @@ public class RestTemplateBean implements FactoryBean<RestTemplate>, Initializing
     }
 
     public String exchange(String url) {
-        String body = "";
-        try {
-            body = getObject().exchange(url, HttpMethod.GET, null, String.class).getBody();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return body;
+        return exchange(url, null, String.class, HttpMethod.GET);
     }
 
     public <T>T exchange(String url, Class<T> clazz) {
-        return exchange(url, clazz, HttpMethod.GET);
+        return exchange(url, null, clazz, HttpMethod.GET);
     }
 
-    public <T> T exchange( String url, Class<T> clazz, HttpMethod get ) {
+    public <T> T exchange(String url, HttpEntity<String> entity, Class<T> clazz, HttpMethod httpMethod) {
+        System.out.println(url);
         T body = null;
         try {
             body = clazz.newInstance();
@@ -58,12 +55,12 @@ public class RestTemplateBean implements FactoryBean<RestTemplate>, Initializing
         }
 
         try {
-            body = getObject().exchange(url, HttpMethod.GET, null, clazz).getBody();
+            ResponseEntity<T> exchange = getObject().exchange(url, httpMethod, entity, clazz);
+            body = exchange.getBody();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return body;
     }
-
 }
