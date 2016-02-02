@@ -20,9 +20,7 @@ import routes from '../universal/routes';
 import pulseApp from '../universal/reducers';
 import * as actions from '../universal/actions/PulseActions';
 
-import '../style/pure.css';
-import '../style/main.css';
-import '../style/spinner.css';
+import '../style/main.less';
 
 // Grab the state from a global injected into server-generated HTML
 let initialState = window.__INITIAL_STATE__;

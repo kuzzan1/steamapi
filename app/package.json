@@ -66,6 +66,8 @@
     "karma-phantomjs-launcher": "^0.2.2",
     "karma-sinon": "^1.0.4",
     "karma-webpack": "^1.7.0",
+    "less": "^2.6.0",
+    "less-loader": "^2.2.2",
     "mocha": "^2.3.4",
     "mocha-loader": "^0.7.1",
     "nock": "^3.6.0",
