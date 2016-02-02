@@ -1,8 +1,0 @@
-steam\api\GameItems.class
-steam\bean\HttpComponentsClientHttpRequestFactoryBasicAuth.class
-steam\api\PlayerService.class
-steam\bean\SteamApiKey.class
-steam\SteamApplication.class
-steam\api\UserService.class
-steam\api\SteamNewsService.class
-steam\bean\RestTemplateBean.class
