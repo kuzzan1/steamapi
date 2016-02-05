@@ -13,9 +13,6 @@ import { Route } from 'react-router';
 import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
 import { createHistory } from 'history';
 
-import { getOrSetUserId } from './UserId';
-import { setupRealtime } from './Realtime';
-
 import routes from '../universal/routes';
 import pulseApp from '../universal/reducers';
 import * as actions from '../universal/actions/PulseActions';
@@ -26,34 +23,28 @@ import '../style/main.less';
 let initialState = window.__INITIAL_STATE__;
 
 const loggerMiddleware = createLogger({
-  level: 'info',
-  collapsed: true,
+    level: 'info',
+    collapsed: true,
 });
 
 const reducers = combineReducers({
-  router: routerStateReducer,
-  pulseApp
+    router: routerStateReducer,
+    pulseApp
 });
 
 const store = compose(
-  applyMiddleware(thunkMiddleware, loggerMiddleware),
-  reduxReactRouter({createHistory}),
-  devTools()
+    applyMiddleware(thunkMiddleware, loggerMiddleware),
+    reduxReactRouter({createHistory}),
+    devTools()
 )(createStore)(reducers, initialState);
 
 ReactDOM.render(
-  <div>
-    <Provider store={store}>
-      <ReduxRouter>
-        {routes}
-      </ReduxRouter>
-    </Provider>
-  </div>,
-  document.getElementById('app')
+    <div>
+        <Provider store={store}>
+            <ReduxRouter>
+                {routes}
+            </ReduxRouter>
+        </Provider>
+    </div>,
+    document.getElementById('app')
 );
-
-// Now that we have rendered...
-setupRealtime(store, actions);
-
-// lets mutate state and set UserID as key from local storage
-store.dispatch(actions.setUserId(getOrSetUserId()));

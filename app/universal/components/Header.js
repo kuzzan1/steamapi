@@ -8,9 +8,8 @@ export default class Header extends Component {
                 <header className='header'>
                     <h1>Toornament API Test</h1>
                     <div className='main-menu'>
-                        <IndexLink to='/' activeClassName='active'>All Events</IndexLink>
+                        <IndexLink to='/' activeClassName='active'>Homepage</IndexLink>
                         <Link to='/my-events' activeClassName='active'>My Events</Link>
-                        <Link to='/other-events' activeClassName='active'>Other Events</Link>
                     </div>
                 </header>
             </div>

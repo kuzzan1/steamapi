@@ -31,9 +31,6 @@ app.use(bodyParser.json());
  * API Endpoints
  */
 app.get('/api/0/events', api.getEvents);
-app.post('/api/0/events', api.addEvent);
-app.post('/api/0/events/:id', api.editEvent);
-app.delete('/api/0/events/:id', api.deleteEvent);
 
 app.get('/favicon.ico', (req, res) => res.sendFile(path.join(__dirname, 'images', 'favicon.ico')));
 
@@ -42,6 +39,6 @@ app.get('/favicon.ico', (req, res) => res.sendFile(path.join(__dirname, 'images'
  */
 app.get('*', uni.handleRender);
 
-eventService.liveUpdates(io);
+//eventService.liveUpdates(io);
 
 httpServer.listen(port);
