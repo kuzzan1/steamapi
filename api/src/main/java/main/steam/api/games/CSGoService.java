@@ -23,7 +23,7 @@ public class CSGoService {
     @RequestMapping("/app/cs/game/servers")
     public String getCSGameServers() {
         String url = URL + "GetGameServersStatus/v1" + SteamApiKey.getApiKey();
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
 }

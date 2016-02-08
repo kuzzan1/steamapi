@@ -1,4 +1,4 @@
-package main.toornament.domain;
+package main.toornament.security.domain;
 
 /**
  * Created by jonas on 2016-01-19.

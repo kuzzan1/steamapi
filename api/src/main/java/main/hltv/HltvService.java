@@ -21,8 +21,7 @@ public class HltvService {
 
     @RequestMapping(name = "/app/cs/upcomming",  produces = "application/json")
     public Rss getUpComingCSGOMatches() {
-        Rss exchange = restTemplateBean.exchange(URL + "?pri=15", Rss.class);
-        return exchange;
+        return restTemplateBean.exchange(URL + "?pri=15", Rss.class);
     }
 
 

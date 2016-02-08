@@ -1,7 +1,7 @@
 package main.toornament.endpoints;
 
 import main.steam.bean.RestTemplateBean;
-import main.toornament.domain.Oauth2;
+import main.toornament.security.domain.Oauth2;
 import main.toornament.security.ApiKey;
 import main.toornament.security.OAuthController;
 import org.springframework.beans.factory.annotation.Autowired;

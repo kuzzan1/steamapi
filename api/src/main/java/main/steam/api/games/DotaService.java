@@ -28,31 +28,31 @@ public class DotaService {
     @RequestMapping("/app/getDota2/live/league/{leagueId}/match/{matchId}")
     public String getDota2liveLeagueGames(@RequestParam final String leagueId, @RequestParam final String matchId) {
         String url = URL + "GetLiveLeagueGames/v1" +SteamApiKey.getApiKey() + "&league_id=" + leagueId + "&match_id=" + matchId;
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/getDota2/live/league/{leagueId}/games")
     public String getDota2liveLeagueGamesLeagueId(@RequestParam final String leagueId) {
         String url = URL + "GetLiveLeagueGames/v1" +SteamApiKey.getApiKey() + "&league_id=" + leagueId;
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/getDota2/live/league/games/{matchId}")
     public String getDota2liveLeagueGamesMatchId(@RequestParam final String matchId) {
         String url = URL + "GetLiveLeagueGames/v1" +SteamApiKey.getApiKey() + "&match_id=" + matchId;
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/getDota2/live/league/games")
     public String getDota2liveLeagueGamesAll() {
         String url = URL + "GetLiveLeagueGames/v1" +SteamApiKey.getApiKey();
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/getDota2/match/details/{matchId}")
     public String getDota2MatchDetails(@RequestParam final String matchId) {
         String url = URL + "GetMatchDetails/v1" +SteamApiKey.getApiKey() + "&match_id=" + matchId;
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 /*
                                 ===PARAMS===
@@ -70,24 +70,24 @@ public class DotaService {
     @RequestMapping("/app/getDota2/match/history")
     public String getDota2MatchHistory(@RequestParam final String matchId) {
         String url = URL + "GetMatchHistory/v1" +SteamApiKey.getApiKey() + "&match_id=" + matchId;
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/getDota2/scheduled/league")
     public String getScheduledLeagueGames() {
         String url = URL + "GetScheduledLeagueGames/v1" +SteamApiKey.getApiKey();
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/getDota2/teams/}")
     public String getDota2Teams() {
         String url = URL + "GetTeamInfoByTeamID/v1" +SteamApiKey.getApiKey();
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/getDota2/top/live/game/{partnerId}")
     public String getTopLiveGame(@RequestParam final String partnerId) {
         String url = URL + "GetTopLiveGame/v1" +SteamApiKey.getApiKey() + "&partner=" + partnerId;
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 }

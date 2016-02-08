@@ -1,7 +1,7 @@
 package main.toornament.endpoints;
 
 import main.steam.bean.RestTemplateBean;
-import main.toornament.domain.Oauth2;
+import main.toornament.security.domain.Oauth2;
 import main.toornament.security.ApiKey;
 import main.toornament.security.OAuthController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,20 +26,20 @@ public class StagesService {
     public String getTournamentStages(@PathVariable("tournamentId") final String tournamentId) {
         Oauth2 oauth2Token = oAuthController.getOauth2Token();
         String url = URL +"/" + tournamentId + "/stages" + ApiKey.getKey()+ "&access_token"+oauth2Token.getAccessToken();
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/{tournamentId}/stages/{number}")
     public String getTournamentStagesByNumber(@PathVariable("tournamentId") final String tournamentId, @PathVariable("number") final String number) {
         Oauth2 oauth2Token = oAuthController.getOauth2Token();
         String url = URL +"/" + tournamentId + "/stages" + number + ApiKey.getKey()+ "&access_token"+oauth2Token.getAccessToken();
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/{tournamentId}/stages/{number}/view")
     public String getTournamentStagesByNumberView(@PathVariable("tournamentId") final String tournamentId, @PathVariable("number") final String number) {
         Oauth2 oauth2Token = oAuthController.getOauth2Token();
         String url = URL +"/" + tournamentId + "/stages" + number +"/view" + ApiKey.getKey()+ "&access_token"+oauth2Token.getAccessToken();
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 }

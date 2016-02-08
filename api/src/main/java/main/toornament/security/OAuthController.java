@@ -1,8 +1,8 @@
 package main.toornament.security;
 
 import main.steam.bean.RestTemplateBean;
-import main.toornament.domain.Oauth2;
-import main.toornament.domain.PostOauth2;
+import main.toornament.security.domain.Oauth2;
+import main.toornament.security.domain.PostOauth2;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;

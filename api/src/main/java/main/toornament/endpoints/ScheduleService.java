@@ -1,7 +1,7 @@
 package main.toornament.endpoints;
 
 import main.steam.bean.RestTemplateBean;
-import main.toornament.domain.Oauth2;
+import main.toornament.security.domain.Oauth2;
 import main.toornament.security.ApiKey;
 import main.toornament.security.OAuthController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,8 @@ public class ScheduleService {
     public String getPlayersInTournament(@PathVariable("tournamentId") final String tournamentId) {
         Oauth2 oauth2Token = oAuthController.getOauth2Token();
         String url = URL +"/" + tournamentId + "/schedules" + ApiKey.getKey()+ "&access_token"+oauth2Token.getAccessToken();
-        return restTemplateBean.exchange(url);
+        return restTemplateBean.exchange(url );
     }
 
 }
+

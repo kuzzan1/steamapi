@@ -1,6 +1,5 @@
-package main.steam.bean;;
+package main.steam.bean;
 
-import main.toornament.domain.Oauth2;
 import org.apache.http.HttpHost;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -9,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
 
 @Component
 public class RestTemplateBean implements FactoryBean<RestTemplate>, InitializingBean {
@@ -31,36 +31,37 @@ public class RestTemplateBean implements FactoryBean<RestTemplate>, Initializing
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        HttpHost host = new HttpHost("localhost", 8080, "http");
+        HttpHost host = new HttpHost( "localhost", 8080, "http" );
         restTemplate = new RestTemplate(
-                new HttpComponentsClientHttpRequestFactoryBasicAuth(host));
+                new HttpComponentsClientHttpRequestFactoryBasicAuth( host ) );
     }
 
-    public String exchange(String url) {
-        return exchange(url, null, String.class, HttpMethod.GET);
+    public String exchange( String url ) {
+        return exchange( url, null, String.class, HttpMethod.GET );
     }
 
-    public <T>T exchange(String url, Class<T> clazz) {
-        return exchange(url, null, clazz, HttpMethod.GET);
+    public <T> T exchange( String url, Class<T> clazz ) {
+        return exchange( url, null, clazz, HttpMethod.GET );
     }
 
-    public <T> T exchange(String url, HttpEntity<String> entity, Class<T> clazz, HttpMethod httpMethod) {
-        System.out.println(url);
+    public <T> T exchange( String url, HttpEntity<String> entity, Class<T> clazz, HttpMethod httpMethod ) {
+        System.out.println( url );
         T body = null;
         try {
             body = clazz.newInstance();
-        } catch (InstantiationException|IllegalArgumentException|IllegalAccessException e) {
+        } catch ( InstantiationException | IllegalArgumentException | IllegalAccessException e ) {
             System.out.println( "Cant create new instance" );
 
         }
 
         try {
-            ResponseEntity<T> exchange = getObject().exchange(url, httpMethod, entity, clazz);
+            ResponseEntity<T> exchange = getObject().exchange( url, httpMethod, entity, clazz );
             body = exchange.getBody();
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch ( Exception e ) {
+            System.out.println( e.getMessage() );
         }
         return body;
     }
+
 }
