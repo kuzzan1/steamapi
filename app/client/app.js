@@ -13,6 +13,8 @@ import { Route } from 'react-router';
 import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
 import { createHistory } from 'history';
 
+import { setupRealtime } from './Realtime';
+
 import routes from '../universal/routes';
 import pulseApp from '../universal/reducers';
 import * as actions from '../universal/actions/PulseActions';
@@ -48,3 +50,6 @@ ReactDOM.render(
     </div>,
     document.getElementById('app')
 );
+
+// Now that we have rendered...
+setupRealtime(store, actions);

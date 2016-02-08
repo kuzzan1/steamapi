@@ -39,3 +39,43 @@ export function loadEventsFailure(error) {
         error
     };
 }
+
+export function editEvent(event) {
+    return dispatch => {
+        dispatch(editEventRequest(event));
+
+        return request
+            .post(eventsUrl + '/' + event.id)
+            .send(event)
+            .set('Accept', 'application/json')
+            .end((err, res) => {
+                if (err) {
+                    dispatch(editEventFailure(err, event));
+                } else {
+                    dispatch(editEventSuccess(res.body));
+                }
+            });
+    };
+}
+
+export function editEventRequest(event) {
+    return {
+        type: types.EDIT_EVENT_REQUEST,
+        event
+    };
+}
+
+export function editEventSuccess(event) {
+    return {
+        type: types.EDIT_EVENT_SUCCESS,
+        event
+    };
+}
+
+export function editEventFailure(error, event) {
+    return {
+        type: types.EDIT_EVENT_FAILURE,
+        error,
+        event
+    };
+}
