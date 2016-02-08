@@ -5,7 +5,12 @@ export default class EventItem extends Component {
         const { event } = this.props;
 
         return (
-            <li>{event.name}</li>
+            <li className="event">
+                <div className="date">{event.dateStart} - {event.dateEnd}</div>
+                <div className="name">{event.name}</div>
+                <div className="location">{event.location}</div>
+                <div className="id">{event.tournamentId}</div>
+            </li>
         );
     }
 }

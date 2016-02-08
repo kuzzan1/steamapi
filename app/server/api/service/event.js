@@ -27,7 +27,7 @@ export function getEvents() {
   .then(conn => {
     return r
     .table('tournament')
-    .orderBy(r.desc('dateStart')).run(conn)
+    .orderBy(r.asc('dateStart')).run(conn)
     .then(cursor => cursor.toArray());
   });
 }

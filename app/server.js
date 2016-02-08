@@ -39,6 +39,6 @@ app.get('/favicon.ico', (req, res) => res.sendFile(path.join(__dirname, 'images'
  */
 app.get('*', uni.handleRender);
 
-//eventService.liveUpdates(io);
+eventService.liveUpdates(io);
 
 httpServer.listen(port);

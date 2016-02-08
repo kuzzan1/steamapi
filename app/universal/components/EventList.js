@@ -18,8 +18,8 @@ export default class EventList extends Component {
         );
 
         return (
-            <section className='Pulse-eventList'>
-                <ul>
+            <section>
+                <ul className="event-list">
                     {list}
                 </ul>
             </section>
