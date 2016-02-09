@@ -1,4 +1,5 @@
 .idea/
 .DS_Store
-/kiss.iml
-target/
+api/kiss.iml
+api/target/
+api/kiss-1.0-SNAPSHOT.jar

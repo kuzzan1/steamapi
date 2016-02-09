@@ -128,4 +128,5 @@ public class Match {
     public void setOpponents( List<Opponent> opponents ) {
         this.opponents = opponents;
     }
+
 }
