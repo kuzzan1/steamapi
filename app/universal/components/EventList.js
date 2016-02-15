@@ -10,11 +10,19 @@ export default class EventList extends Component {
     render() {
         const { events } = this.props;
 
-        const myEvents = events;
         let list;
+        let tournaments;
 
-        list = myEvents.map((event, key) =>
-            <EventItem key={key} event={event}></EventItem>
+        let x = true;
+
+        if(x) {
+            tournaments = events.filter(row => row.discipline === 'counterstrike_go');
+        } else {
+            tournaments = events.filter(row => row.discipline === 'leagueoflegends');
+        }
+
+        list = tournaments.map((event, key) =>
+            <EventItem key={key} row={key} event={event}></EventItem>
         );
 
         return (

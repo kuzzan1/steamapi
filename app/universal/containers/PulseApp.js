@@ -19,6 +19,7 @@ class PulseApp extends Component {
                 <Header/>
                 {this.props.index}
                 {this.props.myEvents}
+                {this.props.tournament}
             </div>
         );
     }

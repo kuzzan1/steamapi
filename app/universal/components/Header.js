@@ -9,7 +9,7 @@ export default class Header extends Component {
                     <h1>Toornament API Test</h1>
                     <div className='main-menu'>
                         <IndexLink to='/' activeClassName='active'>Homepage</IndexLink>
-                        <Link to='/my-events' activeClassName='active'>My Events</Link>
+                        <Link to='/tournaments' activeClassName='active'>Tournaments</Link>
                     </div>
                 </header>
             </div>

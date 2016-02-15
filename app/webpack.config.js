@@ -24,8 +24,8 @@ module.exports = {
             exclude: /node_modules/,
             include: __dirname
         }, {
-            test: /\.less?$/,
-            loader: "style-loader!css-loader!less-loader",
+            test: /\.scss?$/,
+            loader: "style-loader!css-loader!sass-loader",
             include: __dirname
         }]
     }

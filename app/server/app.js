@@ -19,7 +19,7 @@ export function handleRender(req, res) {
     eventService.getEvents()
         .then(initialEvents => {
 
-            var initialState = {pulseApp: {events: initialEvents}};
+            var initialState = { pulseApp: {events: initialEvents} };
 
             const reducers = combineReducers({
                 router: routerStateReducer,

@@ -31,6 +31,7 @@ app.use(bodyParser.json());
  * API Endpoints
  */
 app.get('/api/0/events', api.getEvents);
+app.get('/api/0/tournament/:id', api.getTournament);
 
 app.get('/favicon.ico', (req, res) => res.sendFile(path.join(__dirname, 'images', 'favicon.ico')));
 

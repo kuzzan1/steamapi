@@ -3,6 +3,7 @@ import request from 'superagent';
 
 const serverUrl = '';
 const eventsUrl = `${serverUrl}/api/0/events`;
+const tournamentUrl = `${serverUrl}/api/0/event`;
 
 export function loadEvents() {
     return dispatch => {
@@ -77,5 +78,45 @@ export function editEventFailure(error, event) {
         type: types.EDIT_EVENT_FAILURE,
         error,
         event
+    };
+}
+
+export function loadTournament(tournament) {
+    return dispatch => {
+        dispatch(loadTournamentRequest(tournament));
+
+        return request
+            .post(tournamentUrl + '/' + tournament.id)
+            .send(tournament)
+            .set('Accept', 'application/json')
+            .end((err, res) => {
+                if (err) {
+                    dispatch(loadTournamentFailure(err, event));
+                } else {
+                    dispatch(loadTournamentSuccess(res.body));
+                }
+            });
+    };
+}
+
+export function loadTournamentRequest(tournament) {
+    return {
+        type: types.LOAD_TOURNAMENT_REQUEST,
+        tournament
+    };
+}
+
+export function loadTournamentSuccess(tournament) {
+    return {
+        type: types.LOAD_TOURNAMENT_SUCCESS,
+        tournament
+    };
+}
+
+export function loadTournamentFailure(error, tournament) {
+    return {
+        type: types.LOAD_TOURNAMENT_FAILURE,
+        error,
+        tournament
     };
 }
