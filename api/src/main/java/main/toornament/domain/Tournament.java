@@ -244,4 +244,5 @@ public class Tournament {
     public void setStreams( List streams ) {
         this.streams = streams;
     }
+
 }

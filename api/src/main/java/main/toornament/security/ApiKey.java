@@ -6,7 +6,7 @@ package main.toornament.security;
 public class ApiKey {
 
     public static String getKey() {
-        return "?api_key=K9Ev2tVSVzg5fY4gsqbPm0loTbmSfJqZ5d7FHTURTmQ";
+        return "K9Ev2tVSVzg5fY4gsqbPm0loTbmSfJqZ5d7FHTURTmQ";
     }
 
 }
