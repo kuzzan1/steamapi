@@ -18,6 +18,18 @@
     "falcor-router": "^0.4.0",
     "json-graphify": "^0.6.0",
     "nodemon": "^1.9.2",
-    "rethinkdb": "2.2.3"
+    "rethinkdb": "2.2.3",
+
+    "@angular/common":  "2.0.0-rc.1",
+    "@angular/compiler":  "2.0.0-rc.1",
+    "@angular/core":  "2.0.0-rc.1",
+    "@angular/http":  "2.0.0-rc.1",
+    "@angular/platform-browser":  "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic":  "2.0.0-rc.1",
+    "@angular/router":  "2.0.0-rc.1",
+    "@angular/router-deprecated":  "2.0.0-rc.1",
+    "@angular/upgrade":  "2.0.0-rc.1",
+
+    "angular2-in-memory-web-api": "0.0.7"
   }
 }
