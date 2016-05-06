@@ -1,0 +1,29 @@
+<html>
+<head>
+    <script src="build/main.bundle.js"></script>
+    <script src="//netflix.github.io/falcor/build/falcor.browser.js"></script>
+    <script>
+        const model = new falcor.Model({source: new falcor.HttpDataSource("/model.json") });
+
+        model.get(['tournamentById', '569f9a39150ba029528b47bc', ['fullName','location','online']]).then(function(res){
+            document.write(JSON.stringify(res.json.tournamentById, null, 4));
+        });
+
+        model.get(['sportById', ['counterstrike_go', 'smite'], ['fullName','copyrights', 'shortName']]).then(function(res){
+            document.write(JSON.stringify(res.json.sportById, null, 4));
+        });
+
+        model.get(['matchesByTournamentId', '54abef2f150ba0b4448b459c']).then(function(res) {
+            //document.write(JSON.stringify(res.json.matchesByTournamentId, null, 4));
+        });
+
+        model.get(['matchById', '54abfbb7150ba073348b4b12']).then(function(res) {
+            document.write(JSON.stringify(res.json.matchesByTournamentId, null, 4));
+        });
+
+
+    </script>
+</head>
+<body>
+</body>
+</html>
