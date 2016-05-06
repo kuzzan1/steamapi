@@ -5,7 +5,7 @@ import falcor from 'falcor';
 class BaseRouter extends Router.createClass
     ([
       {
-        route: 'sportById[{keys:sportId}][{keys:props}]',
+        route: 'sportByName[{keys:sportId}][{keys:props}]',
         get: pathSet => {
             return services.getSports()
             .then(function(sports){
@@ -19,6 +19,18 @@ class BaseRouter extends Router.createClass
                   })
                 })
                 return results;
+            })
+        }
+    },
+
+    {
+        route: 'tournamentsBySport[{keys:sportName}]',
+        get: pathSet => {
+            return services.getTournamentsBySport(pathSet.sportName).then(tournaments => {
+                return {
+                    path: ['tournamentsBySport', pathSet.sportName],
+                    value: falcor.Model.atom(tournaments)
+                }
             })
         }
     },
@@ -47,7 +59,7 @@ class BaseRouter extends Router.createClass
                 return {
                     path: ['matchesByTournamentId', pathSet.id],
                     value: falcor.Model.atom(matches)
-                }                    
+                }
             })
         }
     },

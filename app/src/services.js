@@ -25,7 +25,7 @@ export function getSports() {
 
 export function getTournamentsBySport(sport) {
     return connect().then(conn => {
-        return r.table('tournament').getAll(sport, {index: 'discipline'}).run(conn).then(cursor => cursor.toArray());
+        return r.table('tournament').getAll(sport.toString(), {index: 'discipline'}).run(conn).then(cursor => cursor.toArray());
     })
 }
 

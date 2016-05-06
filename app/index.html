@@ -21,6 +21,10 @@
             document.write(JSON.stringify(res.json.matchesByTournamentId, null, 4));
         });
 
+        model.get(['tournamentsBySport', 'smite']).then(function(res) {
+            document.write(JSON.stringify(res.json.matchesByTournamentId, null, 4));
+        });
+
 
     </script>
 </head>
