@@ -11,10 +11,6 @@
     "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#4b36b94d5910aa8a4d20bdcd5bd1f9ae6ad18d3c",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#8cf8164641be73e8f1e652c2a5b967c7210b6729",
     "selenium-webdriver": "github:DefinitelyTyped/DefinitelyTyped/selenium-webdriver/selenium-webdriver.d.ts#a83677ed13add14c2ab06c7325d182d0ba2784ea",
-    "webpack": "github:DefinitelyTyped/DefinitelyTyped/webpack/webpack.d.ts#95c02169ba8fa58ac1092422efbd2e3174a206f4",
-    "falcor": "registry:dt/falcor#0.1.17+20160412151557",
-    "falcor-express": "registry:dt/falcor-express#0.1.2+20160412151557",
-    "falcor-http-datasource": "registry:dt/falcor-http-datasource#0.1.3+20160412151557",
-    "falcor-router": "registry:dt/falcor-router#0.4.0+20160412151557"
+    "webpack": "github:DefinitelyTyped/DefinitelyTyped/webpack/webpack.d.ts#95c02169ba8fa58ac1092422efbd2e3174a206f4"
   }
 }
