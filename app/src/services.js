@@ -1,5 +1,5 @@
 import r from 'rethinkdb';
-import {Component} from '@angular/core';
+
 
 function connect() {
     return r.connect({
