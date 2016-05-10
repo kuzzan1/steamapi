@@ -5,7 +5,8 @@
   "main": "src/server/index.js",
   "scripts": {
     "start": "npm run webpack; nodemon src/server/index.js --exec babel-node --presets es2015,stage-2",
-    "webpack": "webpack --config config/webpack.config.js"
+    "webpack": "webpack --config config/webpack.config.js",
+    "watch": "webpack --config config/webpack.config.js --watch"
   },
   "author": "",
   "license": "ISC",
