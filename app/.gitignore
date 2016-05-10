@@ -2,6 +2,5 @@ node_modules
 dist
 config/local.json
 .DS_Store
-app/src/site/bundle.js
-app/src/site/bundle.js.map
-src/site
+src/site/bundle.js
+src/site/bundle.js.map
