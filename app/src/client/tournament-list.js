@@ -1,6 +1,6 @@
-var React = require('react'),
-    Falcor = require('falcor'),
-    model = require('./model.js');
+import React from 'react';
+import Falcor from 'falcor';
+import model from './model';
 
 class TournamentList extends React.Component {
     constructor() {

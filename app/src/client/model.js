@@ -1,7 +1,8 @@
-var Falcor = require('falcor'),
-    FalcorDataSource = require('falcor-http-datasource'),
-    model = new Falcor.Model({
-        source: new FalcorDataSource('/model.json')
-    })
+const Falcor = require('falcor');
+const FalcorDataSource = require('falcor-http-datasource');
+
+const model = new Falcor.Model({
+    source: new FalcorDataSource('/model.json')
+});
 
 module.exports = model

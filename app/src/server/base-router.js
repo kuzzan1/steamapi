@@ -1,4 +1,4 @@
-import * as services from '../services';
+import * as services from './services';
 import Router from 'falcor-router';
 import falcor from 'falcor';
 

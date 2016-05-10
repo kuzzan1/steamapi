@@ -1,5 +1,5 @@
-var React = require('react');
-import TournamentList from './tournament-list.jsx';
+import React from 'react';
+import TournamentList from './tournament-list';
 
 module.exports = class extends React.Component {
 
