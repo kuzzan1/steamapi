@@ -22,9 +22,12 @@ class TournamentList extends React.Component {
             )
         })
         return (
+          <div>
+          <h1>Tournaments!</h1>
             <ul>
                 {tournaments}
             </ul>
+          </div>
         )
     }
 
