@@ -35,7 +35,7 @@ public class TournamentsService {
 
     @RequestMapping("/app/tournaments/sport/{sportId}")
     public Tournament[] getTournaments(@PathVariable( "id" ) final String sportId ) throws Exception {
-        String url = new URLBuilder().baseUrl(URL).Param("api_key", ApiKey.getKey()).Param("discipline", sportId).Param("featured", "1").Param("sort", "date_desc").Build();
+        String url = new URLBuilder().baseUrl(URL).Param("api_key", ApiKey.getKey()).Param( "after_start", "2016-01-01" ).Param("discipline", sportId).Param("featured", "1").Param("sort", "date_desc").Build();
         return restTemplateBean.getObject().exchange( url, HttpMethod.GET, null, Tournament[].class ).getBody();
     }
 }

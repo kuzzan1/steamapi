@@ -4,10 +4,13 @@ package main.toornament;
  * Created by jonas on 2016-02-12.
  */
 public enum DisciplineHelper {
+    SMITE( "smite" ),
+    HEARTHSTONE( "hearthstone" ),
+    HEAROESOFTHESTORM( "heroesofthestorm" ),
     CS_GO( "counterstrike_go" ),
     DOTA2( "dota2" ),
-    SMITE( "smite" ),
-    LOL( "leagueoflegends" );
+    LOL( "leagueoflegends" ),
+    FIFA16("fifa16");
 
     private final String discipline;
 

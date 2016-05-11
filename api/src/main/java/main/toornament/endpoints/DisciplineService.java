@@ -24,4 +24,9 @@ public class DisciplineService {
         String url = new URLBuilder().baseUrl(URL).Param("api_key", ApiKey.getKey()).Build();
         return restTemplateBean.getObject().exchange( url, HttpMethod.GET, null, Discipline[].class ).getBody();
     }
+
+    public Discipline getDiscipline( String discipline ) throws Exception {
+        String url = new URLBuilder().baseUrl(URL).Path(discipline).Param("api_key", ApiKey.getKey()).Build();
+        return restTemplateBean.getObject().exchange( url, HttpMethod.GET, null, Discipline.class ).getBody();
+    }
 }

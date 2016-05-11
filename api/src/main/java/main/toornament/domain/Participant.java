@@ -17,6 +17,8 @@ public class Participant {
     @JsonProperty(value = "lineup")
     private List<Player> players;
 
+    private String discipline;
+
 
     public String getId() {
         return id;
@@ -48,5 +50,13 @@ public class Participant {
 
     public void setPlayers( List<Player> players ) {
         this.players = players;
+    }
+
+    public String getDiscipline() {
+        return discipline;
+    }
+
+    public void setDiscipline( String discipline ) {
+        this.discipline = discipline;
     }
 }

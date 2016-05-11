@@ -13,6 +13,7 @@ public class Player {
     private String country;
     private String teamName;
     private String teamId;
+    private String discipline;
 
     public String getName() {
         return name;
@@ -50,5 +51,13 @@ public class Player {
 
     public void setTeamId( String teamId ) {
         this.teamId = teamId;
+    }
+
+    public String getDiscipline() {
+        return discipline;
+    }
+
+    public void setDiscipline( String discipline ) {
+        this.discipline = discipline;
     }
 }

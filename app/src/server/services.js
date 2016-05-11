@@ -41,3 +41,27 @@ export function getMatchById(id) {
         return r.table('match').get(id.toString()).run(conn);
     })
 }
+
+export function getTeamsByDiscipline(id) {
+    return connect().then(conn => {
+        return r.table('team').getAll(id.toString(), {index: 'discipline'}).run(conn).then(cursor => cursor.toArray());
+    })
+}
+
+export function getTeamsById(id) {
+    return connect().then(conn => {
+        return r.table('team').get(id.toString()).run(conn);
+    })
+}
+
+export function playerByTeamId(id) {
+    return connect().then(conn => {
+        return r.table('player').getAll(id.toString(), {index: 'teamId'}).run(conn).then(cursor => cursor.toArray());
+    })
+}
+
+export function getPlayersByDiscipline(id) {
+    return connect().then(conn => {
+        return r.table('player').getAll(id.toString(), {index: 'discipline'}).run(conn).then(cursor => cursor.toArray());
+    })
+}
