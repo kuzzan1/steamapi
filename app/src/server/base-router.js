@@ -4,17 +4,30 @@ import falcor from 'falcor';
 
 class BaseRouter extends Router.createClass
     ([
+
+       {
+           route: 'disciplines',
+           get: pathSet => {
+               return services.getDisciplines().then(disciplines => {
+                   return {
+                       path: ['disciplines'],
+                       value: falcor.Model.atom(disciplines)
+                   }
+               })
+           }
+       },
+
       {
-        route: 'sportByName[{keys:sportId}][{keys:props}]',
+        route: 'discipline[{keys:id}][{keys:props}]',
         get: pathSet => {
-            return services.getSports()
-            .then(function(sports){
+            return services.getDisciplines()
+            .then(function(disciplines){
                 let results = [];
-                sports.map(function(sport){
+                disciplines.map(function(discipline){
                   pathSet.props.forEach(prop => {
                     results.push({
-                        path: ['sportById', sport.id, prop],
-                        value: sport[prop]
+                        path: ['disciplineById', discipline.id, prop],
+                        value: discipline[prop]
                     })
                   })
                 })
@@ -24,11 +37,11 @@ class BaseRouter extends Router.createClass
     },
 
     {
-        route: 'tournamentsBySport[{keys:sportName}]',
+        route: 'tournamentsByDiscipline[{keys:disciplineName}]',
         get: pathSet => {
-            return services.getTournamentsBySport(pathSet.sportName).then(tournaments => {
+            return services.getTournamentsByDiscipline(pathSet.disciplineName).then(tournaments => {
                 return {
-                    path: ['tournamentsBySport', pathSet.sportName],
+                    path: ['tournamentsByDiscipline', pathSet.disciplineName],
                     value: falcor.Model.atom(tournaments)
                 }
             })

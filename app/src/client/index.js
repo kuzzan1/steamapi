@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Tournament from './tournament';
+import App from './app';
 
 ReactDom.render(
-    <Tournament/>,
-    document.querySelector('#tournament')
+    <App />,
+    document.querySelector('#container')
 );

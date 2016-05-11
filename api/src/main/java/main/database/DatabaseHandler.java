@@ -125,13 +125,13 @@ public class DatabaseHandler {
         }).start();
     }
 
-    public void addSport(Discipline discipline) {
+    public void addDiscipline( Discipline discipline) {
         new Thread(() -> {
             Connection conn = null;
 
             try {
                 conn = r.connection().hostname("176.58.126.231").port(28015).authKey("bajskorv").connect();
-                Table table = r.db("data").table("sport");
+                Table table = r.db("data").table("discipline");
                 Cursor<Match> playerId = table.filter(row -> row.g("id").eq(discipline.getId())).run(conn);
                 if (playerId.hasNext()) {
                     table.update(discipline).run(conn);

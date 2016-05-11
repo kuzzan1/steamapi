@@ -17,21 +17,22 @@ export function getTournaments() {
 }
 
 
-export function getSports() {
+export function getDisciplines() {
     return connect().then(conn => {
         return r.table('sport').run(conn).then(cursor => cursor.toArray());
     });
 }
 
-export function getTournamentsBySport(sport) {
+export function getTournamentsByDiscipline(discipline) {
+    console.log(discipline);
     return connect().then(conn => {
-        return r.table('tournament').getAll(sport.toString(), {index: 'discipline'}).run(conn).then(cursor => cursor.toArray());
+        return r.table('tournament').getAll(discipline.toString(), {index: 'discipline'}).orderBy(r.desc('dateStart')).run(conn).then(cursor => cursor.toArray());
     })
 }
 
 export function getMatchesByTournamentId(id) {
       return connect().then(conn => {
-          return r.table('match').getAll(id.toString(), {index: 'tournamentId'}).run(conn).then(cursor => cursor.toArray());
+          return r.table('match').getAll(id.toString(), {index: 'tournamentId'}).orderBy(r.desc('dateStart')).run(conn).then(cursor => cursor.toArray());
       });
 }
 

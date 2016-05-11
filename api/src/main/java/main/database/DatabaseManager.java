@@ -31,7 +31,7 @@ public class DatabaseManager {
     private DisciplineService disciplineService;
 
     @Scheduled(initialDelay = 1000L, fixedRate = 43000000L)
-    public void getTournaments() throws Exception {
+    public void populateAndUpdateDB() throws Exception {
         System.out.println("Running scheduler");
         Discipline[] disciplines = disciplineService.getDisciplines();
         for (Discipline discipline : disciplines) {
@@ -62,7 +62,7 @@ public class DatabaseManager {
                     Thread.sleep(1000);
                 }
             }
-            databaseHandler.addSport(discipline);
+            databaseHandler.addDiscipline( discipline);
             Thread.sleep(1000);
         }
     }
