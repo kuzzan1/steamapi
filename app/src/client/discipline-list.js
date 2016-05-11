@@ -21,9 +21,12 @@ class DisciplineList extends React.Component {
             )
         })
         return (
-            <ul>
-                {disciplines}
-            </ul>
+            <div>
+            <h1>Disciplines!</h1>
+              <ul>
+                  {disciplines}
+              </ul>
+            </div>
         )
     }
 
