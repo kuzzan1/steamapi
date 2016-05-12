@@ -1,6 +1,6 @@
 import React from 'react';
-import TournamentList from './tournament-list';
-import DisciplineList from './discipline-list';
+import TournamentList from './tournaments/tournament-list';
+import DisciplineList from './disciplines/discipline-list';
 
 module.exports = class extends React.Component {
 

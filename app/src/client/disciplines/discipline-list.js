@@ -1,6 +1,6 @@
 import React from 'react';
 import Falcor from 'falcor';
-import model from './model';
+import model from '../model';
 
 class DisciplineList extends React.Component {
     constructor() {
@@ -23,7 +23,7 @@ class DisciplineList extends React.Component {
         return (
             <div>
             <h1>Disciplines!</h1>
-              <ul>
+              <ul className="disciplines">
                   {disciplines}
               </ul>
             </div>

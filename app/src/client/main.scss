@@ -4,3 +4,12 @@ html {
 *, *:before, *:after {
   box-sizing: border-box;
 }
+
+body {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.disciplines {
+  display: flex;
+}

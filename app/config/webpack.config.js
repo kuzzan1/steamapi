@@ -1,5 +1,10 @@
+var autoprefixer = require('autoprefixer');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
-    entry: './src/client/index.js',
+    entry: {
+        app: './src/client/index.js'
+    },
     output: {
         filename: './src/site/bundle.js'
     },
@@ -15,9 +20,20 @@ module.exports = {
             },
             {
               test: /\.scss$/,
-              loaders: ["style", "css?sourceMap", "sass?sourceMap"]
+              loaders: ["style", "css?sourceMap", "sass?sourceMap", "postcss-loader"]
+            },
+            {
+              test:   /\.css$/,
+              loaders: [
+                ExtractTextPlugin.extract("style-loader", "css-loader"),
+                "style-loader!css-loader!postcss-loader"
+              ]
             }
         ]
     },
-    devtool: 'source-map'
+    postcss: [ autoprefixer({ browsers: ['last 20 versions'] }) ],
+    devtool: 'source-map',
+    plugins: [
+      new ExtractTextPlugin("[name].css")
+    ]
 }
