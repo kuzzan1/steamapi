@@ -38,7 +38,6 @@ class TournamentList extends React.Component {
 
     update() {
         model.get(['tournamentsByDiscipline', this.state.disciplineId, ['fullName','location','online']]).then( response => {
-          console.log(response.json.tournamentsByDiscipline[this.state.disciplineId]);
           this.setState({tournaments: response.json.tournamentsByDiscipline[this.state.disciplineId]});
         });
     }
