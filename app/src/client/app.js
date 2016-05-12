@@ -8,7 +8,6 @@ module.exports = class extends React.Component {
         return (
             <div>
                 <DisciplineList />
-                <TournamentList/>
             </div>
         )
     }

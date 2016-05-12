@@ -3,9 +3,13 @@ import Falcor from 'falcor';
 import model from '../model';
 
 class TournamentList extends React.Component {
-    constructor() {
-        super()
-        this.state = {tournaments: {}}
+    constructor(props) {
+        super(props)
+        this.state = {
+          tournaments: [],
+          disciplineId: props.disciplineId,
+          disciplineName: props.disciplineName
+        }
     }
 
     componentWillMount() {
@@ -13,27 +17,35 @@ class TournamentList extends React.Component {
     }
 
     render() {
-        var tournaments = Object.keys(this.state.tournaments).map(idx => {
+        var tournaments = this.state.tournaments.map(tournament => {
+
             return (
-                <li key={idx}>
-                    <span>{this.state.tournaments[idx].fullName}</span>
-                    <span>{this.state.tournaments[idx].location}</span>
-                </li>
+                <div key={tournament.tournamentId}>
+                    <span>{tournament.fullName}</span>
+                    <span>{tournament.location}</span>
+                </div>
             )
         })
         return (
           <div>
-          <h1>Tournaments!</h1>
-            <ul>
+            <h2>{this.state.disciplineName} Tournaments</h2>
+            <div className="discipline__tournaments" >
                 {tournaments}
-            </ul>
+            </div>
           </div>
         )
     }
 
     update() {
-        model.get(['tournamentById', '569f9a39150ba029528b47bc', ['fullName','location','online']]).then( response => this.setState({tournaments: response.json.tournamentById}));
+        model.get(['tournamentsByDiscipline', this.state.disciplineId, ['fullName','location','online']]).then( response => {
+          console.log(response.json.tournamentsByDiscipline[this.state.disciplineId]);
+          this.setState({tournaments: response.json.tournamentsByDiscipline[this.state.disciplineId]});
+        });
     }
 }
+
+TournamentList.propTypes = {disciplineId: React.PropTypes.string};
+TournamentList.defaultProps = {disciplineId: ""};
+
 
 module.exports = TournamentList

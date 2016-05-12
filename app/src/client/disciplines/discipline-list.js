@@ -1,6 +1,7 @@
 import React from 'react';
 import Falcor from 'falcor';
 import model from '../model';
+import Discipline from './discipline';
 
 class DisciplineList extends React.Component {
     constructor() {
@@ -15,17 +16,17 @@ class DisciplineList extends React.Component {
     render() {
         var disciplines = Object.keys(this.state.disciplines).map(idx => {
             return (
-                <li key={idx}>
-                    <span>{this.state.disciplines[idx].fullName}</span>
-                </li>
+                <div key={idx}>
+                    <Discipline discipline={this.state.disciplines[idx]} id={this.state.disciplines[idx].id} />
+                </div>
             )
         })
         return (
             <div>
-            <h1>Disciplines!</h1>
-              <ul className="disciplines">
+              <h1>Disciplines</h1>
+              <div className="discipline-list">
                   {disciplines}
-              </ul>
+              </div>
             </div>
         )
     }
