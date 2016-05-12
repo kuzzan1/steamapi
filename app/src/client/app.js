@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Router, Route, Link, browserHistory } from 'react-router';
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 
 import DisciplineList from './containers/disciplines/discipline-list';
 
@@ -24,8 +24,9 @@ class App extends Component {
 render(
     <Router history={browserHistory}>
         <Route path="/" component={App}>
-            <Route path="/disciplines" component={DisciplineList}>
-                <Route path="/discipline/:disciplineId" component={DisciplineList}/>
+            <Route path="disciplines">
+              <IndexRoute component={DisciplineList} />
+              <Route path=":disciplineId" component={DisciplineList}/>
             </Route>
         </Route>
     </Router>,
