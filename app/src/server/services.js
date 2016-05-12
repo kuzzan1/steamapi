@@ -19,7 +19,7 @@ export function getTournaments() {
 
 export function getDisciplines() {
     return connect().then(conn => {
-        return r.table('sport').run(conn).then(cursor => cursor.toArray());
+        return r.table('discipline').run(conn).then(cursor => cursor.toArray());
     });
 }
 

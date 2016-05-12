@@ -11,7 +11,7 @@ html {
 body {
   max-width: 1440px;
   margin: 30px auto 70px;
-  color: #ffffff;
+  color: #fff;
   font-family: 'Raleway', Arial, sans-serif;
 }
 
@@ -20,23 +20,22 @@ body {
 }
 
 h1 {
-  color: #ffffff;
+  color: #fff;
   font-family: 'Lato', sans-serif;
   font-size: 54px;
   font-weight: 300;
-  line-height: 58px;
-  margin: 0 0 58px;
+  line-height: 1;
+  margin: 0;
 }
 
 h2 {
-  color: #ffffff;
+  color: #fff;
   font-family: 'Lato', sans-serif;
   font-size: 24px;
   font-weight: 500;
   line-height: 28px;
   margin: 0 0 28px;
   text-decoration: underline;
-
 }
 
 p {
@@ -54,5 +53,5 @@ a {
 }
 
 a:hover {
-  color: #ffffff
+  color: #fff;
 }

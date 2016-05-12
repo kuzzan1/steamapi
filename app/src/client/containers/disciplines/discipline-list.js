@@ -1,6 +1,6 @@
 import React from 'react';
 import Falcor from 'falcor';
-import model from '../model';
+import model from '../../model';
 import Discipline from './discipline';
 
 class DisciplineList extends React.Component {

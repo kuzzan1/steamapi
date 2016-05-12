@@ -1,7 +1,9 @@
 import React from 'react';
 import Falcor from 'falcor';
-import model from '../model';
+import model from '../../model';
 import TournamentList from '../tournaments/tournament-list';
+
+require('./disciplines.scss');
 
 class Discipline extends React.Component {
     constructor(props) {

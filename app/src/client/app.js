@@ -1,14 +1,35 @@
-import React from 'react';
-import TournamentList from './tournaments/tournament-list';
-import DisciplineList from './disciplines/discipline-list';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { Router, Route, Link, browserHistory } from 'react-router';
 
-module.exports = class extends React.Component {
+import DisciplineList from './containers/disciplines/discipline-list';
 
+require('./reset.scss');
+require('./main.scss');
+
+class App extends Component {
     render() {
         return (
             <div>
-                <DisciplineList />
+                <ul>
+                    <li><Link to="/disciplines">Games</Link></li>
+                </ul>
+
+                {this.props.children}
             </div>
         )
     }
 }
+
+render(
+    <Router history={browserHistory}>
+        <Route path="/" component={App}>
+            <Route path="/disciplines" component={DisciplineList}>
+                <Route path="/discipline/:disciplineId" component={DisciplineList}/>
+            </Route>
+        </Route>
+    </Router>,
+    document.querySelector('#container')
+);
+
+module.exports = App
