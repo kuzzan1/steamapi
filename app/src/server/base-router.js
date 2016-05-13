@@ -17,7 +17,7 @@ class BaseRouter extends Router.createClass
        },
 
       {
-        route: 'discipline[{keys:id}][{keys:props}]',
+        route: 'discipline[{keys:id}]',
         get: pathSet => {
             return services.getDisciplines()
             .then(function(disciplines){
@@ -25,8 +25,8 @@ class BaseRouter extends Router.createClass
                 disciplines.map(function(discipline){
                   pathSet.props.forEach(prop => {
                     results.push({
-                        path: ['disciplineById', discipline.id, prop],
-                        value: discipline[prop]
+                        path: ['disciplineById', discipline.id],
+                        value: falcor.Model.atom(discipline)
                     })
                   })
                 })
