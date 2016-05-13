@@ -6,7 +6,7 @@ import { Link } from 'react-router'
 
 require('./discipline.scss');
 
-class Discipline extends React.Component {
+class Discipline extends React.Component  { 
     constructor(props) {
         super(props)
         this.state = {
@@ -15,6 +15,11 @@ class Discipline extends React.Component {
     }
     componentWillMount() {
         this.update()
+    }
+
+    componentWillReceiveProps(nextProps) { 
+      this.state = {id: nextProps.params.id}
+      this.update();
     }
 
     render() {
@@ -29,7 +34,7 @@ class Discipline extends React.Component {
     }
 
     update() {
-      model.get(['disciplineById', this.state.id]).then( response => {
+      model.get(['disciplineById', this.state.id]).then( response => {         
         this.setState(response.json.disciplineById[this.state.id]);
       });
     }

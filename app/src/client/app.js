@@ -4,7 +4,7 @@ import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 
 import Disciplines from './containers/disciplines/disciplines';
 import Discipline from './containers/discipline/discipline';
-
+import TopMenu from './containers/menu/top-menu';
 require('./reset.scss');
 require('./main.scss');
 
@@ -12,10 +12,8 @@ class App extends Component {
     render() {
         return (
             <div>
-                <ul>
-                    <li><Link to="/disciplines">Games</Link></li>
-                </ul>
-
+                <TopMenu />
+                       
                 {this.props.children}
             </div>
         )
@@ -39,7 +37,7 @@ render(
             <Route path="disciplines">
               <IndexRoute component={Disciplines} />
               <Route path=":id" component={Discipline}/>
-            </Route>
+            </Route>        
             <Route path="discipline/:id" component={Discipline} />
             <Route path="*" component={PageNotFound} />
         </Route>
