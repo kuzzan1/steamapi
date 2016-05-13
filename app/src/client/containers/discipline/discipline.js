@@ -2,19 +2,15 @@ import React from 'react';
 import Falcor from 'falcor';
 import model from '../../model';
 import TournamentList from '../tournaments/tournament-list';
+import { Link } from 'react-router'
 
-require('./disciplines.scss');
+require('./discipline.scss');
 
 class Discipline extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-          discipline: props.discipline,
-          copyrights: props.discipline.copyrights,
-          id: props.discipline.id,
-          fullName: props.discipline.fullName,
-          name: props.discipline.name,
-          shortName: props.discipline.shortName
+          id: props.id || props.params.id
         }
     }
     componentWillMount() {
@@ -22,10 +18,9 @@ class Discipline extends React.Component {
     }
 
     render() {
-
         return (
           <div className="discipline">
-              <h1>{this.state.fullName}</h1>
+              <Link to={`/discipline/${this.state.id}`} ><h1>{this.state.fullName}</h1></Link>
               <div>
                 <TournamentList disciplineId={this.state.id} disciplineName={this.state.name}/>
               </div>
@@ -34,6 +29,9 @@ class Discipline extends React.Component {
     }
 
     update() {
+      model.get(['disciplineById', this.state.id]).then( response => {
+        this.setState(response.json.disciplineById[this.state.id]);
+      });
     }
 }
 

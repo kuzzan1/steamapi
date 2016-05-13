@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 
-import DisciplineList from './containers/disciplines/discipline-list';
+import Disciplines from './containers/disciplines/disciplines';
+import Discipline from './containers/discipline/discipline';
 
 require('./reset.scss');
 require('./main.scss');
@@ -36,9 +37,10 @@ render(
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <Route path="disciplines">
-              <IndexRoute component={DisciplineList} />
-              <Route path=":disciplineId" component={DisciplineList}/>
+              <IndexRoute component={Disciplines} />
+              <Route path=":id" component={Discipline}/>
             </Route>
+            <Route path="discipline/:id" component={Discipline} />
             <Route path="*" component={PageNotFound} />
         </Route>
     </Router>,

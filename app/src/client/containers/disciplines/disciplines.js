@@ -1,9 +1,9 @@
 import React from 'react';
 import Falcor from 'falcor';
 import model from '../../model';
-import Discipline from './discipline';
+import Discipline from '../discipline/discipline';
 
-class DisciplineList extends React.Component {
+class Disciplines extends React.Component {
     constructor() {
         super()
         this.state = {disciplines: {}}
@@ -17,7 +17,7 @@ class DisciplineList extends React.Component {
         var disciplines = Object.keys(this.state.disciplines).map(idx => {
             return (
                 <div key={idx}>
-                    <Discipline discipline={this.state.disciplines[idx]} id={this.state.disciplines[idx].id} />
+                    <Discipline id={this.state.disciplines[idx].id} />
                 </div>
             )
         })
@@ -36,4 +36,4 @@ class DisciplineList extends React.Component {
     }
 }
 
-module.exports = DisciplineList
+module.exports = Disciplines

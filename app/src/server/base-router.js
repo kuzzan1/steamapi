@@ -17,20 +17,14 @@ class BaseRouter extends Router.createClass
        },
 
       {
-        route: 'discipline[{keys:id}]',
+        route: 'disciplineById[{keys:id}]',
         get: pathSet => {
-            return services.getDisciplines()
-            .then(function(disciplines){
-                let results = [];
-                disciplines.map(function(discipline){
-                  pathSet.props.forEach(prop => {
-                    results.push({
-                        path: ['disciplineById', discipline.id],
-                        value: falcor.Model.atom(discipline)
-                    })
-                  })
-                })
-                return results;
+            return services.getDisciplineById(pathSet.id)
+            .then(function(discipline){
+              return {
+                  path: ['disciplineById', pathSet.id],
+                  value: falcor.Model.atom(discipline)
+              }
             })
         }
     },

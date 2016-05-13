@@ -23,6 +23,13 @@ export function getDisciplines() {
     });
 }
 
+export function getDisciplineById(id) {
+    return connect().then(conn => {
+        return r.table('discipline').get(id.toString()).run(conn);
+    });
+}
+
+
 export function getTournamentsByDiscipline(discipline) {
     console.log(discipline);
     return connect().then(conn => {

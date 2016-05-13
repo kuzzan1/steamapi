@@ -22,8 +22,3 @@ app.listen(9090, err => {
     }
     console.log('navigate to http://localhost:9090')
 });
-
-app.use(function(req, res){
-
-  res.sendfile('index.html', {root: './src/site/'});
-});
