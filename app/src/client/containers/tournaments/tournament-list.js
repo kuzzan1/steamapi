@@ -16,6 +16,12 @@ class TournamentList extends React.Component {
         this.update()
     }
 
+    componentWillReceiveProps(nextProps) { 
+       this.state = {disciplineId: nextProps.disciplineId, tournaments: [], disciplineName: nextProps.disciplineName}
+       this.update();
+    }
+
+
     render() {
         var tournaments = this.state.tournaments.map(tournament => {
 

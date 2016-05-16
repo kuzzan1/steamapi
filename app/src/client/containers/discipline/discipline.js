@@ -25,7 +25,7 @@ class Discipline extends React.Component  {
     render() {
         return (
           <div className="discipline">
-              <Link to={`/discipline/${this.state.id}`} ><h1>{this.state.fullName}</h1></Link>
+              <Link to={`/discipline/${this.state.id}`} ><h1>{this.state.name}</h1></Link>
               <div>
                 <TournamentList disciplineId={this.state.id} disciplineName={this.state.name}/>
               </div>
