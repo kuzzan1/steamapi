@@ -1,0 +1,118 @@
+$background: #f96e5b;
+
+#top-menu {
+  background: $background;
+  width: 100%;
+  height: 45px;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    zoom: 1;
+    font-size: 0;
+
+     li {
+      display: inline-block;
+      padding: 0;
+      margin: 0;
+
+      a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        padding: 15px 25px;
+        text-transform: uppercase;
+        font-size: 12px;
+        position: relative;
+        transition: color .25s;
+
+        &:hover {
+          color: #333;
+          &:before {
+            width: 100%;
+          }
+        }
+
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 3px;
+          width: 0;
+          background: #333;
+          transition: width .25s;
+        }
+      }
+
+      &:last-child > a:after {
+        display: none;
+      }
+
+      .top-menu--active {
+        color: #333;
+        &:before {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .top-menu--has-children {
+    z-index: 1;
+    &:hover {
+      > ul {
+        display: block;
+        > li {
+          display: block;
+        }
+      }
+
+
+    }
+
+    ul {
+      display: none;
+      position: absolute;
+      width: auto;
+
+      li {
+        a {
+          background: darken($background, 3%);
+          font-size: 11px;
+          filter: none;
+          display: block;
+          padding: 10px;
+          color: #ffffff;
+        }
+        &:hover a {
+          background: darken($background, 20%);
+        }
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #top-menu ul li {
+    float: none;
+    display: block;
+  }
+  #top-menu ul li a {
+    width: 100%;
+    border-bottom: 1px solid #fb998c;
+  }
+  #top-menu ul li:last-child > a {
+    border: 0;
+  }
+  #top-menu ul li a:after {
+    display: none;
+  }
+  #top-menu ul li a:before {
+    display: none;
+  }
+}
