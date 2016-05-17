@@ -41,22 +41,27 @@ class BaseRouter extends Router.createClass
         }
     },
     {
-        route: 'tournamentById[{keys:tournamentId}][{keys:props}]',
+        route: 'tournaments',
         get: pathSet => {
-            return services.getTournaments()
-            .then(function(tournaments){
-                let results = [];
-                tournaments.map(function(tournament){
-                  pathSet.props.forEach(prop => {
-                    results.push({
-                        path: ['tournamentById', tournament.tournamentId, prop],
-                        value: tournament[prop]
-                    })
-                  })
-                })
-                return results;
+            return services.getTournaments().then(tournaments => {
+                return {
+                    path: ['tournaments'],
+                    value: falcor.Model.atom(tournaments)
+                }
             })
         }
+    },
+    {
+      route: 'tournamentById[{keys:id}]',
+      get: pathSet => {
+          return services.getTournamentById(pathSet.id)
+          .then(function(tournament){
+            return {
+                path: ['tournamentById', pathSet.id],
+                value: falcor.Model.atom(tournament)
+            }
+          })
+      }
     },
     {
         route: 'matchesByTournamentId[{keys:id}]',

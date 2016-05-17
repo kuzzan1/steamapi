@@ -45,6 +45,11 @@ class TopMenu extends React.Component {
                   {disciplines}
                 </ul>
               </li>
+              <li>
+                <IndexLink to={'tournaments'} activeClassName='top-menu--active'>
+                  <span>Tournaments</span>
+                </IndexLink>
+              </li>
             </ul>
           </div>
         )

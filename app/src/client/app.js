@@ -4,6 +4,8 @@ import { Router, Route, Link, browserHistory, IndexRoute, Redirect } from 'react
 
 import Disciplines from './containers/disciplines/disciplines';
 import Discipline from './containers/discipline/discipline';
+import Tournaments from './containers/tournaments/tournaments';
+import Tournament from './containers/tournament/tournament';
 import TopMenu from './containers/menu/top-menu';
 import Home from './components/home/home';
 
@@ -49,6 +51,12 @@ render(
             <IndexRoute component={Disciplines} />
             <Route path=":id" component={Discipline} />
           </Route>
+
+          <Route path="tournaments">
+            <IndexRoute component={Tournaments} />
+          </Route>
+
+          <Route path="tournament/:id" component={Tournament}></Route>
 
           <Route path="*" component={PageNotFound} />
 
