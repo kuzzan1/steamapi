@@ -1,6 +1,7 @@
 import React from 'react';
 import Falcor from 'falcor';
 import model from '../../model';
+import Matches from '../matches/matches';
 
 class Tournament extends React.Component {
     constructor(props) {
@@ -32,13 +33,14 @@ class Tournament extends React.Component {
               <h2> Maps </h2>
               {maps}
             </div>
+            <h2> Matches </h2>
+            <Matches tournamentId={this.state.id} />
         </div>
       )
     }
 
     update() {
       model.get(['tournamentById', this.state.id]).then( response => {
-        console.log(response);
         this.setState(response.json.tournamentById[this.state.id]);
       });
     }

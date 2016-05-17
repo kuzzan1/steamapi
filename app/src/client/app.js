@@ -6,6 +6,10 @@ import Disciplines from './containers/disciplines/disciplines';
 import Discipline from './containers/discipline/discipline';
 import Tournaments from './containers/tournaments/tournaments';
 import Tournament from './containers/tournament/tournament';
+
+import Matches from './containers/matches/matches';
+import Match from './containers/match/match';
+
 import TopMenu from './containers/menu/top-menu';
 import Home from './components/home/home';
 
@@ -58,8 +62,13 @@ render(
 
           <Route path="tournament/:id" component={Tournament}></Route>
 
-          <Route path="*" component={PageNotFound} />
+          <Route path="matches">
+            <IndexRoute component={Matches} />
+          </Route>
 
+          <Route path="match/:id" component={Match}></Route>          
+          
+          <Route path="*" component={PageNotFound} />
         </Route>
     </Router>,
     document.querySelector('#container')

@@ -49,9 +49,18 @@ public class DatabaseManager {
                 Match[] matchesInTournament = matchesService.getMatchesInTournament(tournament.getTournamentId());
                 for (Match match : matchesInTournament) {
                     Match informationOnMatch = matchesService.getInformationOnMatch(tournament.getTournamentId(), match.getId());
+                    String matchName = "";
                     for (Opponent opponent : informationOnMatch.getOpponents()) {
                         Participant participant = opponent.getParticipant();
                         if ( participant != null) {
+
+                            if(matchName.isEmpty()) {
+                                matchName = participant.getName();
+                            }
+                            else{
+                                matchName+= " vs " + participant.getName();
+                            }
+
                             if(!teams.contains( participant.getId() )) {
                                 Participant team = participantsService.getPlayersInTournament( tournament.getTournamentId(), participant.getId());
                                 team.setDiscipline( disciplineHelper.getDiscipline() );
@@ -73,6 +82,8 @@ public class DatabaseManager {
                             }
                         }
                     }
+                    System.out.println("Match name: " + matchName);
+                    informationOnMatch.setName( matchName );
                     databaseHandler.addMatch(informationOnMatch);
                     Thread.sleep(1000);
                 }

@@ -32,6 +32,8 @@ public class Match {
     private String matchFormat;
     @JsonProperty
     private List<Opponent> opponents;
+    @JsonProperty
+    private String name;
 
     public String getId() {
         return id;
@@ -129,4 +131,11 @@ public class Match {
         this.opponents = opponents;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName( String name ) {
+        this.name = name;
+    }
 }
