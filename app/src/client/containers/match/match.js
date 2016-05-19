@@ -17,9 +17,9 @@ class Match extends React.Component {
 
     render() {
 
-      const teams = this.state.opponents ? this.state.opponents.map(opponent => {        
+      const teams = this.state.opponents ? this.state.opponents.map(opponent => {
           return (
-              <div>
+              <div key={opponent.participant.id}>
                     <Team participant={opponent.participant} />
               </div>
           )
@@ -29,7 +29,7 @@ class Match extends React.Component {
         <div className="discipline">
             <h2>{this.state.name}</h2>
             <div>
-              <h2> Teams </h2>              
+              <h2> Teams </h2>
               {teams}
             </div>
         </div>

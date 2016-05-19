@@ -2,6 +2,9 @@ import React from 'react';
 import Falcor from 'falcor';
 import model from '../../model';
 import Match from '../match/match';
+import MatchCard from '../../components/match-card/match-card';
+
+require('./matches.scss');
 
 class Matches extends React.Component {
     constructor(props) {
@@ -19,20 +22,18 @@ class Matches extends React.Component {
     render() {
         var matches = Object.keys(this.state.matches).map(idx => {
             return (
-                <div key={idx}>
-                    <Match id={this.state.matches[idx].id} />
-                </div>
+              <MatchCard key={idx} match={this.state.matches[idx]} />
             )
         })
         return (
-            <div>
+            <div className="match-card-container" >
               {matches}
-            </div>            
+            </div>
         )
     }
 
     update() {
-        model.get(['matchesByTournamentId', this.state.tournamentId]).then( response => {        
+        model.get(['matchesByTournamentId', this.state.tournamentId]).then( response => {
             this.setState({matches: response.json.matchesByTournamentId[this.state.tournamentId]})
         });
     }
