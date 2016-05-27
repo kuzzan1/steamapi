@@ -10,22 +10,21 @@ class MatchCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = props.match;
+        this.opponentOne = this.state.opponents[0];
+        this.opponentTwo = this.state.opponents[1];
+        this.gameTime = moment(this.state.date).format('dddd, MMMM Do YYYY, h:mm:ss a');
     }
     componentWillMount() {
         this.update()
     }
 
     completedMatch() {
-      let opponentOne = this.state.opponents[0],
-          opponentTwo = this.state.opponents[1];
-      
-      const gameTime = moment(this.state.date).format('dddd, MMMM Do YYYY, h:mm:ss a') || '';
-
+    
       return (
         <div className="match-card completed">
           <div className="card-content">
             <span className="card-title">{this.state.name}</span>            
-            <span className="time">{gameTime}</span>
+            <span className="time">{this.gameTime}</span>
             <div className="stage-round">
               <span>Stage {this.state.stageNumber}</span>
               <span>Round {this.state.roundNumber}</span>
@@ -33,12 +32,12 @@ class MatchCard extends React.Component {
 
             <div className="scoreboard">
               <div>
-                <span>{opponentOne.participant.name}:</span>
-                <span>{opponentOne.score}</span>
+                <span>{this.opponentOne.participant.name}:</span>
+                <span>{this.opponentOne.score}</span>
               </div>
               <div>
-                <span>{opponentTwo.participant.name}:</span>
-                <span>{opponentTwo.score}</span>
+                <span>{this.opponentTwo.participant.name}:</span>
+                <span>{this.opponentTwo.score}</span>
               </div>
             </div>
           </div>
@@ -47,15 +46,12 @@ class MatchCard extends React.Component {
     }
 
     upcomingMatch() {
-         let opponentOne = this.state.opponents[0],
-          opponentTwo = this.state.opponents[1];
-      
-      const gameTime = moment(this.state.date).format('dddd, MMMM Do YYYY, h:mm:ss a') || '';
+
       return (
         <div className="match-card upcoming">
           <div className="card-content">
             <span className="card-title">{this.state.name}</span>
-            <span className="time">{gameTime}</span>
+            <span className="time">{this.gameTime}</span>
             <div className="stage-round">
               <span>Stage {this.state.stageNumber}</span>
               <span>Round {this.state.roundNumber}</span>
@@ -63,10 +59,10 @@ class MatchCard extends React.Component {
 
             <div className="scoreboard">
               <div>
-                <span>{opponentOne.participant.name}:</span>
+                <span>{this.opponentOne.participant.name}:</span>
               </div>
               <div>
-                <span>{opponentTwo.participant.name}:</span>
+                <span>{this.opponentTwo.participant.name}:</span>
               </div>
             </div>
           </div>
