@@ -42,6 +42,7 @@ class MatchCard extends React.Component {
             </div>
           </div>
         </div>
+        
       )
     }
 
