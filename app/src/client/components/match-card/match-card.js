@@ -18,13 +18,13 @@ class MatchCard extends React.Component {
     completedMatch() {
       let opponentOne = this.state.opponents[0],
           opponentTwo = this.state.opponents[1];
-
-      const gameTime = moment(this.state.date).format('dddd, MMMM Do YYYY, h:mm:ss a');
+      
+      const gameTime = moment(this.state.date).format('dddd, MMMM Do YYYY, h:mm:ss a') || '';
 
       return (
         <div className="match-card completed">
           <div className="card-content">
-            <span className="card-title">{this.state.name}</span>
+            <span className="card-title">{this.state.name}</span>            
             <span className="time">{gameTime}</span>
             <div className="stage-round">
               <span>Stage {this.state.stageNumber}</span>
@@ -47,6 +47,10 @@ class MatchCard extends React.Component {
     }
 
     upcomingMatch() {
+         let opponentOne = this.state.opponents[0],
+          opponentTwo = this.state.opponents[1];
+      
+      const gameTime = moment(this.state.date).format('dddd, MMMM Do YYYY, h:mm:ss a') || '';
       return (
         <div className="match-card upcoming">
           <div className="card-content">
