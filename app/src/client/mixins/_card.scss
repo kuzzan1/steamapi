@@ -1,15 +1,14 @@
-@import "card";
-.match-card {
-  @extend .card;
-
-  .stage-round {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    > span {
-      margin-right: 20px;
-    }
-  }
+.card {
+  position: relative;
+  margin: 0.5rem 0 1rem 0;
+  background-color: #546e7a;
+  transition: box-shadow .25s;
+  border-radius: 2px;
+  height: 220px;
+  width: 510px;
+  display: inline-block;
+  margin: 18px;
+  box-shadow: 0px 0px 16px 1px rgba(255, 255, 255, 0.32);
 
   .card-content {
     padding: 20px;
@@ -20,6 +19,7 @@
       line-height: 48px;
     }
   }
+  
   .card-title {
     font-size: 24px;
     font-weight: 300;
@@ -42,10 +42,5 @@
         color: #ffd8a6;
       }
     }
-  }
-
-  .time {
-    display: flex;
-    justify-content: center;
   }
 }

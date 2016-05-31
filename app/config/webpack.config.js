@@ -31,6 +31,9 @@ module.exports = {
             }
         ]
     },
+    sassLoader: {
+      includePaths: ["./src/client/mixins"]
+    },
     postcss: [ autoprefixer({ browsers: ['last 20 versions'] }) ],
     devtool: 'source-map',
     plugins: [

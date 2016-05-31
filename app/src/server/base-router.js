@@ -52,6 +52,30 @@ class BaseRouter extends Router.createClass
         }
     },
     {
+      route: 'nextXTournaments[{keys:limit}]',
+      get: pathSet => {
+        return services.getNextXTournaments(pathSet.limit)
+        .then(tournaments => {
+          return {
+            path: ['nextXTournaments'],
+            value: falcor.Model.atom(tournaments)
+          }
+        })
+      }
+    },
+    {
+      route: 'nextXMatches[{keys:limit}]',
+      get: pathSet => {
+        return services.getNextXMatches(pathSet.limit)
+        .then(matches => {
+          return {
+            path: ['nextXMatches'],
+            value: falcor.Model.atom(matches)
+          }
+        })
+      }
+    },
+    {
       route: 'tournamentById[{keys:id}]',
       get: pathSet => {
           return services.getTournamentById(pathSet.id)

@@ -1,0 +1,15 @@
+@import "card";
+
+.next-matches-card {
+  @extend .card;
+
+  width: 100%;
+  margin: 8px 0 16px 0;
+
+  h2 {
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  
+}

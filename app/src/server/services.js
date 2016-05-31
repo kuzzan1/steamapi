@@ -16,6 +16,17 @@ export function getTournaments() {
     });
 }
 
+export function getNextXTournaments(limit) {
+  return connect().then(conn => {
+    return r.table('tournament').orderBy(r.desc('dateStart')).limit(+limit[0]).run(conn);
+  })
+}
+
+export function getNextXMatches(limit) {
+  return connect().then(conn => {
+    return r.table('match').orderBy(r.desc('dateStart')).limit(+limit[0]).run(conn);
+  })
+}
 
 export function getDisciplines() {
     return connect().then(conn => {
