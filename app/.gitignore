@@ -6,3 +6,4 @@ src/site/bundle.js
 src/site/bundle.js.map
 build
 legacy
+npm-debug.log
