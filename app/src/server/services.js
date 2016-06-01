@@ -28,9 +28,7 @@ export function getNextXTournaments(limit) {
 
 export function getNextXMatches(limit) {
   return connect().then(conn => {
-    return r.table('match').orderBy(r.asc('date')).filter((match) => {
-        return r.ISO8601(match('date'), {defaultTimezone: 'Z'}).date().gt(r.now().date());
-      }).limit(+limit[0]).run(conn);
+    return r.table('match').hasFields('date').orderBy(r.asc('date')).filter(r.ISO8601(r.row('date')).date().gt(r.now().date())).limit(+limit[0]).run(conn);
   }).catch(error => {
     console.log(error);
   })
