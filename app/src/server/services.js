@@ -18,13 +18,21 @@ export function getTournaments() {
 
 export function getNextXTournaments(limit) {
   return connect().then(conn => {
-    return r.table('tournament').orderBy(r.desc('dateStart')).limit(+limit[0]).run(conn);
+    return r.table('tournament').orderBy(r.asc('dateStart')).filter(tournament => {
+      return r.ISO8601(tournament('dateStart'), {defaultTimezone: 'Z'}).date().gt(r.now().date());
+    }).limit(+limit[0]).run(conn);
+  }).catch(error => {
+    console.log(error);
   })
 }
 
 export function getNextXMatches(limit) {
   return connect().then(conn => {
-    return r.table('match').orderBy(r.desc('dateStart')).limit(+limit[0]).run(conn);
+    return r.table('match').orderBy(r.asc('date')).filter((match) => {
+        return r.ISO8601(match('date'), {defaultTimezone: 'Z'}).date().gt(r.now().date());
+      }).limit(+limit[0]).run(conn);
+  }).catch(error => {
+    console.log(error);
   })
 }
 
@@ -56,7 +64,7 @@ export function getTournamentsByDiscipline(discipline) {
 
 export function getMatchesByTournamentId(id) {
       return connect().then(conn => {
-          return r.table('match').getAll(id.toString(), {index: 'tournamentId'}).orderBy(r.desc('dateStart')).run(conn).then(cursor => cursor.toArray());
+          return r.table('match').getAll(id.toString(), {index: 'tournamentId'}).orderBy(r.desc('date')).run(conn).then(cursor => cursor.toArray());
       });
 }
 
