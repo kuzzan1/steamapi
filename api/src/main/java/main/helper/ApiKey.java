@@ -1,4 +1,4 @@
-package main.toornament.security;
+package main.helper;
 
 /**
  * Created by jonas on 2016-01-19.

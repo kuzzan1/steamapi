@@ -3,7 +3,7 @@ package main.toornament.endpoints;
 import main.URLBuilder;
 import main.steam.bean.RestTemplateBean;
 import main.toornament.domain.Match;
-import main.toornament.security.ApiKey;
+import main.helper.ApiKey;
 import main.toornament.security.OAuthController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;

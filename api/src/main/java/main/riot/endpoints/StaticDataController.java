@@ -7,7 +7,7 @@ import main.riot.domain.mastery.MasteryListDto;
 import main.riot.domain.rune.RuneListDto;
 import main.riot.domain.spell.SummonerSpellListDto;
 import main.steam.bean.RestTemplateBean;
-import main.toornament.security.ApiKey;
+import main.helper.ApiKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
