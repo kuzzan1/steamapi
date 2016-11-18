@@ -28,6 +28,13 @@ public class Participant {
     private int teamId;
     @JsonProperty
     private ParticipantTimeline timeline;
+    @JsonProperty
+    private String summonerName;
+    @JsonProperty
+    private boolean bot;
+    @JsonProperty
+    private long profileIconId;
+
 
     public int getChampionId() {
         return championId;
