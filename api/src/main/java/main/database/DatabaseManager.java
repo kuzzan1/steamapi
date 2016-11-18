@@ -7,7 +7,6 @@ import main.toornament.endpoints.MatchesService;
 import main.toornament.endpoints.ParticipantsService;
 import main.toornament.endpoints.TournamentsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class DatabaseManager {
 
     private List<String> teams = new ArrayList<>();
 
-    @Scheduled(initialDelay = 1000L, fixedRate = 43000000L)
+//    @Scheduled(initialDelay = 1000L, fixedRate = 43000000L)
     public void populateAndUpdateDB() throws Exception {
         System.out.println("Running scheduler");
         for( DisciplineHelper disciplineHelper : DisciplineHelper.values() ) {

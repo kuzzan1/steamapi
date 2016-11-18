@@ -10,6 +10,7 @@ public enum DisciplineHelper {
     CS_GO( "counterstrike_go" ),
     DOTA2( "dota2" ),
     LOL( "leagueoflegends" ),
+    OVERWATCH( "overwatch" ),
     FIFA16("fifa16");
 
     private final String discipline;

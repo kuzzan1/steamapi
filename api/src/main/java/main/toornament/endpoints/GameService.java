@@ -2,7 +2,6 @@ package main.toornament.endpoints;
 
 import main.URLBuilder;
 import main.steam.bean.RestTemplateBean;
-import main.toornament.security.domain.Oauth2;
 import main.toornament.security.ApiKey;
 import main.toornament.security.OAuthController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +26,19 @@ public class GameService {
 
     @RequestMapping("/app/{tournamentId}/match/{matchId}/games")
     public String getGameInformation(@PathVariable("tournamentId") final String tournamentId, @PathVariable("matchId") final String matchId) {
-        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("matches").Path(matchId).Path("games").Param("api_key", ApiKey.getKey()).Build();
+        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("matches").Path(matchId).Path("games").Param("api_key", ApiKey.getToornamentKey()).Build();
         return restTemplateBean.exchange(url);
     }
 
     @RequestMapping("/app/{tournamentId}/match/{matchId}/games/{number}")
     public String getGameInformationByNumber(@PathVariable("tournamentId") final String tournamentId, @PathVariable("matchId") final String matchId, @PathVariable("number") final String number) {
-        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("matches").Path(matchId).Path("games").Path(number).Param("api_key", ApiKey.getKey()).Build();
+        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("matches").Path(matchId).Path("games").Path(number).Param("api_key", ApiKey.getToornamentKey()).Build();
         return restTemplateBean.exchange(url);
     }
 
     @RequestMapping("/app/{tournamentId}/match/{matchId}/games/{number}/result")
     public String getGameResultByNumber(@PathVariable("tournamentId") final String tournamentId, @PathVariable("matchId") final String matchId, @PathVariable("number") final String number) {
-        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("matches").Path(matchId).Path("games").Path(number).Path("result").Param("api_key", ApiKey.getKey()).Build();
+        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("matches").Path(matchId).Path("games").Path(number).Path("result").Param("api_key", ApiKey.getToornamentKey()).Build();
         return restTemplateBean.exchange(url);
     }
 

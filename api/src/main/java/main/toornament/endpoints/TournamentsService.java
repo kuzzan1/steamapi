@@ -23,19 +23,19 @@ public class TournamentsService {
 
     @RequestMapping("/app/tournaments/cs")
     public Tournament[] getCSGO() throws Exception{
-        String url = new URLBuilder().baseUrl(URL).Param("api_key", ApiKey.getKey()).Param("discipline", "counterstrike_go").Param("featured", "1").Param("sort", "date_desc").Build();
+        String url = new URLBuilder().baseUrl(URL).Param("api_key", ApiKey.getToornamentKey()).Param( "discipline", "counterstrike_go").Param( "featured", "1").Param( "sort", "date_desc").Build();
         return restTemplateBean.getObject().exchange( url, HttpMethod.GET, null, Tournament[].class ).getBody();
     }
 
     @RequestMapping("/app/tournaments/{tournamentId}")
     public Tournament getTournamentInfo(@PathVariable( "tournamentId" ) final String tournamentId ) {
-        String url = new URLBuilder().baseUrl(URL+"/"+tournamentId).Param("api_key", ApiKey.getKey()).Build();
+        String url = new URLBuilder().baseUrl(URL+"/"+tournamentId).Param("api_key", ApiKey.getToornamentKey()).Build();
         return restTemplateBean.exchange( url, Tournament.class );
     }
 
     @RequestMapping("/app/tournaments/sport/{sportId}")
-    public Tournament[] getTournaments(@PathVariable( "id" ) final String sportId ) throws Exception {
-        String url = new URLBuilder().baseUrl(URL).Param("api_key", ApiKey.getKey()).Param( "after_start", "2016-01-01" ).Param("discipline", sportId).Param("featured", "1").Param("sort", "date_desc").Build();
+    public Tournament[] getTournaments(@PathVariable( "sportId" ) final String sportId ) throws Exception {
+        String url = new URLBuilder().baseUrl(URL).Param("api_key", ApiKey.getToornamentKey()).Param( "after_start", "2016-01-01" ).Param( "discipline", sportId).Param( "featured", "1").Param( "sort", "date_desc").Build();
         return restTemplateBean.getObject().exchange( url, HttpMethod.GET, null, Tournament[].class ).getBody();
     }
 }

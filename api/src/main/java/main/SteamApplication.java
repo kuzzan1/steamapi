@@ -1,8 +1,5 @@
 package main;
 
-import com.rethinkdb.RethinkDB;
-import com.rethinkdb.net.Connection;
-import com.rethinkdb.net.Cursor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -20,18 +17,8 @@ import java.util.concurrent.TimeoutException;
 @EnableScheduling
 public class SteamApplication {
 
-    public static final RethinkDB r = RethinkDB.r;
-
     public static void main(String[] args) throws TimeoutException {
-
-
         SpringApplication.run( SteamApplication.class);
-        Connection conn = r.connection().hostname("176.58.126.231").port(28015).authKey( "bajskorv" ).connect();
-
-        Cursor run = r.db( "data" ).table( "tournament" ).changes().run( conn );
-        for( Object o : run ) {
-            System.out.println(o);
-        }
     }
 
 

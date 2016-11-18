@@ -12,11 +12,13 @@ public class URLBuilder {
         return this;
     }
 
-    public URLBuilder Param(String paramName, String value) {
-        if(this.url.contains("?")) {
-            this.url = this.url + "&" + paramName + "=" + value;
-        } else {
-            this.url = this.url + "?" + paramName + "=" + value;
+    public URLBuilder Param(String paramName, Object value) {
+        if(paramName != null && value != null) {
+            if(this.url.contains("?")) {
+                this.url = this.url + "&" + paramName + "=" + value;
+            } else {
+                this.url = this.url + "?" + paramName + "=" + value;
+            }
         }
         return this;
     }

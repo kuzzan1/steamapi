@@ -2,7 +2,6 @@ package main.toornament.endpoints;
 
 import main.URLBuilder;
 import main.steam.bean.RestTemplateBean;
-import main.toornament.security.domain.Oauth2;
 import main.toornament.security.ApiKey;
 import main.toornament.security.OAuthController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class ScheduleService {
 
     @RequestMapping("/app/{tournamentId}/schedule")
     public String getPlayersInTournament(@PathVariable("tournamentId") final String tournamentId) {
-        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("schedules").Param("api_key", ApiKey.getKey()).Build();
+        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("schedules").Param("api_key", ApiKey.getToornamentKey()).Build();
         return restTemplateBean.exchange(url );
     }
 

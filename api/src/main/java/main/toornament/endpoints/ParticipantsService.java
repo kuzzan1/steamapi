@@ -27,14 +27,14 @@ public class ParticipantsService {
 
     @RequestMapping("/app/{tournamentId}/participants")
     public Participant[] getPlayersInTournament(@PathVariable("tournamentId") final String tournamentId) throws Exception {
-        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("participants").Param("api_key", ApiKey.getKey()).Build();
+        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("participants").Param("api_key", ApiKey.getToornamentKey()).Build();
         return restTemplateBean.getObject().exchange( url, HttpMethod.GET, null, Participant[].class ).getBody();
 
     }
 
     @RequestMapping("/app/{tournamentId}/participants/{playerId}")
     public Participant getPlayersInTournament(@PathVariable("tournamentId") final String tournamentId, @PathVariable("playerId") final String playerId) {
-        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("participants").Path(playerId).Param("api_key", ApiKey.getKey()).Build();
+        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("participants").Path(playerId).Param("api_key", ApiKey.getToornamentKey()).Build();
         return restTemplateBean.exchange(url , Participant.class);
     }
 

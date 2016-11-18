@@ -2,7 +2,6 @@ package main.toornament.endpoints;
 
 import main.URLBuilder;
 import main.steam.bean.RestTemplateBean;
-import main.toornament.security.domain.Oauth2;
 import main.toornament.security.ApiKey;
 import main.toornament.security.OAuthController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,19 +24,19 @@ public class StagesService {
 
     @RequestMapping("/app/{tournamentId}/stages")
     public String getTournamentStages(@PathVariable("tournamentId") final String tournamentId) {
-        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("stages").Param("api_key", ApiKey.getKey()).Build();
+        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("stages").Param("api_key", ApiKey.getToornamentKey()).Build();
         return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/{tournamentId}/stages/{number}")
     public String getTournamentStagesByNumber(@PathVariable("tournamentId") final String tournamentId, @PathVariable("number") final String number) {
-        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("stages").Path(number).Param("api_key", ApiKey.getKey()).Build();
+        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("stages").Path(number).Param("api_key", ApiKey.getToornamentKey()).Build();
         return restTemplateBean.exchange(url );
     }
 
     @RequestMapping("/app/{tournamentId}/stages/{number}/view")
     public String getTournamentStagesByNumberView(@PathVariable("tournamentId") final String tournamentId, @PathVariable("number") final String number) {
-        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("stages").Path(number).Path("view").Param("api_key", ApiKey.getKey()).Build();
+        String url = new URLBuilder().baseUrl(URL+tournamentId).Path("stages").Path(number).Path("view").Param("api_key", ApiKey.getToornamentKey()).Build();
         return restTemplateBean.exchange(url );
     }
 }
