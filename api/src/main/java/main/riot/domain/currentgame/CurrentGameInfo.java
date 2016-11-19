@@ -1,17 +1,16 @@
-package main.riot.domain.featured;
+package main.riot.domain.currentgame;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import main.riot.domain.shared.BannedChampion;
-import main.riot.domain.match.Participant;
 import main.riot.domain.shared.Observer;
+import main.riot.domain.shared.BannedChampion;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jonas on 2016-11-18.
+ * Created by jonas on 2016-11-19.
  */
-public class FeaturedGameInfo {
+public class CurrentGameInfo {
 
     @JsonProperty
     private List<BannedChampion> bannedChampions = new ArrayList<>();
@@ -32,7 +31,7 @@ public class FeaturedGameInfo {
     @JsonProperty
     private Observer observers;
     @JsonProperty
-    private List<Participant> participants = new ArrayList<>();
+    private List<CurrentGameParticipant> participants = new ArrayList<>();
     @JsonProperty
     private String platformId;
 
@@ -40,7 +39,7 @@ public class FeaturedGameInfo {
         return bannedChampions;
     }
 
-    public void setBannedChampions( List<BannedChampion> bannedChampions ) {
+    public void setBannedChampions(List<BannedChampion> bannedChampions) {
         this.bannedChampions = bannedChampions;
     }
 
@@ -48,7 +47,7 @@ public class FeaturedGameInfo {
         return gameId;
     }
 
-    public void setGameId( long gameId ) {
+    public void setGameId(long gameId) {
         this.gameId = gameId;
     }
 
@@ -56,7 +55,7 @@ public class FeaturedGameInfo {
         return gameLength;
     }
 
-    public void setGameLength( long gameLength ) {
+    public void setGameLength(long gameLength) {
         this.gameLength = gameLength;
     }
 
@@ -64,7 +63,7 @@ public class FeaturedGameInfo {
         return gameMode;
     }
 
-    public void setGameMode( String gameMode ) {
+    public void setGameMode(String gameMode) {
         this.gameMode = gameMode;
     }
 
@@ -72,7 +71,7 @@ public class FeaturedGameInfo {
         return gameQueueConfigId;
     }
 
-    public void setGameQueueConfigId( long gameQueueConfigId ) {
+    public void setGameQueueConfigId(long gameQueueConfigId) {
         this.gameQueueConfigId = gameQueueConfigId;
     }
 
@@ -80,7 +79,7 @@ public class FeaturedGameInfo {
         return gameStartTime;
     }
 
-    public void setGameStartTime( long gameStartTime ) {
+    public void setGameStartTime(long gameStartTime) {
         this.gameStartTime = gameStartTime;
     }
 
@@ -88,7 +87,7 @@ public class FeaturedGameInfo {
         return gameType;
     }
 
-    public void setGameType( String gameType ) {
+    public void setGameType(String gameType) {
         this.gameType = gameType;
     }
 
@@ -96,7 +95,7 @@ public class FeaturedGameInfo {
         return mapId;
     }
 
-    public void setMapId( long mapId ) {
+    public void setMapId(long mapId) {
         this.mapId = mapId;
     }
 
@@ -104,15 +103,15 @@ public class FeaturedGameInfo {
         return observers;
     }
 
-    public void setObservers( Observer observers ) {
+    public void setObservers(Observer observers) {
         this.observers = observers;
     }
 
-    public List<Participant> getParticipants() {
+    public List<CurrentGameParticipant> getParticipants() {
         return participants;
     }
 
-    public void setParticipants( List<Participant> participants ) {
+    public void setParticipants(List<CurrentGameParticipant> participants) {
         this.participants = participants;
     }
 
@@ -120,7 +119,7 @@ public class FeaturedGameInfo {
         return platformId;
     }
 
-    public void setPlatformId( String platformId ) {
+    public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
 }

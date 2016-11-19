@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by jonas on 2016-11-18.
  */
 @RestController
-public class FeaturedGamesController {
+public class FeaturedGamesDataController {
 
     @Autowired
     private RestTemplateBean restTemplateBean;

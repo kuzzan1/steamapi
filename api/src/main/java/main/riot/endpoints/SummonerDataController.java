@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by jonas on 2016-11-17.
  */
 @RestController
-public class SummonerController {
+public class SummonerDataController {
+
+    //42893043 - summoner id
 
     @Autowired
     private RestTemplateBean restTemplateBean;

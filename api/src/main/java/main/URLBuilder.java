@@ -1,5 +1,7 @@
 package main;
 
+import main.helper.ApiKey;
+
 /**
  * Created by jonas on 2016-02-09.
  */
@@ -31,5 +33,11 @@ public class URLBuilder {
     public URLBuilder Path(String param) {
         this.url = this.url + "/" + param;
         return this;
+    }
+
+    public String buildRiot() {
+        Param("api_key",ApiKey.getRiotKey());
+        System.out.println(url);
+        return url;
     }
 }

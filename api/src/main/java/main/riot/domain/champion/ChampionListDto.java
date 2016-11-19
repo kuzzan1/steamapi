@@ -2,13 +2,18 @@ package main.riot.domain.champion;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by jonas on 2016-11-16.
  */
 public class ChampionListDto {
+
+    @JsonProperty
+    private List<ChampionDto> champions = new ArrayList<>();
 
     @JsonProperty
     private Map data = new HashMap<String, ChampionDto>( );
@@ -59,5 +64,13 @@ public class ChampionListDto {
 
     public void setVersion( String version ) {
         this.version = version;
+    }
+
+    public List<ChampionDto> getChampions() {
+        return champions;
+    }
+
+    public void setChampions(List<ChampionDto> champions) {
+        this.champions = champions;
     }
 }

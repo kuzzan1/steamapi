@@ -1,4 +1,4 @@
-package main.riot.domain.match;
+package main.riot.domain.shared;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

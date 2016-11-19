@@ -1,6 +1,7 @@
 package main.riot.domain.match;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import main.riot.domain.shared.BannedChampion;
 
 import java.util.ArrayList;
 import java.util.List;

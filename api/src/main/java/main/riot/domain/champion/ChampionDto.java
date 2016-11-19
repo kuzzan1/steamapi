@@ -18,8 +18,6 @@ public class ChampionDto {
     @JsonProperty
     private List<String> enemyTips = new ArrayList<>();
     @JsonProperty
-    private int id;
-    @JsonProperty
     private ImageDto image;
     @JsonProperty
     private InfoDto info;
@@ -45,6 +43,18 @@ public class ChampionDto {
     private List<String> tags = new ArrayList<>();
     @JsonProperty
     private String title;
+    @JsonProperty
+    private boolean active;
+    @JsonProperty
+    private boolean botEnabled;
+    @JsonProperty
+    private boolean botMmEnabled;
+    @JsonProperty
+    private boolean freeToPlay;
+    @JsonProperty
+    private boolean rankedPlayEnabled;
+    @JsonProperty
+    private long id;
 
     public List<String> getAllyTips() {
         return allyTips;
@@ -68,14 +78,6 @@ public class ChampionDto {
 
     public void setEnemyTips( List<String> enemyTips ) {
         this.enemyTips = enemyTips;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId( int id ) {
-        this.id = id;
     }
 
     public ImageDto getImage() {
@@ -180,5 +182,49 @@ public class ChampionDto {
 
     public void setTitle( String title ) {
         this.title = title;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isBotEnabled() {
+        return botEnabled;
+    }
+
+    public void setBotEnabled(boolean botEnabled) {
+        this.botEnabled = botEnabled;
+    }
+
+    public boolean isBotMmEnabled() {
+        return botMmEnabled;
+    }
+
+    public void setBotMmEnabled(boolean botMmEnabled) {
+        this.botMmEnabled = botMmEnabled;
+    }
+
+    public boolean isFreeToPlay() {
+        return freeToPlay;
+    }
+
+    public void setFreeToPlay(boolean freeToPlay) {
+        this.freeToPlay = freeToPlay;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public boolean isRankedPlayEnabled() {
+        return rankedPlayEnabled;
+    }
+
+    public void setRankedPlayEnabled(boolean rankedPlayEnabled) {
+        this.rankedPlayEnabled = rankedPlayEnabled;
     }
 }
