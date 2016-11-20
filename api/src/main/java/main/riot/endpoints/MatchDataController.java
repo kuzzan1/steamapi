@@ -27,8 +27,8 @@ public class MatchDataController {
    }
 
     @RequestMapping("/app/lol/match/summoner/{summonerId}")
-    public MatchList getMatchList(@PathVariable final String summonerId) {
-        String url = new URLBuilder().baseUrl("https://eune.api.pvp.net/api/lol/eune/v2.2/matchlist/by-summoner").Path(summonerId).buildRiot();
+    public MatchList getMatchList(@PathVariable final long summonerId) {
+        String url = new URLBuilder().baseUrl("https://eune.api.pvp.net/api/lol/eune/v2.2/matchlist/by-summoner").Path(String.valueOf(summonerId)).buildRiot();
         return restTemplateBean.exchange(url, MatchList.class);
     }
 

@@ -19,8 +19,8 @@ public class CurrentGameDataController {
     private RestTemplateBean restTemplateBean;
 
     @RequestMapping("/app/lol/current/game/{summonerId}")
-    public CurrentGameInfo getCurrentGameInfo(@PathVariable final String summonerId) {
-        String url = new URLBuilder().baseUrl("https://eune.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUN1").Path(summonerId).Param("api_key", ApiKey.getRiotKey()).Build();
+    public CurrentGameInfo getCurrentGameInfo(@PathVariable final Long summonerId) {
+        String url = new URLBuilder().baseUrl("https://eune.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUN1").Path(String.valueOf(summonerId)).Param("api_key", ApiKey.getRiotKey()).Build();
         return restTemplateBean.exchange(url, CurrentGameInfo.class);
     }
 }

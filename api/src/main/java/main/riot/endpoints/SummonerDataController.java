@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * Created by jonas on 2016-11-17.
  */
@@ -20,8 +24,8 @@ public class SummonerDataController {
     private RestTemplateBean restTemplateBean;
 
     @RequestMapping("app/lol/summoner/{summonerName}")
-    public SummonerDto getSummonerByName( final @PathVariable("summonerName")String summonerName) {
-        String url = new URLBuilder().baseUrl( "https://eune.api.pvp.net/api/lol/eune/v1.4/summoner/by-name" ).Path( summonerName ).Build();
-        return restTemplateBean.exchange( url, SummonerDto.class );
+    public Map<String, LinkedHashMap> getSummonerByName(final @PathVariable("summonerName")String summonerName) {
+        String url = new URLBuilder().baseUrl( "https://eune.api.pvp.net/api/lol/eune/v1.4/summoner/by-name" ).Path( summonerName ).buildRiot();
+        return restTemplateBean.exchange( url, HashMap.class);
     }
 }
