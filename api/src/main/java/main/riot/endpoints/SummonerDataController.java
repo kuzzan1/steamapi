@@ -1,7 +1,8 @@
 package main.riot.endpoints;
 
 import main.URLBuilder;
-import main.riot.domain.summoner.SummonerDto;
+import main.riot.enums.Locales;
+import main.riot.exception.UnsupportedLocaleException;
 import main.steam.bean.RestTemplateBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +24,12 @@ public class SummonerDataController {
     @Autowired
     private RestTemplateBean restTemplateBean;
 
-    @RequestMapping("app/lol/summoner/{summonerName}")
-    public Map<String, LinkedHashMap> getSummonerByName(final @PathVariable("summonerName")String summonerName) {
-        String url = new URLBuilder().baseUrl( "https://eune.api.pvp.net/api/lol/eune/v1.4/summoner/by-name" ).Path( summonerName ).buildRiot();
-        return restTemplateBean.exchange( url, HashMap.class);
+    @RequestMapping("app/lol/{locale}/summoner/{summonerName}")
+    public Map<String, LinkedHashMap> getSummonerByName(@PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
+        if( Locales.contains( locale )) {
+            String url = new URLBuilder().baseUrl( "https://"+locale+".api.pvp.net/api/lol/"+locale+"/v1.4/summoner/by-name" ).Path( summonerName ).buildRiot();
+            return restTemplateBean.exchange( url, HashMap.class);
+        }
+        return null;
     }
 }

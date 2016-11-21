@@ -3,8 +3,11 @@ package main.riot.endpoints;
 import main.URLBuilder;
 import main.helper.ApiKey;
 import main.riot.domain.featured.FeaturedGames;
+import main.riot.enums.Locales;
+import main.riot.exception.UnsupportedLocaleException;
 import main.steam.bean.RestTemplateBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,9 +20,12 @@ public class FeaturedGamesDataController {
     @Autowired
     private RestTemplateBean restTemplateBean;
 
-    @RequestMapping("app/lol/matches/featured")
-    public FeaturedGames getFeaturedGames() {
-        String url = new URLBuilder().baseUrl( "https://eune.api.pvp.net/observer-mode/rest/featured" ).Param( "api_key", ApiKey.getRiotKey() ).Build();
-        return restTemplateBean.exchange( url, FeaturedGames.class );
+    @RequestMapping( "app/lol/{locale}/matches/featured" )
+    public FeaturedGames getFeaturedGames( @PathVariable final String locale ) throws UnsupportedLocaleException {
+        if( Locales.contains( locale ) ) {
+            String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/observer-mode/rest/featured" ).Param( "api_key", ApiKey.getRiotKey() ).Build();
+            return restTemplateBean.exchange( url, FeaturedGames.class );
+        }
+        return null;
     }
 }
