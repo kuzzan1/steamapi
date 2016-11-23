@@ -1,6 +1,8 @@
 package main.riot.endpoints;
 
 import main.URLBuilder;
+import main.riot.enums.Locales;
+import main.riot.exception.UnsupportedLocaleException;
 import main.steam.bean.RestTemplateBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,39 +21,57 @@ public class LeagueDataController {
     @Autowired
     private RestTemplateBean restTemplateBean;
 
-    @RequestMapping("/app/lol/league/summoner/{summonerIds}")
-    public Map getLeagueDataBySummoner(@PathVariable final String summonerIds) {
-        String url = new URLBuilder().baseUrl("https://eune.api.pvp.net/api/lol/eune/v2.5/league/by-summoner").Path(summonerIds).buildRiot();
-        return restTemplateBean.exchange(url, HashMap.class);
+    @RequestMapping("/app/lol/{locale}/league/summoner/{summonerIds}")
+    public Map getLeagueDataBySummoner(@PathVariable final String summonerIds, @PathVariable final String locale) throws UnsupportedLocaleException {
+        if( Locales.contains(locale)) {
+            String url = new URLBuilder().baseUrl("https://"+locale+".api.pvp.net/api/lol/"+locale+"/v2.5/league/by-summoner").Path(summonerIds).buildRiot();
+            return restTemplateBean.exchange(url, HashMap.class);
+        }
+        return null;
     }
 
-    @RequestMapping("/app/lol/league/summoner/{summonerIds}/entry")
-    public Map getLeagueEntryDataBySummoner(@PathVariable final String summonerIds) {
-        String url = new URLBuilder().baseUrl("https://eune.api.pvp.net/api/lol/eune/v2.5/league/by-summoner").Path(summonerIds).Path("entry").buildRiot();
-        return restTemplateBean.exchange(url, HashMap.class);
+    @RequestMapping("/app/lol/{locale}/league/summoner/{summonerIds}/entry")
+    public Map getLeagueEntryDataBySummoner(@PathVariable final String summonerIds, @PathVariable final String locale) throws UnsupportedLocaleException {
+        if( Locales.contains(locale)) {
+            String url = new URLBuilder().baseUrl("https://"+locale+".api.pvp.net/api/lol/"+locale+"/v2.5/league/by-summoner").Path(summonerIds).Path("entry").buildRiot();
+            return restTemplateBean.exchange(url, HashMap.class);
+        }
+        return null;
     }
 
-    @RequestMapping("/app/lol/league/team/{teamIds}")
-    public Map getLeagueDataByTeam(@PathVariable final String teamIds) {
-        String url = new URLBuilder().baseUrl("https://eune.api.pvp.net/api/lol/eune/v2.5/league/by-team").Path(teamIds).buildRiot();
-        return restTemplateBean.exchange(url, HashMap.class);
+    @RequestMapping("/app/lol/{locale}/league/team/{teamIds}")
+    public Map getLeagueDataByTeam(@PathVariable final String teamIds, @PathVariable final String locale) throws UnsupportedLocaleException {
+        if( Locales.contains(locale)) {
+            String url = new URLBuilder().baseUrl("https://"+locale+".api.pvp.net/api/lol/"+locale+"/v2.5/league/by-team").Path(teamIds).buildRiot();
+            return restTemplateBean.exchange(url, HashMap.class);
+        }
+        return null;
     }
 
-    @RequestMapping("/app/lol/league/team/{teamIds}/entry")
-    public Map getLeagueEntryDataByTeam(@PathVariable final String teamIds) {
-        String url = new URLBuilder().baseUrl("https://eune.api.pvp.net/api/lol/eune/v2.5/league/by-team").Path(teamIds).Path("entry").buildRiot();
-        return restTemplateBean.exchange(url, HashMap.class);
+    @RequestMapping("/app/lol/{locale}/league/team/{teamIds}/entry")
+    public Map getLeagueEntryDataByTeam(@PathVariable final String teamIds, @PathVariable final String locale) throws UnsupportedLocaleException {
+        if( Locales.contains(locale)) {
+            String url = new URLBuilder().baseUrl("https://"+locale+".api.pvp.net/api/lol/"+locale+"/v2.5/league/by-team").Path(teamIds).Path("entry").buildRiot();
+            return restTemplateBean.exchange(url, HashMap.class);
+        }
+        return null;
     }
 
-    @RequestMapping("/app/lol/league/challenger")
-    public Map getChallengerData() {
-        String url = new URLBuilder().baseUrl("https://eune.api.pvp.net/api/lol/eune/v2.5/league/challenger").Param("type", "RANKED_FLEX_SR").buildRiot();
-        return restTemplateBean.exchange(url, HashMap.class);
+    @RequestMapping("/app/lol/{locale}/league/challenger")
+    public Map getChallengerData(@PathVariable final String locale) throws UnsupportedLocaleException {
+        if( Locales.contains(locale)) {
+            String url = new URLBuilder().baseUrl("https://"+locale+".api.pvp.net/api/lol/"+locale+"/v2.5/league/challenger").Param("type", "RANKED_FLEX_SR").buildRiot();
+            return restTemplateBean.exchange(url, HashMap.class);
+        }
+        return null;
     }
 
-    @RequestMapping("/app/lol/league/master")
-    public Map getMasterData() {
-        String url = new URLBuilder().baseUrl("https://eune.api.pvp.net/api/lol/eune/v2.5/league/master").Param("type", "RANKED_FLEX_SR").buildRiot();
-        return restTemplateBean.exchange(url, HashMap.class);
+    @RequestMapping("/app/lol/{locale}/league/master")
+    public Map getMasterData(@PathVariable final String locale) throws UnsupportedLocaleException {
+        if( Locales.contains(locale)) {
+            String url = new URLBuilder().baseUrl("https://"+locale+".api.pvp.net/api/lol/"+locale+"/v2.5/league/master").Param("type", "RANKED_FLEX_SR").buildRiot();
+            return restTemplateBean.exchange(url, HashMap.class);
+        }
+        return null;
     }
 }
