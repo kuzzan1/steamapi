@@ -2,7 +2,9 @@ package main.riot.endpoints;
 
 import main.URLBuilder;
 import main.riot.domain.currentgame.CurrentGameInfo;
+import main.riot.domain.match.Match;
 import main.riot.domain.match.MatchList;
+import main.riot.domain.match.MatchReference;
 import main.riot.domain.summoner.SummonerDto;
 import main.riot.domain.summoner.SummonerWithMatches;
 import main.steam.bean.RestTemplateBean;
@@ -45,19 +47,24 @@ public class PlayerMatchesDataController {
         sleep();
 
         MatchList matchList = matchDataController.getMatchList(summonerId);
-
+        List<Match> deeperMatchList = new ArrayList<>();
+        for(int i = 0; i < 7; i++) {
+            MatchReference matchReference = matchList.getMatches().get(i);
+            sleep();
+            deeperMatchList.add(matchDataController.getMatch(matchReference.getMatchId()));
+        }
         sleep();
 
         CurrentGameInfo currentGameInfo = currentGameDataController.getCurrentGameInfo(summonerId);
 
-        return new SummonerWithMatches(summoner, matchList, currentGameInfo);
+        return new SummonerWithMatches(summoner, matchList, currentGameInfo, deeperMatchList);
     }
 
 
     private void sleep() {
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
 
         }

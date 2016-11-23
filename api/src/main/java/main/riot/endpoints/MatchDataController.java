@@ -21,8 +21,8 @@ public class MatchDataController {
 
 
    @RequestMapping("/app/lol/match/{matchId}")
-    public Match getMatch( @PathVariable("matchId") final String matchId) {
-       String url = new URLBuilder().baseUrl( "https://eune.api.pvp.net/api/lol/eune/v2.2/match" ).Path( matchId ).Param( "api_key", ApiKey.getRiotKey() ).Build();
+    public Match getMatch( @PathVariable("matchId") final long matchId) {
+       String url = new URLBuilder().baseUrl( "https://eune.api.pvp.net/api/lol/eune/v2.2/match" ).Path( String.valueOf(matchId) ).Param( "api_key", ApiKey.getRiotKey() ).Build();
        return restTemplateBean.exchange(url, Match.class);
    }
 

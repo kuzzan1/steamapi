@@ -2,13 +2,13 @@ package main.riot.domain.summoner;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import main.riot.domain.currentgame.CurrentGameInfo;
+import main.riot.domain.match.Match;
 import main.riot.domain.match.MatchList;
 import main.riot.domain.match.MatchReference;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by jonas on 2016-11-20.
@@ -18,13 +18,15 @@ public class SummonerWithMatches {
     @JsonProperty
     private SummonerDto summoner;
     @JsonProperty
-    private List<MatchReference> matches = new ArrayList<>();
+    private List<MatchReference> matchReferences = new ArrayList<>();
     @JsonProperty
     private int totalGames;
     @JsonProperty
     private  CurrentGameInfo currentGameInfo;
+    @JsonProperty
+    private List<Match> matches = new ArrayList<>();
 
-    public SummonerWithMatches(LinkedHashMap summonerDto, MatchList matchList, CurrentGameInfo currentGameInfo) {
+    public SummonerWithMatches(LinkedHashMap summonerDto, MatchList matchList, CurrentGameInfo currentGameInfo, List<Match> deeperMatchList) {
         SummonerDto summonerCopy = new SummonerDto();
         summonerCopy.setId(Long.valueOf((Integer) summonerDto.get("id")));
         summonerCopy.setName((String) summonerDto.get("name"));
@@ -32,8 +34,9 @@ public class SummonerWithMatches {
         summonerCopy.setSummonerLevel(Long.valueOf((Integer)summonerDto.get("summonerLevel")));
         this.summoner = summonerCopy;
         this.totalGames = matchList.getTotalGames();
-        this.matches = matchList.getMatches();
+//        this.matchReferences = matchList.getMatches();
         this.currentGameInfo = currentGameInfo;
+        this.matches = deeperMatchList;
     }
 
     public SummonerDto getSummoner() {
@@ -44,13 +47,13 @@ public class SummonerWithMatches {
         this.summoner = summoner;
     }
 
-    public List<MatchReference> getMatches() {
-        return matches;
+  /*  public List<MatchReference> getMatchReferences() {
+        return matchReferences;
     }
 
-    public void setMatches(List<MatchReference> matches) {
-        this.matches = matches;
-    }
+    public void setMatchReferences(List<MatchReference> matchReferences) {
+        this.matchReferences = matchReferences;
+    }*/
 
     public int getTotalGames() {
         return totalGames;
