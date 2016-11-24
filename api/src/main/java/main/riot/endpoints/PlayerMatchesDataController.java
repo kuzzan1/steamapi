@@ -3,6 +3,7 @@ package main.riot.endpoints;
 import main.riot.domain.currentgame.CurrentGameInfo;
 import main.riot.domain.match.Match;
 import main.riot.domain.match.MatchList;
+import main.riot.domain.match.MatchReference;
 import main.riot.domain.summoner.SummonerWithMatches;
 import main.riot.enums.Locales;
 import main.riot.exception.UnsupportedLocaleException;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,18 +46,20 @@ public class PlayerMatchesDataController {
 
             sleep();
 
-        MatchList matchList = matchDataController.getMatchList(summonerId);
-        List<Match> deeperMatchList = new ArrayList<>();
-        for(int i = 0; i < 7; i++) {
-            MatchReference matchReference = matchList.getMatches().get(i);
+            MatchList matchList = matchDataController.getMatchList(summonerId, locale);
+            List<Match> deeperMatchList = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                MatchReference matchReference = matchList.getMatches().get(i);
+                sleep();
+                deeperMatchList.add(matchDataController.getMatch(matchReference.getMatchId(), locale));
+            }
             sleep();
-            deeperMatchList.add(matchDataController.getMatch(matchReference.getMatchId()));
-        }
-        sleep();
 
             CurrentGameInfo currentGameInfo = currentGameDataController.getCurrentGameInfo(summonerId, locale);
 
-        return new SummonerWithMatches(summoner, matchList, currentGameInfo, deeperMatchList);
+            return new SummonerWithMatches(summoner, matchList, currentGameInfo, deeperMatchList);
+        }
+        return null;
     }
 
 

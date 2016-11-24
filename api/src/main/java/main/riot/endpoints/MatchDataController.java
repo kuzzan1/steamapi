@@ -23,9 +23,9 @@ public class MatchDataController {
 
 
    @RequestMapping("/app/lol/{locale}/match/{matchId}")
-    public Match getMatch( @PathVariable("matchId") final String matchId, @PathVariable final String locale) throws UnsupportedLocaleException {
+    public Match getMatch( @PathVariable("matchId") final Long matchId, @PathVariable final String locale) throws UnsupportedLocaleException {
        if( Locales.contains(locale)) {
-           String url = new URLBuilder().baseUrl( "https://"+locale+".api.pvp.net/api/lol/"+locale+"/v2.2/match" ).Path( matchId ).Param( "api_key", ApiKey.getRiotKey() ).Build();
+           String url = new URLBuilder().baseUrl( "https://"+locale+".api.pvp.net/api/lol/"+locale+"/v2.2/match" ).Path( String.valueOf(matchId) ).buildRiot();
            return restTemplateBean.exchange(url, Match.class);
        }
        return null;
