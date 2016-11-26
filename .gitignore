@@ -1,3 +1,6 @@
 .idea/
 .DS_Store
 npm-debug.log
+api/.classpath
+api/.project
+api/.settings

@@ -45,7 +45,7 @@ public class RestTemplateBean implements FactoryBean<RestTemplate>, Initializing
     }
 
     public <T> T exchange( String url, HttpEntity<String> entity, Class<T> clazz, HttpMethod httpMethod ) {
-        System.out.println( url );
+        System.out.println("Call: " + url );
         T body = null;
         try {
             body = clazz.newInstance();
