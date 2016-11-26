@@ -1,3 +1,5 @@
+package main.riot.calculator;
+
 /**
  * 
  */
@@ -156,7 +158,7 @@ public class WinPercentageCalculator {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		boolean [] t1Participant1Wins = new boolean [] {true,false,false,true,true,true,true};
 		boolean [] t1Participant2Wins = new boolean [] {true,false,false,true,true,true,true};
 		boolean [] t1Participant3Wins = new boolean [] {false,false,false,false,false,false,false};
@@ -272,6 +274,6 @@ public class WinPercentageCalculator {
 		System.out.println("Team1 to win " + calc.calculateTeamWinPercents(team1WinningWithoutChampions, team1WinningWithChampions, team2WinningWithoutChampions, team2WinningWithChampions)[0] + "%" + 
 				"\t" + "Team2 to win " + calc.calculateTeamWinPercents(team1WinningWithoutChampions, team1WinningWithChampions, team2WinningWithoutChampions, team2WinningWithChampions)[1] + "%");
 		
-	}
+	}*/
 
 }
