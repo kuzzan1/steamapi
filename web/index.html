@@ -1,0 +1,75 @@
+<html> 
+	<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta charset="UTF-8">
+	<title>LoL Summoner Live Game Predictor</title>
+	<link rel="stylesheet" type="text/css" href="style.css?version=2">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="main.js?version=4"></script>
+	</head>
+	<body>
+		<div class="bodyContainer">
+			<div class="titleContainer">
+				<div class="title">LoL Summoner Live Game Predictor</div>
+			</div>
+			<div id="firstView">
+				<div class="searchSummonerDiv">
+					<select class="searchRegionSelect">
+						<option value="EUNE">EUNE</option>
+						<option value="EUW">EUW</option>
+						<option value="LAN">LAN</option>
+						<option value="LAS">LAS</option>
+						<option value="NA">NA</option>
+						<option value="OCE">OCE</option>
+						<option value="RU">RU</option>
+						<option value="TR">TR</option>
+						<option value="BR">BR</option>
+						<option value="JP">JP</option>
+						<option value="KR">KR</option>
+					</select>
+					<input type="text" class="searchSummonerTextBox"/>
+					<input type="submit" id="searchSummonerButtom" class="searchSummonerSubmit" value="Go!"/>
+				</div>
+			</div>
+			<div id="matchView" style="display: none;">
+				<div id="loadingInfo"></div>
+				<div class="matches">
+				<div class="matchData halfBox matchTopBox">
+						<div class="matchDataInfo">
+						Last Game
+						<br>Game id: <span id="gameId"></span>
+						<br>Game Date: <span id="gameDate"></span>
+						</div>
+				</div>
+				<div class="summonerInfo halfBox matchTopBox">
+						<div class="summonerPicture">
+							<img id="summonerImage" src=""/>
+						</div>
+						<div class="summonerTextData"> 
+							Summoner: <span id=summonerName"><span id="summonerName"></span> (id: <span id="summonerID"></span>) 
+							<br>Played Matches: <span id="summonerMatchNumber"></span>
+							<br>Level: <span id="summonerLevel"></span>
+						</div>
+				</div>
+					
+					<div class="participantsData"><div class="participantsTitle">Teams:</div>
+						<!-- <span id="participantsList"></span> -->
+						<div class="teamDiv halfBox teamBlue">
+							<div class="teamElements " id="teamBlueElements"></div>
+							<div class="teamPerc"><div class="percText" id="redPerc">50%</div></div>
+						</div>
+							
+						<div class="teamDiv halfBox teamRed">
+							<div class="teamElements " id="teamRedElements"></div>
+							<div class="teamPerc" id="redPerc"><div class="percText" id="bluePerc">50%</div></div>
+						</div>			
+					</div>
+				</div>
+				<div class="error"></div>
+			</div>
+		</div>	
+		<div id="bottomDisclaimer">
+		 LoL Summoner Live Game Predictor isn’t endorsed by Riot Games and doesn’t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc. 
+		</div>
+	</body>
+</html>

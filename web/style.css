@@ -1,0 +1,176 @@
+body{
+	height:100%;
+	background-image: url("bg.jpg");
+	background-color: #000000;
+	color: #ffffff;
+	margin: 0px;
+}
+
+.bodyContainer
+{
+	min-height: 90%;
+}
+
+.titleContainer{
+	padding-top: 60px;
+}
+
+.title{
+	padding: 8px;
+	width: 450px;
+	margin: 0 auto;
+	font-size: 30px;
+	color: #ff9900;
+	background: rgba(0, 0, 0, 0.4);
+	margin-bottom: 20px;
+ }
+ 
+.searchSummonerDiv{
+	width: 420px;
+	margin: 0 auto;
+ }
+ 
+ 
+.searchRegionSelect
+{
+  height: 40px;
+  font-size: 14px;
+  width: 70px;
+  vertical-align:top;
+}
+
+ .searchSummonerTextBox{
+     height: 40px;
+	 font-size: 20px;
+	 width: 250px;
+	 padding: 5px;
+ }
+ 
+ .searchSummonerSubmit{
+	width: 80px;
+	height: 40px;
+	font-size: 20px;
+	border: 0px;
+	background-color: #0080ff;
+	cursor: pointer;
+ }
+ 
+ .searchSummonerSubmit:hover{
+	background-color: #0063d6;
+ }
+ 
+ #matchView{
+	margin: 0 auto;
+	margin-top: 20px;
+	padding: 10px;
+	background: rgba(20, 20, 20, 0.95);
+	width: 800px;
+	max-width: 900px;
+ }
+ 
+ .halfBox{
+	box-sizing: border-box;
+	padding: 10px;
+	width: 390px;
+	float: left;
+ }
+ 
+ .error{
+	color: red;
+}
+
+.matches
+{
+	overflow:auto;
+}
+
+.summonerInfo
+{
+	background-color: #4f5660;
+	display: inline-flex; 
+	margin-left: 10px;
+}
+
+.summonerPicture{
+	float: left;
+	display: flex;
+    align-items: center;
+}
+
+.summonerTextData{
+	float: left;
+	margin-left: 10px;
+}
+
+.matchData{
+	background-color: #4c759b;
+}
+
+.participantsData
+{
+	width: 100%;
+	float: left;
+	margin-top: 10px;
+}
+
+.teamDiv{
+	padding: 5px 5px 5px 5px;
+	margin: 5px 5px 0px 0px;
+}
+ 
+ .participantsTitle
+ {
+	 font-size: 16px;
+} 
+ 
+ 
+ .teamRed{
+	margin-left: 5px;
+	background: rgba(122, 0, 0, 0.2);
+ }
+ 
+ .teamBlue{
+	background: rgba(0, 0, 122, 0.2);
+ }
+ 
+ .teamPerc{
+	margin: 0 auto;
+	margin-top: 5px;
+	font-size: 40px;
+	width: 90px;
+	height: 70px;
+	text-align: center;
+	display: flex;
+ }
+ 
+ .percText{
+	padding: 10px 10px 10px 10px;
+	background: rgba(0, 0, 0, 0.5);
+ }
+ 
+ .teamElements 
+ {
+	padding: 5px;
+	background: rgba(0, 0, 0, 0.2);
+ }
+ 
+ .playerBox{
+	padding: 4px;
+	display: flex;
+	align-items: center;
+ }
+ 
+ .playerPicture{
+	float: left;
+	margin-right: 5px;
+ }
+ 
+ 
+ 
+#bottomDisclaimer
+{
+	margin-top: 10px;
+	background: rgba(20, 20, 20, 0.8);
+	padding: 0px 5px 0px 5px;
+	font-size: 14px;
+}
