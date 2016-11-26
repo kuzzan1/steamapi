@@ -37,7 +37,7 @@ public class URLBuilder {
 
     public String buildRiot() {
         Param("api_key",ApiKey.getRiotKey());
-        System.out.println(url);
+        //System.out.println("URLBuilder: " + url);
         return url;
     }
 }
