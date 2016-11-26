@@ -1,15 +1,27 @@
 package main.riot.calculator;
 
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author Petteri
  *
  */
+@Component
 public class WinPercentageCalculator {
 
     /**
      *
+     * @param playerWins
      */
+
+    public double getWinPercentOnPlayer(Boolean[] playerWins) {
+        WinPercentageCalculator calc = new WinPercentageCalculator();
+        return calc.calculateParticipantsWinProbability(playerWins);
+    }
+
+
+
     public WinPercentageCalculator() {
     }
 
@@ -120,11 +132,26 @@ public class WinPercentageCalculator {
         }
     }
 
+    public double calculateParticipantsWinProbability(Boolean [] wins) {
+        double count = 0.0;
+        double winCount = 0.0;
+        for (int i = 0; i < wins.length; i++) {
+            if (wins[i]) {
+                winCount = winCount + 1.0;
+            }
+            count = count + 1.0;
+        }
+        if (count == 0.0) {
+            return 0.0;
+        }
+        return winCount / count;
+    }
+
     public double calculateParticipantsWinProbability(boolean [] wins) {
         double count = 0.0;
         double winCount = 0.0;
         for (int i = 0; i < wins.length; i++) {
-            if (wins[i] == true) {
+            if (wins[i]) {
                 winCount = winCount + 1.0;
             }
             count = count + 1.0;
