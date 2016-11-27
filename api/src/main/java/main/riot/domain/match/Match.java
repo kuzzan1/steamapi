@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by jonas on 2016-11-16.
  */
-public class Match {
+public class Match implements IMatchInfo {
     @JsonProperty
     private int mapId;
     @JsonProperty
@@ -100,6 +100,14 @@ public class Match {
     }
 
     public void setParticipantIdentities( List<ParticipantIdentity> participantIdentities ) {
+    	//Set participaints summonerID:
+    	if(participants != null)
+    	{
+    		for(int i=0; i<participantIdentities.size();i++)
+    		{
+    			participants.get(i).setSummonerId(participantIdentities.get(i).getPlayer().getSummonerId());
+    		}
+    	}
         this.participantIdentities = participantIdentities;
     }
 
@@ -108,6 +116,14 @@ public class Match {
     }
 
     public void setParticipants( List<Participant> participants ) {
+    	//Set participaints summonerID:
+    	if(participantIdentities != null)
+    	{
+    		for(int i=0; i<participantIdentities.size();i++)
+    		{
+    			participants.get(i).setSummonerId(participantIdentities.get(i).getPlayer().getSummonerId());
+    		}
+    	}
         this.participants = participants;
     }
 
@@ -158,4 +174,14 @@ public class Match {
     public void setTimeLine( TimeLine timeLine ) {
         this.timeLine = timeLine;
     }
+
+	@Override
+	public long getId() {
+		return matchId;
+	}
+
+	@Override
+	public List<? extends IParticipant> getMatchParticipants() {
+		return participants;
+	}
 }

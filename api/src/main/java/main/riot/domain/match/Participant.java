@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by jonas on 2016-11-16.
  */
-public class Participant {
+public class Participant implements IParticipant {
     @JsonProperty
     private int championId;
     @JsonProperty
@@ -25,7 +25,7 @@ public class Participant {
     @JsonProperty
     private ParticipantStats stats;
     @JsonProperty
-    private int teamId;
+    private long teamId;
     @JsonProperty
     private ParticipantTimeline timeline;
     @JsonProperty
@@ -34,6 +34,8 @@ public class Participant {
     private boolean bot;
     @JsonProperty
     private long profileIconId;
+    
+	private long summonerId;
 
 
     public int getChampionId() {
@@ -42,6 +44,10 @@ public class Participant {
 
     public void setChampionId( int championId ) {
         this.championId = championId;
+    }
+    
+    public void setSummonerId( long summonerId ) {
+        this.summonerId = summonerId;
     }
 
     public String getHighestAchievedSeasonTier() {
@@ -100,7 +106,7 @@ public class Participant {
         this.stats = stats;
     }
 
-    public int getTeamId() {
+    public long getTeamId() {
         return teamId;
     }
 
@@ -115,4 +121,9 @@ public class Participant {
     public void setTimeline( ParticipantTimeline timeline ) {
         this.timeline = timeline;
     }
+
+	@Override
+	public long getSummonerId() {
+		return summonerId;
+	}
 }

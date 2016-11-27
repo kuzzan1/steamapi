@@ -28,7 +28,7 @@ public class WinPercentageCalculator {
     public WinPercentageCalculator() {
     }
 
-    public double [] calculateTeamWinPercents(double [] team1participantProbs, double [] team2participantProbs) {
+    public Double [] calculateTeamWinPercents(double [] team1participantProbs, double [] team2participantProbs) {
         double team1Winning = 1.0;
         double team2Winning = 1.0;
         double team1Losing = 1.0;
@@ -36,15 +36,15 @@ public class WinPercentageCalculator {
 
         if (testIfZeroInput(team1participantProbs) && testIfZeroInput(team1participantProbs)) {
             // no data
-            return new double[] {0.0, 0.0};
+            return new Double[] {0.0, 0.0};
         }
         else if (testIfZeroInput(team1participantProbs)) {
             // team2 100%
-            return new double[] {0.0, 100.0};
+            return new Double[] {0.0, 100.0};
         }
         else if (testIfZeroInput(team2participantProbs)) {
             // team1 100%
-            return new double[] {100.0, 0.0};
+            return new Double[] {100.0, 0.0};
         }
         else {
             for (int i = 0; i < team1participantProbs.length; i++) {
@@ -76,7 +76,7 @@ public class WinPercentageCalculator {
             double t1WinPercent = 100.0 * (t1Winning / (t1Winning + t1Losing));
             double t2WinPercent = 100.0 - t1WinPercent;
 
-            return new double[] {t1WinPercent, t2WinPercent};
+            return new Double[] {t1WinPercent, t2WinPercent};
         }
     }
 

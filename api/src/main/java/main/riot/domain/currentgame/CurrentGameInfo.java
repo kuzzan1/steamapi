@@ -1,16 +1,19 @@
 package main.riot.domain.currentgame;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import main.riot.domain.shared.Observer;
-import main.riot.domain.shared.BannedChampion;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import main.riot.domain.match.IMatchInfo;
+import main.riot.domain.match.IParticipant;
+import main.riot.domain.shared.BannedChampion;
+import main.riot.domain.shared.Observer;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by jonas on 2016-11-19.
  */
-public class CurrentGameInfo {
+public class CurrentGameInfo implements IMatchInfo {
 
     @JsonProperty
     private List<BannedChampion> bannedChampions = new ArrayList<>();
@@ -122,4 +125,14 @@ public class CurrentGameInfo {
     public void setPlatformId(String platformId) {
         this.platformId = platformId;
     }
+
+	@Override
+	public long getId() {
+		return gameId;
+	}
+
+	@Override
+	public List<? extends IParticipant> getMatchParticipants() {
+		return participants;
+	}
 }
