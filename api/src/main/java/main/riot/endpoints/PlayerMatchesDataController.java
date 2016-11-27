@@ -41,7 +41,7 @@ public class PlayerMatchesDataController {
     private PlayerWinHelper playerWinHelper;
 
     @RequestMapping("/app/lol/{locale}/summoner/{summonerName}/matches")
-    public SummonerWithMatches getPlayerMatchData(@PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
+    public Object getPlayerMatchData(@PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
         if( Locales.contains( locale )) {
             Map<String, LinkedHashMap> summonerByName = summonerDataController.getSummonerByName(summonerName, locale);
             LinkedHashMap summoner = summonerByName.get(summonerName);
@@ -50,7 +50,7 @@ public class PlayerMatchesDataController {
             sleep();
 
             MatchList matchList = matchDataController.getMatchList(summonerId, locale);
-            List<Match> deeperMatchList = get7LatestMatches(locale, matchList);
+            List<Match> deeperMatchList = getLatestMatch(locale, matchList);
             sleep();
 
             CurrentGameInfo currentGameInfo = currentGameDataController.getCurrentGameInfo(summonerId, locale);
@@ -60,9 +60,9 @@ public class PlayerMatchesDataController {
         return null;
     }
 
-    private List<Match> get7LatestMatches(@PathVariable String locale, MatchList matchList) throws UnsupportedLocaleException {
+    private List<Match> getLatestMatch(@PathVariable String locale, MatchList matchList) throws UnsupportedLocaleException {
         List<Match> deeperMatchList = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 1; i++) {
             MatchReference matchReference = matchList.getMatches().get(i);
             sleep();
             deeperMatchList.add(matchDataController.getMatch(matchReference.getMatchId(), locale));
@@ -78,7 +78,7 @@ public class PlayerMatchesDataController {
             LinkedHashMap summoner = summonerByName.get(summonerName);
             Long summonerId = Long.valueOf((Integer) summoner.get("id"));
             sleep();
-            List<Match> latestMatches = get7LatestMatches(locale, matchDataController.getMatchList(summonerId, locale));
+            List<Match> latestMatches = getLatestMatch(locale, matchDataController.getMatchList(summonerId, locale));
             return getWinRateForSummoner(latestMatches, summonerId);
         }
         return -1;
@@ -104,7 +104,7 @@ public class PlayerMatchesDataController {
                     teamMatches.put(currentGameParticipant.getTeamId(), new HashMap<>());
                 }
                 if(!matchList.getMatches().isEmpty()) {
-                    teamMatches.get(currentGameParticipant.getTeamId()).put(currentGameParticipant.getSummonerId(), get7LatestMatches(locale, matchList));
+                    teamMatches.get(currentGameParticipant.getTeamId()).put(currentGameParticipant.getSummonerId(), getLatestMatch(locale, matchList));
                 }
                 else {
                     teamMatches.get(currentGameParticipant.getTeamId()).put(currentGameParticipant.getSummonerId(), new ArrayList<>());
@@ -138,7 +138,7 @@ public class PlayerMatchesDataController {
     private void sleep() {
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
 
         }

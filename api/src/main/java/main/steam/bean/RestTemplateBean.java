@@ -4,9 +4,11 @@ import org.apache.http.HttpHost;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -56,10 +58,16 @@ public class RestTemplateBean implements FactoryBean<RestTemplate>, Initializing
 
         try {
             ResponseEntity<T> exchange = getObject().exchange( url, httpMethod, entity, clazz );
+            System.out.println("X-Rate-Limit-Count" + exchange.getHeaders().get("X-Rate-Limit-Count"));
             body = exchange.getBody();
 
         } catch ( Exception e ) {
-            System.out.println( e.getMessage() );
+            if(e instanceof HttpClientErrorException) {
+                HttpHeaders responseHeaders = ((HttpClientErrorException) e).getResponseHeaders();
+                System.out.println(e.getMessage() + ": " + responseHeaders.get("X-Rate-Limit-Count"));
+            } else {
+                System.out.println( e.getMessage());
+            }
         }
         return body;
     }
