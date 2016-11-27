@@ -1,8 +1,16 @@
 package main.riot.endpoints;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import main.riot.calculator.WinPercentageCalculator;
 import main.riot.domain.currentgame.CurrentGameInfo;
-import main.riot.domain.currentgame.CurrentGameParticipant;
+import main.riot.domain.match.IMatchInfo;
+import main.riot.domain.match.IParticipant;
 import main.riot.domain.match.Match;
 import main.riot.domain.match.MatchList;
 import main.riot.domain.match.MatchReference;
@@ -11,12 +19,11 @@ import main.riot.enums.Locales;
 import main.riot.exception.UnsupportedLocaleException;
 import main.riot.helper.PlayerWinHelper;
 import main.steam.bean.RestTemplateBean;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.*;
 
 /**
  * Created by jonas on 2016-11-20.
@@ -50,7 +57,7 @@ public class PlayerMatchesDataController {
             sleep();
 
             MatchList matchList = matchDataController.getMatchList(summonerId, locale);
-            List<Match> deeperMatchList = getLatestMatch(locale, matchList);
+            List<Match> deeperMatchList = getLatestMatches(locale, matchList, 1);
             sleep();
 
             CurrentGameInfo currentGameInfo = currentGameDataController.getCurrentGameInfo(summonerId, locale);
@@ -60,9 +67,9 @@ public class PlayerMatchesDataController {
         return null;
     }
 
-    private List<Match> getLatestMatch(@PathVariable String locale, MatchList matchList) throws UnsupportedLocaleException {
+    private List<Match> getLatestMatches(@PathVariable String locale, MatchList matchList, int number) throws UnsupportedLocaleException {
         List<Match> deeperMatchList = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < number && i < matchList.getMatches().size(); i++) {
             MatchReference matchReference = matchList.getMatches().get(i);
             sleep();
             deeperMatchList.add(matchDataController.getMatch(matchReference.getMatchId(), locale));
@@ -78,7 +85,7 @@ public class PlayerMatchesDataController {
             LinkedHashMap summoner = summonerByName.get(summonerName);
             Long summonerId = Long.valueOf((Integer) summoner.get("id"));
             sleep();
-            List<Match> latestMatches = getLatestMatch(locale, matchDataController.getMatchList(summonerId, locale));
+            List<Match> latestMatches = getLatestMatches(locale, matchDataController.getMatchList(summonerId, locale), 1);
             return getWinRateForSummoner(latestMatches, summonerId);
         }
         return -1;
@@ -86,7 +93,7 @@ public class PlayerMatchesDataController {
 
 
     @RequestMapping("/app/lol/{locale}/summoner/{summonerName}/winRate/currentMatch")
-    public Map<Long, List<Double>> getSummonersWinRateCurrentMatch(@PathVariable final String summonerName, @PathVariable final String locale ) throws UnsupportedLocaleException{
+    public List<Double> getSummonersWinRateCurrentMatch(@PathVariable final String summonerName, @PathVariable final String locale ) throws UnsupportedLocaleException{
         if( Locales.contains( locale )) {
             Map<Long, List<Double>> teamWinRates = new HashMap<>();
 
@@ -95,16 +102,23 @@ public class PlayerMatchesDataController {
             Long summonerId = Long.valueOf((Integer) summoner.get("id"));
             Map<Long, Map<Long, List<Match>>> teamMatches = new HashMap<>();
 
-            CurrentGameInfo currentGameInfo = currentGameDataController.getCurrentGameInfo(summonerId, locale);
+			IMatchInfo currentGameInfo = currentGameDataController.getCurrentGameInfo(summonerId, locale);
 
-            for (CurrentGameParticipant currentGameParticipant : currentGameInfo.getParticipants()) {
+			if (currentGameInfo.getId() == 0) {
+				List<Match> lastMatch = getLatestMatches(locale, matchDataController.getMatchList(summonerId, locale), 1);
+				if (lastMatch.size() > 0) {
+					currentGameInfo = lastMatch.get(0);
+				}
+			}
+
+            for (IParticipant currentGameParticipant : currentGameInfo.getMatchParticipants()) {
                 MatchList matchList = matchDataController.getMatchList(currentGameParticipant.getSummonerId(), locale);
 
                 if(teamMatches.get(currentGameParticipant.getTeamId()) == null) {
                     teamMatches.put(currentGameParticipant.getTeamId(), new HashMap<>());
                 }
                 if(!matchList.getMatches().isEmpty()) {
-                    teamMatches.get(currentGameParticipant.getTeamId()).put(currentGameParticipant.getSummonerId(), getLatestMatch(locale, matchList));
+                    teamMatches.get(currentGameParticipant.getTeamId()).put(currentGameParticipant.getSummonerId(), getLatestMatches(locale, matchList, 1));
                 }
                 else {
                     teamMatches.get(currentGameParticipant.getTeamId()).put(currentGameParticipant.getSummonerId(), new ArrayList<>());
@@ -121,12 +135,36 @@ public class PlayerMatchesDataController {
                     teamWinRates.get(teamsSummonersMap.getKey()).add(getWinRateForSummoner(summonerMatches.getValue(), summonerMatches.getKey()));
                 }
             }
-            return teamWinRates;
+          return getPercForTeamsWinRate(teamWinRates);
         }
         return null;
-
     }
 
+	private List<Double> getPercForTeamsWinRate(Map<Long, List<Double>> teamWinRates) {
+		List<Double> team1 = new ArrayList<>();
+		List<Double> team2 = new ArrayList<>();
+		
+		int i = 0;
+		for (List<Double> value : teamWinRates.values()) {
+			if (i == 0) {
+				team1 = value;
+			} else {
+				team2 = value;
+				break;
+			}
+			i++;
+		}
+		
+		  WinPercentageCalculator calc = new WinPercentageCalculator();            
+          return Arrays.asList(calc.calculateTeamWinPercents(toDoubleArray(team1), toDoubleArray(team2)));
+	}
+	
+	double[] toDoubleArray(List<Double> list) {
+		double[] ret = new double[list.size()];
+		for (int i = 0; i < ret.length; i++)
+			ret[i] = list.get(i);
+		return ret;
+	}
 
 
     private double getWinRateForSummoner(List<Match> lastMatches, long summonerId) {

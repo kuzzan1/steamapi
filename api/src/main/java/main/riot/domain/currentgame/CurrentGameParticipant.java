@@ -1,6 +1,8 @@
 package main.riot.domain.currentgame;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import main.riot.domain.match.IParticipant;
 import main.riot.domain.match.Mastery;
 import main.riot.domain.match.Rune;
 
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * Created by jonas on 2016-11-19.
  */
-public class CurrentGameParticipant {
+public class CurrentGameParticipant implements IParticipant {
 
     @JsonProperty
     private boolean bot;
