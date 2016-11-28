@@ -26,7 +26,7 @@ public class URLBuilder {
     }
 
     public String Build() {
-        System.out.println(url);
+        System.out.println("Build URL: " + url);
         return url;
     }
 
