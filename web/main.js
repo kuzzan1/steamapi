@@ -71,7 +71,14 @@ var app = (function() {
 		$(elementSelector).html(participantsText);
 	}
 	
-	function showData(data, status) {
+	function showPercentages(data, status) {
+		callData = data;
+		callStatus = status;
+		setText("#redPerc", callData[0] + "%");
+		setText("#bluePerc", callData[1] + "%");
+	}
+	
+	function showSummonerAndTeamData(data, status) {
 		callData = data;
 		callStatus = status;
 		
@@ -82,6 +89,7 @@ var app = (function() {
 			saveParticipants(callData.currentGameInfo);
 			setBlueTeam();
 			setReadTeam();
+			$(".participantsData").show();	
 		}
 		else if(callData.matches.length  > 0) //No current game data, use first match:
 		{
@@ -91,23 +99,65 @@ var app = (function() {
 			saveParticipants(currMatch);
 			setBlueTeam();
 			setReadTeam();
+			$(".participantsData").show();	
 		}
 		else
 		{
 			setText("#gameId","No match found");
+			$(".participantsData").hide();	
 		}
 		setText("#summonerName",callData.summoner.name);
 		setText("#summonerID",callData.summoner.id);
 		setText("#summonerMatchNumber",callData.totalGames);
 		setText("#summonerLevel",callData.summoner.summonerLevel);
 		$("#summonerImage").attr("src", imageBase + callData.summoner.profileIconId + ".png");
-		//$(".matches").text("data:" + JSON.stringify(callData));
+		//$(".matches").text("data:" + JSON.stringify(callData));	
+	}
+	
+	function makeApiCalls(summonerName){
+
+		var summonerApiCall = baseAPI + $(".searchRegionSelect").val() + "/summoner/" + summonerName + "/matches";
 		
+		var summonerRequest = $.ajax({
+			url : summonerApiCall,
+			dataType : "json",
+			timeout : 40000
+		});
+		
+		summonerRequest.success(function(data, status) {
+			app.showMatchView();
+			$(".matchViewContent").show();
+			app.setSummonerAndTeamData(data, status);
+		});
+		
+		summonerRequest.error(function(response, type, serverReply) {
+			app.showMatchView();
+			app.showError("Error fetching page: " + summonerApiCall + "<br>" + serverReply + " " + response.status +  ":" + response.responseText);
+			console.log("Error:" + response.status + ":" + response.responseText);
+		});
+
+		var percentageApiCall = baseAPI + $(".searchRegionSelect").val() + "/summoner/" + summonerName + "/winRate/currentMatch";
+		var percentagesRequest = $.ajax({
+			url : percentageApiCall,
+			dataType : "json",
+			timeout : 40000
+		});
+		
+		percentagesRequest.success(function(data, status) {
+			app.setPercentages(data, status);
+		});
+		
+		percentagesRequest.error(function(data, status) {
+			app.showError("Error fetching page: " + percentageApiCall + "<br>" + serverReply + " " + response.status +  ":" + response.responseText);
+		});
 	}
   
   return {
-    setData: function(data, text) {
-      showData(data, text);
+    setSummonerAndTeamData: function(data, text) {
+      showSummonerAndTeamData(data, text);
+    },
+	setPercentages: function(data, text) {
+      showPercentages(data, text);
     },
 	showMatchView: function(){
 		//$("#firstView").hide();
@@ -140,35 +190,16 @@ var app = (function() {
 			return;
 		}
 
-			$(".matches").hide();
-			app.showMatchView();	
-			$("#loadingInfo").text("Loading");
-			
-			var apiUrl = baseAPI + $(".searchRegionSelect").val() + "/summoner/" + summonerName + "/matches";
-				console.log("Calling:" + apiUrl);
-			if(debug == true)
-			{
-				apiUrl =  "http://web.ist.utl.pt/ist153813/lol/fake.json";
-			}			
-			var summonerRequest = $.ajax({
-				url : apiUrl,
-				dataType : "json",
-				timeout : 40000
-			});
-
-			summonerRequest.success(function(data, status) {
-				app.showMatchView();
-				$(".matches").show();
-				app.setData(data, status);
-			});
-			summonerRequest.error(function(response, type, serverReply) {
-				app.showMatchView();
-				app.showError("Error fetching page: " + apiUrl + "<br>" + serverReply + " " + response.status +  ":" + response.responseText);
-				console.log("Error:" + response.status + ":" + response.responseText);
-			});		
+		$(".matchViewContent").hide();
+		app.showMatchView();	
+		$("#loadingInfo").text("Loading");
+		makeApiCalls(summonerName);
 	}
-  };   
+	};  
 })();
+
+
+
 
 $(function() {
 
