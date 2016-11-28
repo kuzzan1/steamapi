@@ -143,6 +143,9 @@ var app = (function() {
 			timeout : 40000
 		});
 		
+		setText("#redPerc", "");
+		setText("#bluePerc", "");
+		
 		percentagesRequest.success(function(data, status) {
 			app.setPercentages(data, status);
 		});
