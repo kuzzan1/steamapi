@@ -4,12 +4,18 @@ var summonerPictureDiv = '<div class="playerBox"><div class="playerPicture"><img
 
 var app = (function() {
 	var debug= false;
+	var useLocalhost= false;
 	var imageBase = "http://cdn.leagueofgraphs.com/img/summonerIcons/6.23.1/36/"; /* "http://cdn.leagueofgraphs.com/img/summonerIcons/6.23.1/36/1419.png" */
+	var baseAPI = "http://176.58.126.231:8090/app/lol/" ;
+	
 	var callData;
 	var callStatus;
 	var blueParticipants = [];
 	var redParticipants = [];
 	
+	if(useLocalhost){
+		baseAPI = "http://localhost:8090/app/lol/";
+	}
 	
 	function setText(elementSelector, textValue)
 	{
@@ -138,7 +144,7 @@ var app = (function() {
 			app.showMatchView();	
 			$("#loadingInfo").text("Loading");
 			
-			var apiUrl = "http://176.58.126.231:8090/app/lol/" + $(".searchRegionSelect").val() + "/summoner/" + summonerName + "/matches";
+			var apiUrl = baseAPI + $(".searchRegionSelect").val() + "/summoner/" + summonerName + "/matches";
 				console.log("Calling:" + apiUrl);
 			if(debug == true)
 			{
