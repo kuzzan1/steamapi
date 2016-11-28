@@ -2,13 +2,14 @@ package main.riot.domain.match;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by jonas on 2016-11-19.
  */
-public class MatchList {
+public class MatchList implements Serializable {
 
     @JsonProperty
     private int endIndex;
@@ -18,6 +19,16 @@ public class MatchList {
     private int startIndex;
     @JsonProperty
     private int totalGames;
+
+    private long summonerId;
+
+    public long getSummonerId() {
+        return summonerId;
+    }
+
+    public void setSummonerId( long summonerId ) {
+        this.summonerId = summonerId;
+    }
 
     public int getEndIndex() {
         return endIndex;

@@ -3,12 +3,9 @@ package main.riot.domain.summoner;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import main.riot.domain.currentgame.CurrentGameInfo;
 import main.riot.domain.match.Match;
-import main.riot.domain.match.MatchList;
 import main.riot.domain.match.MatchReference;
-import main.riot.domain.match.Team;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -27,13 +24,8 @@ public class SummonerWithMatches {
     @JsonProperty
     private List<Match> matches = new ArrayList<>();
 
-    public SummonerWithMatches(LinkedHashMap summonerDto, int totalGames, CurrentGameInfo currentGameInfo, List<Match> deeperMatchList) {
-        SummonerDto summonerCopy = new SummonerDto();
-        summonerCopy.setId(Long.valueOf((Integer) summonerDto.get("id")));
-        summonerCopy.setName((String) summonerDto.get("name"));
-        summonerCopy.setProfileIconId((Integer) summonerDto.get("profileIconId"));
-        summonerCopy.setSummonerLevel(Long.valueOf((Integer)summonerDto.get("summonerLevel")));
-        this.summoner = summonerCopy;
+    public SummonerWithMatches(SummonerDto summonerDto, int totalGames, CurrentGameInfo currentGameInfo, List<Match> deeperMatchList) {
+        this.summoner = summonerDto;
         this.totalGames = totalGames;
 //        this.matchReferences = matchList.getMatches();
         this.currentGameInfo = currentGameInfo;

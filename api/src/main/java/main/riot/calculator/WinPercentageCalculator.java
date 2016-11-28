@@ -1,34 +1,34 @@
 package main.riot.calculator;
 
 /**
- * 
+ *
  */
 
-import org.springframework.stereotype.Component;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Petteri
  *
  */
-@Component
 public class WinPercentageCalculator {
+
+    private WinPercentageCalculator() {
+    }
 
     /**
      *
      * @param playerWins
      */
 
-    public double getWinPercentOnPlayer(Boolean[] playerWins) {
-        WinPercentageCalculator calc = new WinPercentageCalculator();
-        return calc.calculateParticipantsWinProbability(playerWins);
+
+
+    public static double getWinPercentOnPlayer(Boolean[] playerWins) {
+        return calculateParticipantsWinProbability(playerWins);
     }
 
 
-
-    public WinPercentageCalculator() {
-    }
-
-    public Double [] calculateTeamWinPercents(double [] team1participantProbs, double [] team2participantProbs) {
+    public static List<Double> calculateTeamWinPercents( double [] team1participantProbs, double [] team2participantProbs) {
         double team1Winning = 1.0;
         double team2Winning = 1.0;
         double team1Losing = 1.0;
@@ -36,15 +36,15 @@ public class WinPercentageCalculator {
 
         if (testIfZeroInput(team1participantProbs) && testIfZeroInput(team1participantProbs)) {
             // no data
-            return new Double[] {0.0, 0.0};
+            return Arrays.asList( 0.0, 0.0 );
         }
         else if (testIfZeroInput(team1participantProbs)) {
             // team2 100%
-            return new Double[] {0.0, 100.0};
+            return Arrays.asList( 0.0, 100.0 );
         }
         else if (testIfZeroInput(team2participantProbs)) {
             // team1 100%
-            return new Double[] {100.0, 0.0};
+            return Arrays.asList( 100.0, 0.0 );
         }
         else {
             for (int i = 0; i < team1participantProbs.length; i++) {
@@ -76,11 +76,11 @@ public class WinPercentageCalculator {
             double t1WinPercent = 100.0 * (t1Winning / (t1Winning + t1Losing));
             double t2WinPercent = 100.0 - t1WinPercent;
 
-            return new Double[] {t1WinPercent, t2WinPercent};
+            return Arrays.asList( t1WinPercent, t2WinPercent );
         }
     }
 
-    public double [] calculateTeamWinPercents(double [] team1participantProbs, double [] team1participantProbsWithChampion, double [] team2participantProbs, double [] team2participantProbsWithChampion) {
+    public static double [] calculateTeamWinPercents(double [] team1participantProbs, double [] team1participantProbsWithChampion, double [] team2participantProbs, double [] team2participantProbsWithChampion) {
         double team1Winning = 1.0;
         double team2Winning = 1.0;
         double team1Losing = 1.0;
@@ -103,39 +103,39 @@ public class WinPercentageCalculator {
 		}
 		else {
 			for (int i = 0; i < team1participantProbs.length; i++) {
-				team1Winning = team1Winning * testProbability((team1participantProbs[i] * weightImportanceWins + team1participantProbsWithChampion[i] * weightImporanceWinsWithChampion)); 
+				team1Winning = team1Winning * testProbability((team1participantProbs[i] * weightImportanceWins + team1participantProbsWithChampion[i] * weightImporanceWinsWithChampion));
 			}
 			//System.out.println(team1Winning);
-	
+
 			for (int i = 0; i < team2participantProbs.length; i++) {
-				team2Winning = team2Winning * testProbability((team2participantProbs[i] * weightImportanceWins + team2participantProbsWithChampion[i] * weightImporanceWinsWithChampion)); 
+				team2Winning = team2Winning * testProbability((team2participantProbs[i] * weightImportanceWins + team2participantProbsWithChampion[i] * weightImporanceWinsWithChampion));
 			}
 			//System.out.println(team2Winning);
-	
+
 			for (int i = 0; i < team1participantProbs.length; i++) {
 				team1Losing = team1Losing * testProbability(((1.0 - team1participantProbs[i]) * weightImportanceWins + (1.0 - team1participantProbs[i]) * weightImporanceWinsWithChampion));
 			}
 			//System.out.println(team1Losing);
-	
+
 			for (int i = 0; i < team2participantProbs.length; i++) {
 				team2Losing = team2Losing * testProbability(((1.0 - team2participantProbs[i]) * weightImportanceWins + (1.0 - team2participantProbs[i]) * weightImporanceWinsWithChampion));
 			}
 			//System.out.println(team2Losing);
-	
+
 			double t1Winning = team1Winning * team2Losing;
 			double t1Losing = team1Losing * team2Winning;
-			
+
 			//System.out.println("t1 wins likelyhood=" + t1Winning);
 			//System.out.println("t1 loses likelyhood=" + t1Losing);
-			
-			double t1WinPercent = 100.0 * (t1Winning / (t1Winning + t1Losing)); 
-			double t2WinPercent = 100.0 - t1WinPercent; 
-				
+
+			double t1WinPercent = 100.0 * (t1Winning / (t1Winning + t1Losing));
+			double t2WinPercent = 100.0 - t1WinPercent;
+
 			return new double[] {t1WinPercent, t2WinPercent};
 		}
 	}
 
-	public double calculateParticipantsWinProbability(Boolean [] wins) {
+	private static double calculateParticipantsWinProbability( Boolean[] wins ) {
 		double count = 0.0;
 		double winCount = 0.0;
 		for (int i = 0; i < wins.length; i++) {
@@ -151,7 +151,7 @@ public class WinPercentageCalculator {
 	}
 
 
-	public double calculateParticipantsWinProbability(boolean [] wins) {
+	public static double calculateParticipantsWinProbability(boolean [] wins) {
 		double count = 0.0;
 		double winCount = 0.0;
 		for (int i = 0; i < wins.length; i++) {
@@ -165,23 +165,23 @@ public class WinPercentageCalculator {
 		}
 		return winCount / count;
 	}
-	
-	private double testProbability(double probability) {
+
+	private static double testProbability(double probability) {
 		if (probability == 0.0) {
 			// 8th time is a charm, giving 50% chance to assumingly 8th match...
 			return 0.06125;
 		}
 		return probability;
 	}
-	
-	private boolean testIfZeroInput(double[] probs) {
+
+	private static boolean testIfZeroInput(double[] probs) {
 		for (int i = 0; i < probs.length; i++) {
 			if (probs[i] != 0.0) {
 				return false;
 			}
 		}
 		return true;
-	}	
+	}
 
 	/**
 	 * @param args

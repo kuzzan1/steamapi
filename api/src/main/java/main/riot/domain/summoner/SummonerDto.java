@@ -1,6 +1,9 @@
 package main.riot.domain.summoner;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+
+import java.util.LinkedHashMap;
 
 /**
  * Created by jonas on 2016-11-17.
@@ -8,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SummonerDto {
 
     @JsonProperty
+    @Id
     private long id;
     @JsonProperty
     private String name;
@@ -15,6 +19,29 @@ public class SummonerDto {
     private int profileIconId;
     @JsonProperty
     private long summonerLevel;
+
+    private String lowerCaseName;
+
+
+    public SummonerDto() {
+    }
+
+    public SummonerDto( LinkedHashMap summonerDto ) {
+        this.setId(Long.valueOf((Integer) summonerDto.get("id")));
+        this.setName((String) summonerDto.get("name"));
+        this.setProfileIconId((Integer) summonerDto.get("profileIconId"));
+        this.setSummonerLevel(Long.valueOf((Integer)summonerDto.get("summonerLevel")));
+        this.setLowerCaseName( this.getName().toLowerCase() );
+    }
+
+
+    public String getLowerCaseName() {
+        return lowerCaseName;
+    }
+
+    public void setLowerCaseName( String lowerCaseName ) {
+        this.lowerCaseName = lowerCaseName;
+    }
 
     public long getId() {
         return id;

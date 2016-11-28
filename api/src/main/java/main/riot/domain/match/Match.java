@@ -35,7 +35,6 @@ public class Match implements IMatchInfo {
     private String region;
     @JsonProperty
     private String season;
-
     private List<Team> teams = new ArrayList<>(  );
     private TimeLine timeLine;
 
@@ -174,6 +173,8 @@ public class Match implements IMatchInfo {
     public void setTimeLine( TimeLine timeLine ) {
         this.timeLine = timeLine;
     }
+
+
 
 	@Override
 	public long getId() {
