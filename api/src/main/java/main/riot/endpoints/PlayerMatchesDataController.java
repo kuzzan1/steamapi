@@ -79,15 +79,10 @@ public class PlayerMatchesDataController {
     }
 
 
-    @RequestMapping("/app/lol/{locale}/summoner/{summonerName}/winRate/currentMatch")
-    public List<Double> getSummonersWinRateCurrentMatch(@PathVariable final String summonerName, @PathVariable final String locale ) throws UnsupportedLocaleException{
-        if( Locales.contains( locale )) {
-            Map<Long, List<Double>> teamWinRates = new HashMap<>();
-
-            SummonerDto summoner = summonerDataController.getSummonerByName( summonerName, locale );
-
-            Map<Long, Map<Long, List<Match>>> teamMatches = new HashMap<>();
-
+	@RequestMapping("/app/lol/{locale}/summoner/{summonerName}/winRate/currentMatch")
+	public List<Double> getSummonersWinRateCurrentMatch(@PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
+		if (Locales.contains(locale)) {
+			SummonerDto summoner = summonerDataController.getSummonerByName(summonerName, locale);
 			IMatchInfo currentGameInfo = currentGameDataController.getCurrentGameInfo(summoner.getId(), locale);
 
 			if (currentGameInfo.getId() == 0) {
@@ -97,48 +92,46 @@ public class PlayerMatchesDataController {
 				}
 			}
 
-            for (IParticipant currentGameParticipant : currentGameInfo.getMatchParticipants()) {
-                MatchList matchList = matchDataController.getMatchList(currentGameParticipant.getSummonerId(), locale);
+			return getPercForCurrentOrLastMatch(locale, currentGameInfo);
+		}
+		return null;
+	}
 
-                teamMatches.putIfAbsent( currentGameParticipant.getTeamId(), new HashMap<>() );
-                if(!matchList.getMatches().isEmpty()) {
-                    teamMatches.get(currentGameParticipant.getTeamId()).put(currentGameParticipant.getSummonerId(), getLatestMatches(locale, matchList, 1));
-                }
-                else {
-                    teamMatches.get(currentGameParticipant.getTeamId()).put(currentGameParticipant.getSummonerId(), new ArrayList<>());
-                }
-                sleep();
-            }
+    private List<Double> getPercForCurrentOrLastMatch(final String locale, IMatchInfo currentGameInfo) throws UnsupportedLocaleException {
+		Long homeTeamId = null;
+		Map<Long, List<Match>> homeTeamMatches = new HashMap<>();
+		Map<Long, List<Match>> awayTeamMatches = new HashMap<>();
+		List<Double> homeTeamWinRates = new ArrayList<>();
+		List<Double> awayTeamWinRates = new ArrayList<>();
 
-            for (Map.Entry<Long, Map<Long, List<Match>>> teamsSummonersMap : teamMatches.entrySet()) {
-                Map<Long, List<Match>> teamSummonerMatches = teamsSummonersMap.getValue();
-                for (Map.Entry<Long, List<Match>> summonerMatches : teamSummonerMatches.entrySet()) {
-                    teamWinRates.putIfAbsent( teamsSummonersMap.getKey(), new ArrayList<>() );
-                    teamWinRates.get(teamsSummonersMap.getKey()).add(getWinRateForSummoner(summonerMatches.getValue(), summonerMatches.getKey()));
-                }
-            }
-          return getPercForTeamsWinRate(teamWinRates);
-        }
-        return null;
-    }
-
-	private List<Double> getPercForTeamsWinRate(Map<Long, List<Double>> teamWinRates) {
-		List<Double> team1 = new ArrayList<>();
-		List<Double> team2 = new ArrayList<>();
-		
-		int i = 0;
-		for (List<Double> value : teamWinRates.values()) {
-			if (i == 0) {
-				team1 = value;
-			} else {
-				team2 = value;
-				break;
+		for (IParticipant currentGameParticipant : currentGameInfo.getMatchParticipants()) {
+			MatchList matchList = matchDataController.getMatchList(currentGameParticipant.getSummonerId(), locale);
+			if (!matchList.getMatches().isEmpty()) {
+				if (homeTeamId == null) {
+					homeTeamId = currentGameParticipant.getTeamId();
+				}
+				if (currentGameParticipant.getTeamId() == homeTeamId) {
+					homeTeamMatches.put(currentGameParticipant.getSummonerId(), getLatestMatches(locale, matchList, 1));
+				} else {
+					awayTeamMatches.put(currentGameParticipant.getSummonerId(), getLatestMatches(locale, matchList, 1));
+				}
 			}
-			i++;
+			sleep();
 		}
 
-          return WinPercentageCalculator.calculateTeamWinPercents(toDoubleArray(team1), toDoubleArray(team2));
+		for (Map.Entry<Long, List<Match>> summonerMatches : homeTeamMatches.entrySet()) {
+			homeTeamWinRates.add(getWinRateForSummoner(summonerMatches.getValue(), summonerMatches.getKey()));
+		}
+		for (Map.Entry<Long, List<Match>> summonerMatches : awayTeamMatches.entrySet()) {
+			awayTeamWinRates.add(getWinRateForSummoner(summonerMatches.getValue(), summonerMatches.getKey()));
+		}
+		return getPercForTeamsWinRate(homeTeamWinRates, awayTeamWinRates);
 	}
+
+	private List<Double> getPercForTeamsWinRate(List<Double> homeTeamWinRate, List<Double> awayTeamWinRate) {
+		return WinPercentageCalculator.calculateTeamWinPercents(toDoubleArray(homeTeamWinRate), toDoubleArray(awayTeamWinRate));
+	}
+
 	
 	private double[] toDoubleArray(List<Double> list) {
 		double[] ret = new double[list.size()];
