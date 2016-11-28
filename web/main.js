@@ -147,7 +147,7 @@ var app = (function() {
 			app.setPercentages(data, status);
 		});
 		
-		percentagesRequest.error(function(data, status) {
+		percentagesRequest.error(function(response, type, serverReply) {
 			app.showError("Error fetching page: " + percentageApiCall + "<br>" + serverReply + " " + response.status +  ":" + response.responseText);
 		});
 	}
