@@ -5,6 +5,7 @@ import main.helper.ApiKey;
 import main.riot.domain.currentgame.CurrentGameInfo;
 import main.riot.enums.Locales;
 import main.riot.exception.UnsupportedLocaleException;
+import main.riot.repositories.CurrentGameInfoRepository;
 import main.steam.bean.RestTemplateBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,9 @@ public class CurrentGameDataController {
 
     @Autowired
     private RestTemplateBean restTemplateBean;
+
+    @Autowired
+    private CurrentGameInfoRepository currentGameInfoRepository;
 
     @RequestMapping("/app/lol/{locale}/current/game/{summonerId}")
     public CurrentGameInfo getCurrentGameInfo(@PathVariable final Long summonerId, @PathVariable final String locale) throws UnsupportedLocaleException {

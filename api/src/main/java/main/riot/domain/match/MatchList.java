@@ -1,6 +1,7 @@
 package main.riot.domain.match;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import main.riot.domain.Timestamp;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,18 +10,14 @@ import java.util.List;
 /**
  * Created by jonas on 2016-11-19.
  */
-public class MatchList implements Serializable {
+public class MatchList extends Timestamp implements Serializable {
 
-    @JsonProperty
-    private int endIndex;
-    @JsonProperty
-    private List<MatchReference> matches = new ArrayList<>();
-    @JsonProperty
-    private int startIndex;
-    @JsonProperty
-    private int totalGames;
-
+    @Id
     private long summonerId;
+    private int endIndex;
+    private List<MatchReference> matches = new ArrayList<>();
+    private int startIndex;
+    private int totalGames;
 
     public long getSummonerId() {
         return summonerId;

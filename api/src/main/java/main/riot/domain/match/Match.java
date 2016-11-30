@@ -1,6 +1,7 @@
 package main.riot.domain.match;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import main.riot.domain.Timestamp;
+import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,35 +9,24 @@ import java.util.List;
 /**
  * Created by jonas on 2016-11-16.
  */
-public class Match implements IMatchInfo {
-    @JsonProperty
-    private int mapId;
-    @JsonProperty
-    private long matchCreation;
-    @JsonProperty
-    private long matchDuration;
-    @JsonProperty
+public class Match extends Timestamp implements IMatchInfo  {
+
+    @Id
     private long matchId;
-    @JsonProperty
+    private int mapId;
+    private long matchCreation;
+    private long matchDuration;
     private String matchMode;
-    @JsonProperty
     private String matchType;
-    @JsonProperty
     private String matchVersion;
-    @JsonProperty
-    private List<ParticipantIdentity> participantIdentities = new ArrayList<>( );
-    @JsonProperty
-    private List<Participant> participants = new ArrayList<>( );
-    @JsonProperty
     private String platformId;
-    @JsonProperty
     private String queueType;
-    @JsonProperty
     private String region;
-    @JsonProperty
     private String season;
-    private List<Team> teams = new ArrayList<>(  );
     private TimeLine timeLine;
+    private List<Team> teams = new ArrayList<>(  );
+    private List<ParticipantIdentity> participantIdentities = new ArrayList<>( );
+    private List<Participant> participants = new ArrayList<>( );
 
     public int getMapId() {
         return mapId;

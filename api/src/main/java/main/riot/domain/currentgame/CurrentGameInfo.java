@@ -1,14 +1,13 @@
 package main.riot.domain.currentgame;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import main.riot.domain.match.IMatchInfo;
 import main.riot.domain.match.IParticipant;
 import main.riot.domain.shared.BannedChampion;
 import main.riot.domain.shared.Observer;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jonas on 2016-11-19.

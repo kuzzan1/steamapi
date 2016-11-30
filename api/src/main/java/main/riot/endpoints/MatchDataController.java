@@ -32,29 +32,52 @@ public class MatchDataController {
         if( Locales.contains( locale ) ) {
             Match match = matchRepository.findByMatchId( matchId );
             if( match == null ) {
-                String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v2.2/match" ).Path( String.valueOf( matchId ) ).buildRiot();
-                match = restTemplateBean.exchange( url, Match.class );
-                matchRepository.save( match );
+                match = getMatchFromApi( matchId, locale );
             }
+            else {
+                if(match.getTimestamp() + 60000 <= System.currentTimeMillis()) {
+                    match = getMatchFromApi( matchId, locale );
+                }
+            }
+
             return match;
         }
         return null;
 
     }
 
+
     @RequestMapping( "/app/lol/{locale}/match/summoner/{summonerId}" )
     public MatchList getMatchList( @PathVariable final long summonerId, @PathVariable final String locale ) throws UnsupportedLocaleException {
         if( Locales.contains( locale ) ) {
             MatchList matchList = matchListRepository.findBySummonerId( summonerId );
-            if(matchList == null) {
-                String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v2.2/matchlist/by-summoner" ).Path( String.valueOf( summonerId ) ).buildRiot();
-                matchList = restTemplateBean.exchange( url, MatchList.class );
-                matchList.setSummonerId( summonerId );
-                matchListRepository.save( matchList );
+            if( matchList == null ) {
+                matchList = getMatchListFromApi( summonerId, locale );
+            } else {
+                if(matchList.getTimestamp() + 6000 <= System.currentTimeMillis()) {
+                    matchList = getMatchListFromApi( summonerId, locale );
+                }
             }
             return matchList;
         }
         return null;
+    }
+
+    private MatchList getMatchListFromApi( long summonerId, String locale ) {
+        String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v2.2/matchlist/by-summoner" ).Path( String.valueOf( summonerId ) ).buildRiot();
+        MatchList matchList = restTemplateBean.exchange( url, MatchList.class );
+        matchList.setSummonerId( summonerId );
+        matchListRepository.save( matchList );
+        return matchList;
+    }
+
+
+    private Match getMatchFromApi( Long matchId, String locale ) {
+        String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v2.2/match" ).Path( String.valueOf( matchId ) ).buildRiot();
+        Match match = restTemplateBean.exchange( url, Match.class );
+        match.setTimestamp( System.currentTimeMillis() );
+        matchRepository.save( match );
+        return match;
     }
 
 }
