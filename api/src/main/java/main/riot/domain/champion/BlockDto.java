@@ -1,7 +1,5 @@
 package main.riot.domain.champion;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +8,9 @@ import java.util.List;
  */
 public class BlockDto {
 
-    @JsonProperty
-    private List<BlockItemDto> items = new ArrayList<>();
-    @JsonProperty
     private boolean recMatch;
-    @JsonProperty
     private String type;
+    private List<BlockItemDto> items = new ArrayList<>();
 
     public List<BlockItemDto> getItems() {
         return items;

@@ -1,6 +1,6 @@
 package main.riot.domain.summoner;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import main.riot.domain.Timestamp;
 import org.springframework.data.annotation.Id;
 
 import java.util.LinkedHashMap;
@@ -8,16 +8,12 @@ import java.util.LinkedHashMap;
 /**
  * Created by jonas on 2016-11-17.
  */
-public class SummonerDto {
+public class SummonerDto extends Timestamp {
 
-    @JsonProperty
     @Id
     private long id;
-    @JsonProperty
     private String name;
-    @JsonProperty
     private int profileIconId;
-    @JsonProperty
     private long summonerLevel;
 
     private String lowerCaseName;

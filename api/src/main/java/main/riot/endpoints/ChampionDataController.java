@@ -2,8 +2,8 @@ package main.riot.endpoints;
 
 import main.URLBuilder;
 import main.riot.domain.champion.ChampionDto;
-import main.riot.domain.champion.ChampionListDto;
 import main.riot.enums.Locales;
+import main.riot.repositories.ChampionDtoRepository;
 import main.steam.bean.RestTemplateBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,24 +19,28 @@ public class ChampionDataController {
     @Autowired
     private RestTemplateBean restTemplateBean;
 
-
-    @RequestMapping( "/app/lol/{locale}/champions" )
-    public ChampionListDto getChampions( @PathVariable final String locale ) throws Exception{
-        if( Locales.contains( locale ) ) {
-            String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v1.2/champion" ).buildRiot();
-            return restTemplateBean.exchange( url, ChampionListDto.class );
-        }
-        return null;
-    }
+    @Autowired
+    private ChampionDtoRepository championDtoRepository;
 
     @RequestMapping( "/app/lol/{locale}/champion/{championId}" )
-    public ChampionDto getChampion( @PathVariable( "championId" ) final String championId, @PathVariable final String locale ) throws Exception {
+    public ChampionDto getChampion( @PathVariable( "championId" ) final long championId, @PathVariable final String locale ) throws Exception {
         if( Locales.contains( locale ) ) {
-            String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v1.2/champion" ).Path( championId ).buildRiot();
-            return restTemplateBean.exchange( url, ChampionDto.class );
+            ChampionDto champion = championDtoRepository.findByChampionId( championId );
+            if( champion == null ) {
+                champion = getChampionFromAPI( championId, locale );
+            } else if( champion.getTimestamp() * 60000 <= System.currentTimeMillis() ) {
+                champion = getChampionFromAPI( championId, locale );
+            }
+            return champion;
         }
         return null;
     }
 
+    private ChampionDto getChampionFromAPI( @PathVariable( "championId" ) long championId, @PathVariable String locale ) {
+        String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v1.2/champion" ).Path( ""+championId ).buildRiot();
+        ChampionDto champion = restTemplateBean.exchange( url, ChampionDto.class );
+        champion.setTimestamp( System.currentTimeMillis() );
+        return champion;
+    }
 
 }

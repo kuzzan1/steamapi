@@ -24,12 +24,27 @@ public class CurrentGameDataController {
     @Autowired
     private CurrentGameInfoRepository currentGameInfoRepository;
 
+
+    //Todo clear currentGame when its inactive
     @RequestMapping("/app/lol/{locale}/current/game/{summonerId}")
-    public CurrentGameInfo getCurrentGameInfo(@PathVariable final Long summonerId, @PathVariable final String locale) throws UnsupportedLocaleException {
+    public CurrentGameInfo getCurrentGameInfo(@PathVariable final long summonerId, @PathVariable final String locale) throws UnsupportedLocaleException {
         if( Locales.contains(locale)) {
-            String url = new URLBuilder().baseUrl("https://"+locale+".api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/"+locale.toUpperCase()+"1").Path(String.valueOf(summonerId)).Param("api_key", ApiKey.getRiotKey()).Build();
-            return restTemplateBean.exchange(url, CurrentGameInfo.class);
+            CurrentGameInfo currentGameInfo = currentGameInfoRepository.findBySummonerId( summonerId );
+            if( currentGameInfo == null) {
+                currentGameInfo = getCurrentGameInfoFromAPI( summonerId, locale );
+            } else if(currentGameInfo.getTimestamp() + 6000 <= System.currentTimeMillis()) {
+                currentGameInfo = getCurrentGameInfoFromAPI( summonerId, locale );
+            }
+            return currentGameInfo;
         }
         return null;
+    }
+
+    private CurrentGameInfo getCurrentGameInfoFromAPI( @PathVariable long summonerId, @PathVariable String locale ) {
+        String url = new URLBuilder().baseUrl( "https://"+locale+".api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/"+locale.toUpperCase()+"1").Path( String.valueOf( summonerId)).Param( "api_key", ApiKey.getRiotKey()).Build();
+        CurrentGameInfo currentGameInfo = restTemplateBean.exchange(url, CurrentGameInfo.class);
+        currentGameInfo.setTimestamp( System.currentTimeMillis() );
+        currentGameInfo.setSummonerId(summonerId);
+        return currentGameInfo;
     }
 }

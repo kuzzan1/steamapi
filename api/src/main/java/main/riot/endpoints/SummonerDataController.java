@@ -34,13 +34,22 @@ public class SummonerDataController {
         if( Locales.contains( locale )) {
             SummonerDto summonerDto = summonerRepository.findByLowerCaseName( summonerName );
             if( summonerDto == null) {
-                String url = new URLBuilder().baseUrl( "https://"+locale+".api.pvp.net/api/lol/"+locale+"/v1.4/summoner/by-name" ).Path( summonerName ).buildRiot();
-                HashMap exchange = restTemplateBean.exchange( url, HashMap.class );
-                summonerDto = new SummonerDto( (LinkedHashMap) exchange.get( summonerName ) );
-                summonerRepository.save( summonerDto );
+                summonerDto = getSummonerFromAPI( summonerName, locale );
+            } else if(summonerDto.getTimestamp() + 36000 <= System.currentTimeMillis()) {
+                summonerDto = getSummonerFromAPI( summonerName, locale );
             }
             return summonerDto;
         }
         return null;
+    }
+
+    private SummonerDto getSummonerFromAPI( @PathVariable String summonerName, @PathVariable String locale ) {
+        SummonerDto summonerDto;
+        String url = new URLBuilder().baseUrl( "https://"+locale+".api.pvp.net/api/lol/"+locale+"/v1.4/summoner/by-name" ).Path( summonerName ).buildRiot();
+        HashMap exchange = restTemplateBean.exchange( url, HashMap.class );
+        summonerDto = new SummonerDto( (LinkedHashMap) exchange.get( summonerName ) );
+        summonerDto.setTimestamp( System.currentTimeMillis() );
+        summonerRepository.save( summonerDto );
+        return summonerDto;
     }
 }

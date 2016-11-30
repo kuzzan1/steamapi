@@ -1,7 +1,8 @@
 package main.riot.domain.champion;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import main.riot.domain.Timestamp;
 import main.riot.domain.shared.ImageDto;
+import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,52 +10,31 @@ import java.util.List;
 /**
  * Created by jonas on 2016-11-16.
  */
-public class ChampionDto {
+public class ChampionDto extends Timestamp {
 
-    @JsonProperty
-    private List<String> allyTips = new ArrayList<>();
-    @JsonProperty
+    @Id
+    private long championId;
     private String blurb;
-    @JsonProperty
-    private List<String> enemyTips = new ArrayList<>();
-    @JsonProperty
     private ImageDto image;
-    @JsonProperty
     private InfoDto info;
-    @JsonProperty
     private String key;
-    @JsonProperty
     private String lore;
-    @JsonProperty
     private String name;
-    @JsonProperty
     private String partype;
-    @JsonProperty
     private PassiveDto passive;
-    @JsonProperty
-    private List<RecommendedDto> recommendedDtos = new ArrayList<>();
-    @JsonProperty
-    private List<SkinDto> skins = new ArrayList<>();
-    @JsonProperty
-    private List<ChampionSpellDto> spells = new ArrayList<>();
-    @JsonProperty
     private StatsDto stats;
-    @JsonProperty
     private List<String> tags = new ArrayList<>();
-    @JsonProperty
     private String title;
-    @JsonProperty
     private boolean active;
-    @JsonProperty
     private boolean botEnabled;
-    @JsonProperty
     private boolean botMmEnabled;
-    @JsonProperty
     private boolean freeToPlay;
-    @JsonProperty
     private boolean rankedPlayEnabled;
-    @JsonProperty
-    private long id;
+    private List<String> enemyTips = new ArrayList<>();
+    private List<String> allyTips = new ArrayList<>();
+    private List<RecommendedDto> recommendedDtos = new ArrayList<>();
+    private List<SkinDto> skins = new ArrayList<>();
+    private List<ChampionSpellDto> spells = new ArrayList<>();
 
     public List<String> getAllyTips() {
         return allyTips;
@@ -216,8 +196,8 @@ public class ChampionDto {
         this.freeToPlay = freeToPlay;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setChampionId( long championId ) {
+        this.championId = championId;
     }
 
     public boolean isRankedPlayEnabled() {

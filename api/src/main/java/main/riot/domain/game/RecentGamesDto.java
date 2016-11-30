@@ -1,6 +1,7 @@
 package main.riot.domain.game;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import main.riot.domain.Timestamp;
+import org.springframework.data.annotation.Id;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,12 +9,11 @@ import java.util.Set;
 /**
  * Created by jonas on 2016-11-19.
  */
-public class RecentGamesDto {
+public class RecentGamesDto extends Timestamp {
 
-    @JsonProperty
-    Set<GameDto> games= new HashSet<>();
-    @JsonProperty
+    @Id
     private long summonerId;
+    Set<GameDto> games= new HashSet<>();
 
     public Set<GameDto> getGames() {
         return games;

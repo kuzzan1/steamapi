@@ -1,10 +1,11 @@
 package main.riot.domain.currentgame;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import main.riot.domain.Timestamp;
 import main.riot.domain.match.IMatchInfo;
 import main.riot.domain.match.IParticipant;
 import main.riot.domain.shared.BannedChampion;
 import main.riot.domain.shared.Observer;
+import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,30 +13,21 @@ import java.util.List;
 /**
  * Created by jonas on 2016-11-19.
  */
-public class CurrentGameInfo implements IMatchInfo {
+public class CurrentGameInfo extends Timestamp implements IMatchInfo {
 
-    @JsonProperty
-    private List<BannedChampion> bannedChampions = new ArrayList<>();
-    @JsonProperty
+    @Id
     private long gameId;
-    @JsonProperty
     private long gameLength;
-    @JsonProperty
     private String gameMode;
-    @JsonProperty
     private long gameQueueConfigId;
-    @JsonProperty
     private long gameStartTime;
-    @JsonProperty
     private String gameType;
-    @JsonProperty
     private long mapId;
-    @JsonProperty
     private Observer observers;
-    @JsonProperty
-    private List<CurrentGameParticipant> participants = new ArrayList<>();
-    @JsonProperty
     private String platformId;
+    private List<BannedChampion> bannedChampions = new ArrayList<>();
+    private List<CurrentGameParticipant> participants = new ArrayList<>();
+    private long summonerId;
 
     public List<BannedChampion> getBannedChampions() {
         return bannedChampions;
@@ -134,4 +126,12 @@ public class CurrentGameInfo implements IMatchInfo {
 	public List<? extends IParticipant> getMatchParticipants() {
 		return participants;
 	}
+
+    public void setSummonerId( long summonerId ) {
+        this.summonerId = summonerId;
+    }
+
+    public long getSummonerId() {
+        return summonerId;
+    }
 }

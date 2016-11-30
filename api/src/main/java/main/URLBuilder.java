@@ -34,6 +34,11 @@ public class URLBuilder {
         return this;
     }
 
+    public URLBuilder Path(Long param) {
+        this.url = this.url + "/" + param;
+        return this;
+    }
+
     public String buildRiot() {
         Param("api_key",ApiKey.getRiotKey());
         return url;

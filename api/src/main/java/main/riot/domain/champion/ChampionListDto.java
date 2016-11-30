@@ -1,6 +1,5 @@
 package main.riot.domain.champion;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
@@ -14,21 +13,15 @@ import java.util.Map;
  */
 public class ChampionListDto implements Serializable {
 
-    @JsonProperty
-    private List<ChampionDto> champions = new ArrayList<>();
-    @JsonProperty
-    private Map data = new HashMap<String, ChampionDto>( );
-    @JsonProperty
-    private String format;
-    @JsonProperty
-    private Map keys = new HashMap<String, String>();
-    @JsonProperty
-    private String type;
-    @JsonProperty
-    private String version;
-
     @Id
     private String url;
+
+    private List<ChampionDto> champions = new ArrayList<>();
+    private Map data = new HashMap<String, ChampionDto>( );
+    private String format;
+    private Map keys = new HashMap<String, String>();
+    private String type;
+    private String version;
 
     public String getUrl() {
         return url;
