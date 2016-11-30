@@ -13,7 +13,7 @@ public class RecentGamesDto extends Timestamp {
 
     @Id
     private long summonerId;
-    Set<GameDto> games= new HashSet<>();
+    private Set<GameDto> games= new HashSet<>();
 
     public Set<GameDto> getGames() {
         return games;
@@ -23,11 +23,11 @@ public class RecentGamesDto extends Timestamp {
         this.games = games;
     }
 
-    public long getSummo() {
+    public long getSummonerId() {
         return summonerId;
     }
 
-    public void setSummo(long summonerId) {
+    public void setSummonerId( long summonerId ) {
         this.summonerId = summonerId;
     }
 }

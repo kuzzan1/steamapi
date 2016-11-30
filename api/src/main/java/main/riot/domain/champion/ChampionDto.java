@@ -200,6 +200,10 @@ public class ChampionDto extends Timestamp {
         this.championId = championId;
     }
 
+    public long getChampionId() {
+        return championId;
+    }
+
     public boolean isRankedPlayEnabled() {
         return rankedPlayEnabled;
     }
