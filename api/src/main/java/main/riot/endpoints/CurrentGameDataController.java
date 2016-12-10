@@ -47,6 +47,10 @@ public class CurrentGameDataController {
         CurrentGameInfo currentGameInfo = restTemplateBean.exchange(url, CurrentGameInfo.class);
         currentGameInfo.setTimestamp( System.currentTimeMillis() );
         currentGameInfo.setSummonerId(summonerId);
+        if(currentGameInfo.getId() > 0)
+        {
+        	currentGameInfoRepository.save(currentGameInfo);
+        }
         return currentGameInfo;
     }
 }
