@@ -105,6 +105,7 @@ public class PlayerMatchesDataController {
 		List<Double> awayTeamWinRates = new ArrayList<>();
 
 		for (IParticipant currentGameParticipant : currentGameInfo.getMatchParticipants()) {
+			sleep();
 			MatchList matchList = matchDataController.getMatchList(currentGameParticipant.getSummonerId(), locale);
 			if (!matchList.getMatches().isEmpty()) {
 				if (homeTeamId == null) {

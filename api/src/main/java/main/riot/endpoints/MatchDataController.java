@@ -32,7 +32,7 @@ public class MatchDataController {
     private RecentGamesDtoRepository recentGamesDtoRepository;
     
     private static final int MATCH_CACHE_MLSECS= 24 * 60 * 60 * 1000; // 24 hours.
-    private static final int MATCHLIST_CACHE_MLSECS = 60 * 1000; // 1 minute.
+    private static final int MATCHLIST_CACHE_MLSECS = 60 * 60 * 1000; // 1 hour.
 
 
     @RequestMapping( "/app/lol/{locale}/match/{matchId}" )
