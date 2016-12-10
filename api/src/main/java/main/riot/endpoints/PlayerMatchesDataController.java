@@ -112,9 +112,9 @@ public class PlayerMatchesDataController {
 					homeTeamId = currentGameParticipant.getTeamId();
 				}
 				if (currentGameParticipant.getTeamId() == homeTeamId) {
-					homeTeamMatches.put(currentGameParticipant.getSummonerId(), getLatestMatches(locale, matchList, 1));
+					homeTeamMatches.put(currentGameParticipant.getSummonerId(), getLatestMatches(locale, matchList, 2));
 				} else {
-					awayTeamMatches.put(currentGameParticipant.getSummonerId(), getLatestMatches(locale, matchList, 1));
+					awayTeamMatches.put(currentGameParticipant.getSummonerId(), getLatestMatches(locale, matchList, 2));
 				}
 			}
 			sleep();
