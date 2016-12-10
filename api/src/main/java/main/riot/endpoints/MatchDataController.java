@@ -30,6 +30,10 @@ public class MatchDataController {
     private MatchListRepository matchListRepository;
     @Autowired
     private RecentGamesDtoRepository recentGamesDtoRepository;
+    
+    private static final int MATCH_CACHE_MLSECS= 24 * 60 * 60 * 1000; // 24 hours.
+    private static final int MATCHLIST_CACHE_MLSECS = 60 * 1000; // 1 minute.
+
 
     @RequestMapping( "/app/lol/{locale}/match/{matchId}" )
     public Match getMatch( @PathVariable( "matchId" ) final Long matchId, @PathVariable final String locale ) throws UnsupportedLocaleException {
@@ -39,7 +43,7 @@ public class MatchDataController {
                 match = getMatchFromApi( matchId, locale );
             }
             else {
-                if(match.getTimestamp() + 60000 <= System.currentTimeMillis()) {
+                if(match.getTimestamp() + MATCH_CACHE_MLSECS <= System.currentTimeMillis()) {
                     match = getMatchFromApi( matchId, locale );
                 }
             }
@@ -57,7 +61,7 @@ public class MatchDataController {
             if( matchList == null ) {
                 matchList = getMatchListFromApi( summonerId, locale );
             } else {
-                if(matchList.getTimestamp() + 60000 <= System.currentTimeMillis()) {
+                if(matchList.getTimestamp() + MATCHLIST_CACHE_MLSECS <= System.currentTimeMillis()) {
                     matchList = getMatchListFromApi( summonerId, locale );
                 }
             }
@@ -93,7 +97,10 @@ public class MatchDataController {
         String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v2.2/matchlist/by-summoner" ).Path( String.valueOf( summonerId ) ).buildRiot();
         MatchList matchList = restTemplateBean.exchange( url, MatchList.class );
         matchList.setSummonerId( summonerId );
-        matchListRepository.save( matchList );
+        if(matchList.getSummonerId()  > 0 )
+        {
+        	matchListRepository.save( matchList );
+        }
         return matchList;
     }
 
@@ -102,7 +109,10 @@ public class MatchDataController {
         String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v2.2/match" ).Path( String.valueOf( matchId ) ).buildRiot();
         Match match = restTemplateBean.exchange( url, Match.class );
         match.setTimestamp( System.currentTimeMillis() );
-        matchRepository.save( match );
+        if(match.getId() > 0)
+        {
+        	matchRepository.save( match );
+        }
         return match;
     }
 

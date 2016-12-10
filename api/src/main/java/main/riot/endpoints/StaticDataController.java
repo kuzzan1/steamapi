@@ -75,7 +75,10 @@ public class StaticDataController {
             String url = new URLBuilder().baseUrl( "https://global.api.pvp.net/api/lol/static-data/eune/v1.2/champion" ).Param( "champDat", "all" ).buildRiot();
             championListDto = restTemplateBean.exchange( url, ChampionListDto.class );
             championListDto.setUrl( request.getRequestURI() );
-            championListDtoRepository.save( championListDto );
+            if(championListDto.getChampions().size() > 0) //Only save valid responses.
+            {
+            	championListDtoRepository.save( championListDto );
+            }
         }
         return championListDto;
     }

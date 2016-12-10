@@ -49,7 +49,10 @@ public class SummonerDataController {
         HashMap exchange = restTemplateBean.exchange( url, HashMap.class );
         summonerDto = new SummonerDto( (LinkedHashMap) exchange.get( summonerName ) );
         summonerDto.setTimestamp( System.currentTimeMillis() );
-        summonerRepository.save( summonerDto );
+        if(summonerDto.getId()  > 0)
+        {
+            summonerRepository.save( summonerDto );
+        }
         return summonerDto;
     }
 }
