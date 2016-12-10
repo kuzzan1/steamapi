@@ -161,8 +161,8 @@ var app = (function() {
 		});
 		
 			
-		setText("#redPerc", "");
-		setText("#bluePerc", "");
+		setText("#redPerc", "Load.");
+		setText("#bluePerc", "Load.");
 
 	}
   
