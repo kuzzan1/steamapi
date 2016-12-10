@@ -43,11 +43,11 @@ public class PlayerMatchesDataController {
         if( Locales.contains( locale )) {
             SummonerDto summoner = summonerDataController.getSummonerByName( summonerName, locale );
 
-            sleep();
+            sleep(1000);
 
             MatchList matchList = matchDataController.getMatchList(summoner.getId(), locale);
             List<Match> deeperMatchList = getLatestMatches(locale, matchList, 1);
-            sleep();
+            sleep(1000);
 
             CurrentGameInfo currentGameInfo = currentGameDataController.getCurrentGameInfo(summoner.getId(), locale);
 
@@ -60,7 +60,7 @@ public class PlayerMatchesDataController {
         List<Match> deeperMatchList = new ArrayList<>();
         for (int i = 0; i < number && i < matchList.getMatches().size(); i++) {
             MatchReference matchReference = matchList.getMatches().get(i);
-            sleep();
+            sleep(500);
             deeperMatchList.add(matchDataController.getMatch(matchReference.getMatchId(), locale));
         }
         return deeperMatchList;
@@ -71,7 +71,7 @@ public class PlayerMatchesDataController {
     public double getSummonersWinRate(@PathVariable final String summonerName, @PathVariable final String locale ) throws UnsupportedLocaleException{
         if(Locales.contains(locale)) {
             SummonerDto summoner = summonerDataController.getSummonerByName( summonerName, locale );
-            sleep();
+            sleep(1000);
             List<Match> latestMatches = getLatestMatches(locale, matchDataController.getMatchList(summoner.getId(), locale), 1);
             return getWinRateForSummoner(latestMatches, summoner.getId());
         }
@@ -105,7 +105,6 @@ public class PlayerMatchesDataController {
 		List<Double> awayTeamWinRates = new ArrayList<>();
 
 		for (IParticipant currentGameParticipant : currentGameInfo.getMatchParticipants()) {
-			sleep();
 			MatchList matchList = matchDataController.getMatchList(currentGameParticipant.getSummonerId(), locale);
 			if (!matchList.getMatches().isEmpty()) {
 				if (homeTeamId == null) {
@@ -117,7 +116,6 @@ public class PlayerMatchesDataController {
 					awayTeamMatches.put(currentGameParticipant.getSummonerId(), getLatestMatches(locale, matchList, 1));
 				}
 			}
-			sleep();
 		}
 
 		for (Map.Entry<Long, List<Match>> summonerMatches : homeTeamMatches.entrySet()) {
@@ -147,10 +145,10 @@ public class PlayerMatchesDataController {
         return WinPercentageCalculator.getWinPercentOnPlayer(playerLastMatches);
     }
 
-    private void sleep() {
+    private void sleep(long time) {
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(time);
         } catch (InterruptedException e) {
 
         }
