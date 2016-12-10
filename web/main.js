@@ -4,7 +4,7 @@ var summonerPictureDiv = '<div class="playerBox"><div class="playerPicture"><img
 
 var app = (function() {
 	var debug= false;
-	var useLocalhost= true;
+	var useLocalhost= false;
 	var imageBase = "http://cdn.leagueofgraphs.com/img/summonerIcons/6.23.1/36/"; /* "http://cdn.leagueofgraphs.com/img/summonerIcons/6.23.1/36/1419.png" */
 	var baseAPI = "http://176.58.126.231:8090/app/lol/" ;
 	
