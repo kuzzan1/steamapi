@@ -34,7 +34,7 @@ public class WinPercentageCalculator {
         double team1Losing = 1.0;
         double team2Losing = 1.0;
 
-        if (testIfZeroInput(team1participantProbs) && testIfZeroInput(team1participantProbs)) {
+        if (testIfZeroInput(team1participantProbs) && testIfZeroInput(team2participantProbs)) {
             // no data
             return Arrays.asList( 0.0, 0.0 );
         }
