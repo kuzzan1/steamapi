@@ -114,6 +114,24 @@ var app = (function() {
 		//$(".matches").text("data:" + JSON.stringify(callData));	
 	}
 	
+	function getPercentages(summonerName)
+	{
+		var percentageApiCall = baseAPI + $(".searchRegionSelect").val() + "/summoner/" + summonerName + "/winRate/currentMatch";
+		var percentagesRequest = $.ajax({
+			url : percentageApiCall,
+			dataType : "json",
+			timeout : 40000
+		});
+		
+		percentagesRequest.success(function(data, status) {
+			app.setPercentages(data, status);
+		});
+		
+		percentagesRequest.error(function(response, type, serverReply) {
+			app.showError("Error fetching page: " + percentageApiCall + "<br>" + serverReply + " " + response.status +  ":" + response.responseText);
+		});
+	}
+	
 	function makeApiCalls(summonerName){
 
 		var summonerApiCall = baseAPI + $(".searchRegionSelect").val() + "/summoner/" + summonerName + "/matches";
@@ -128,6 +146,7 @@ var app = (function() {
 			app.showMatchView();
 			$(".matchViewContent").show();
 			app.setSummonerAndTeamData(data, status);
+			getPercentages(summonerName);
 		});
 		
 		summonerRequest.error(function(response, type, serverReply) {
@@ -135,24 +154,11 @@ var app = (function() {
 			app.showError("Error fetching page: " + summonerApiCall + "<br>" + serverReply + " " + response.status +  ":" + response.responseText);
 			console.log("Error:" + response.status + ":" + response.responseText);
 		});
-
-		var percentageApiCall = baseAPI + $(".searchRegionSelect").val() + "/summoner/" + summonerName + "/winRate/currentMatch";
-		var percentagesRequest = $.ajax({
-			url : percentageApiCall,
-			dataType : "json",
-			timeout : 40000
-		});
 		
+			
 		setText("#redPerc", "");
 		setText("#bluePerc", "");
-		
-		percentagesRequest.success(function(data, status) {
-			app.setPercentages(data, status);
-		});
-		
-		percentagesRequest.error(function(response, type, serverReply) {
-			app.showError("Error fetching page: " + percentageApiCall + "<br>" + serverReply + " " + response.status +  ":" + response.responseText);
-		});
+
 	}
   
   return {
