@@ -23,6 +23,8 @@ public class CurrentGameDataController {
 
     @Autowired
     private CurrentGameInfoRepository currentGameInfoRepository;
+    private static final int CURRENT_GAME_CACHE_MLSECS = 2 * 60 * 1000; // 5 minutes.
+
 
 
     //Todo clear currentGame when its inactive
@@ -32,7 +34,7 @@ public class CurrentGameDataController {
             CurrentGameInfo currentGameInfo = currentGameInfoRepository.findBySummonerId( summonerId );
             if( currentGameInfo == null) {
                 currentGameInfo = getCurrentGameInfoFromAPI( summonerId, locale );
-            } else if(currentGameInfo.getTimestamp() + 6000 <= System.currentTimeMillis()) {
+            } else if(currentGameInfo.getTimestamp() + CURRENT_GAME_CACHE_MLSECS <= System.currentTimeMillis()) {
                 currentGameInfo = getCurrentGameInfoFromAPI( summonerId, locale );
             }
             return currentGameInfo;
