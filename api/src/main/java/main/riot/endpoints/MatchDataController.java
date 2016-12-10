@@ -97,6 +97,7 @@ public class MatchDataController {
         String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v2.2/matchlist/by-summoner" ).Path( String.valueOf( summonerId ) ).buildRiot();
         MatchList matchList = restTemplateBean.exchange( url, MatchList.class );
         matchList.setSummonerId( summonerId );
+        matchList.setTimestamp( System.currentTimeMillis() );
         if(matchList.getMatches().size() > 0 )
         {
         	matchListRepository.save( matchList );

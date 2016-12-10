@@ -21,6 +21,8 @@ import java.util.LinkedHashMap;
 public class SummonerDataController {
 
     //42893043 - summoner id
+    private static final int SUMMONER_CACHE_MLSECS = 24 * 60 * 60 * 1000; // 1 day.
+
 
     @Autowired
     private SummonerRepository summonerRepository;
@@ -35,7 +37,7 @@ public class SummonerDataController {
             SummonerDto summonerDto = summonerRepository.findByLowerCaseName( summonerName );
             if( summonerDto == null) {
                 summonerDto = getSummonerFromAPI( summonerName, locale );
-            } else if(summonerDto.getTimestamp() + 36000 <= System.currentTimeMillis()) {
+            } else if(summonerDto.getTimestamp() + SUMMONER_CACHE_MLSECS <= System.currentTimeMillis()) {
                 summonerDto = getSummonerFromAPI( summonerName, locale );
             }
             return summonerDto;
