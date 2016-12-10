@@ -4,7 +4,7 @@ var summonerPictureDiv = '<div class="playerBox"><div class="playerPicture"><img
 
 var app = (function() {
 	var debug= false;
-	var useLocalhost= false;
+	var useLocalhost= true;
 	var imageBase = "http://cdn.leagueofgraphs.com/img/summonerIcons/6.23.1/36/"; /* "http://cdn.leagueofgraphs.com/img/summonerIcons/6.23.1/36/1419.png" */
 	var baseAPI = "http://176.58.126.231:8090/app/lol/" ;
 	
@@ -74,8 +74,13 @@ var app = (function() {
 	function showPercentages(data, status) {
 		callData = data;
 		callStatus = status;
-		setText("#redPerc", callData[0] + "%");
-		setText("#bluePerc", callData[1] + "%");
+		setText("#redPerc", removeDecimals(callData[0]) + "%");
+		setText("#bluePerc", removeDecimals(callData[1]) + "%");
+	}
+	
+	function removeDecimals(number)
+	{
+		return parseFloat(number.toFixed(0));
 	}
 	
 	function showSummonerAndTeamData(data, status) {
@@ -120,7 +125,7 @@ var app = (function() {
 		var percentagesRequest = $.ajax({
 			url : percentageApiCall,
 			dataType : "json",
-			timeout : 40000
+			timeout : 120000 // 2 minutes. 
 		});
 		
 		percentagesRequest.success(function(data, status) {
