@@ -34,7 +34,7 @@ public class SummonerDataController {
     @RequestMapping("app/lol/{locale}/summoner/{summonerName}")
     public SummonerDto getSummonerByName( @PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
         if( Locales.contains( locale )) {
-            SummonerDto summonerDto = summonerRepository.findByLowerCaseName( summonerName );
+            SummonerDto summonerDto = summonerRepository.findByLowerCaseName( summonerName, locale );
             if( summonerDto == null) {
                 summonerDto = getSummonerFromAPI( summonerName, locale );
             } else if(summonerDto.getTimestamp() + SUMMONER_CACHE_MLSECS <= System.currentTimeMillis()) {

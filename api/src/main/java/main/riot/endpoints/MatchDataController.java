@@ -38,7 +38,7 @@ public class MatchDataController {
     @RequestMapping( "/app/lol/{locale}/match/{matchId}" )
     public Match getMatch( @PathVariable( "matchId" ) final Long matchId, @PathVariable final String locale ) throws UnsupportedLocaleException {
         if( Locales.contains( locale ) ) {
-            Match match = matchRepository.findByMatchId( matchId );
+            Match match = matchRepository.findByMatchId( matchId, locale );
             if( match == null ) {
                 match = getMatchFromApi( matchId, locale );
             }
@@ -57,7 +57,7 @@ public class MatchDataController {
     @RequestMapping( "/app/lol/{locale}/match/summoner/{summonerId}" )
     public MatchList getMatchList( @PathVariable final long summonerId, @PathVariable final String locale ) throws UnsupportedLocaleException {
         if( Locales.contains( locale ) ) {
-            MatchList matchList = matchListRepository.findBySummonerId( summonerId );
+            MatchList matchList = matchListRepository.findBySummonerId( summonerId, locale );
             if( matchList == null ) {
                 matchList = getMatchListFromApi( summonerId, locale );
             } else {
@@ -73,7 +73,7 @@ public class MatchDataController {
     @RequestMapping("/app/lol/{locale}/games/{summonerId}/recent")
     public RecentGamesDto getGamesData( @PathVariable("summonerId") final long summonerId, @PathVariable final String locale) throws UnsupportedLocaleException {
         if( Locales.contains(locale)) {
-            RecentGamesDto recentGamesDto = recentGamesDtoRepository.findBySummonerId( summonerId );
+            RecentGamesDto recentGamesDto = recentGamesDtoRepository.findBySummonerId( summonerId, locale );
             if( recentGamesDto == null) {
                 recentGamesDto = getRecentGamesDtoFromAPI( summonerId, locale );
             } else if(recentGamesDto.getTimestamp() + 36000 <= System.currentTimeMillis()) {

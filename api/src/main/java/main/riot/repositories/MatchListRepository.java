@@ -8,5 +8,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 
 public interface MatchListRepository extends MongoRepository<MatchList, String>{
-    MatchList findBySummonerId(Long summonerId);
+    MatchList findBySummonerId(Long summonerId, String locale);
 }

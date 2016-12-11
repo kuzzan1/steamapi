@@ -31,7 +31,7 @@ public class CurrentGameDataController {
     @RequestMapping("/app/lol/{locale}/current/game/{summonerId}")
     public CurrentGameInfo getCurrentGameInfo(@PathVariable final long summonerId, @PathVariable final String locale) throws UnsupportedLocaleException {
         if( Locales.contains(locale)) {
-            CurrentGameInfo currentGameInfo = currentGameInfoRepository.findBySummonerId( summonerId );
+            CurrentGameInfo currentGameInfo = currentGameInfoRepository.findBySummonerId( summonerId, locale );
             if( currentGameInfo == null) {
                 currentGameInfo = getCurrentGameInfoFromAPI( summonerId, locale );
             } else if(currentGameInfo.getTimestamp() + CURRENT_GAME_CACHE_MLSECS <= System.currentTimeMillis()) {
