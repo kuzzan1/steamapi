@@ -155,11 +155,15 @@ var app = (function() {
 		
 		summonerRequest.success(function(data, status) {
 			app.showMatchView();
-			$(".matchViewContent").show();
-			app.setSummonerAndTeamData(data, status);
-			if(data!=null)
+			if(data != null)
 			{
+				$(".matchViewContent").show();
+				app.setSummonerAndTeamData(data, status);
 				getPercentages(summonerName);
+			}
+			else
+			{
+				$("#loadingInfo").text("No summoner found.");
 			}
 		});
 		
