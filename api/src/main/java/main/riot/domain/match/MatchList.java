@@ -18,6 +18,7 @@ public class MatchList extends Timestamp implements Serializable {
     private List<MatchReference> matches = new ArrayList<>();
     private int startIndex;
     private int totalGames;
+    private String locale;
 
     public long getSummonerId() {
         return summonerId;
@@ -58,4 +59,12 @@ public class MatchList extends Timestamp implements Serializable {
     public void setTotalGames(int totalGames) {
         this.totalGames = totalGames;
     }
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 }

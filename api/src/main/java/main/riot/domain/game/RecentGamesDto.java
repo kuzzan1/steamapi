@@ -14,6 +14,7 @@ public class RecentGamesDto extends Timestamp {
     @Id
     private long summonerId;
     private Set<GameDto> games= new HashSet<>();
+    private String locale;
 
     public Set<GameDto> getGames() {
         return games;
@@ -30,4 +31,12 @@ public class RecentGamesDto extends Timestamp {
     public void setSummonerId( long summonerId ) {
         this.summonerId = summonerId;
     }
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 }

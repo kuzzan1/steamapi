@@ -20,41 +20,42 @@ import java.util.LinkedHashMap;
 @RestController
 public class SummonerDataController {
 
-    //42893043 - summoner id
-    private static final int SUMMONER_CACHE_MLSECS = 24 * 60 * 60 * 1000; // 1 day.
+	// 42893043 - summoner id
+	private static final int SUMMONER_CACHE_MLSECS = 24 * 60 * 60 * 1000; // 1
+																			// day.
 
+	@Autowired
+	private SummonerRepository summonerRepository;
 
-    @Autowired
-    private SummonerRepository summonerRepository;
+	@Autowired
+	private RestTemplateBean restTemplateBean;
 
-    @Autowired
-    private RestTemplateBean restTemplateBean;
+	@RequestMapping("app/lol/{locale}/summoner/{summonerName}")
+	public SummonerDto getSummonerByName(@PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
+		if (Locales.contains(locale)) {
+			SummonerDto summonerDto = summonerRepository.findByLowerCaseNameAndLocale(summonerName, locale);
+			if (summonerDto == null) {
+				summonerDto = getSummonerFromAPI(summonerName, locale);
+			} else if (summonerDto.getTimestamp() + SUMMONER_CACHE_MLSECS <= System.currentTimeMillis()) {
+				summonerDto = getSummonerFromAPI(summonerName, locale);
+			}
+			return summonerDto;
+		}
+		return null;
+	}
 
-
-    @RequestMapping("app/lol/{locale}/summoner/{summonerName}")
-    public SummonerDto getSummonerByName( @PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
-        if( Locales.contains( locale )) {
-            SummonerDto summonerDto = summonerRepository.findByLowerCaseName( summonerName, locale );
-            if( summonerDto == null) {
-                summonerDto = getSummonerFromAPI( summonerName, locale );
-            } else if(summonerDto.getTimestamp() + SUMMONER_CACHE_MLSECS <= System.currentTimeMillis()) {
-                summonerDto = getSummonerFromAPI( summonerName, locale );
-            }
-            return summonerDto;
-        }
-        return null;
-    }
-
-    private SummonerDto getSummonerFromAPI( @PathVariable String summonerName, @PathVariable String locale ) {
-        SummonerDto summonerDto;
-        String url = new URLBuilder().baseUrl( "https://"+locale+".api.pvp.net/api/lol/"+locale+"/v1.4/summoner/by-name" ).Path( summonerName ).buildRiot();
-        HashMap exchange = restTemplateBean.exchange( url, HashMap.class );
-        summonerDto = new SummonerDto( (LinkedHashMap) exchange.get( summonerName ) );
-        summonerDto.setTimestamp( System.currentTimeMillis() );
-        if(summonerDto.getId()  > 0)
-        {
-            summonerRepository.save( summonerDto );
-        }
-        return summonerDto;
-    }
+	private SummonerDto getSummonerFromAPI(@PathVariable String summonerName, @PathVariable String locale) {
+		SummonerDto summonerDto;
+		String url = new URLBuilder().baseUrl("https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v1.4/summoner/by-name").Path(summonerName).buildRiot();
+		HashMap exchange = restTemplateBean.exchange(url, HashMap.class);
+		if (exchange.size() > 0) {
+			summonerDto = new SummonerDto((LinkedHashMap) exchange.get(summonerName), locale);
+			summonerDto.setTimestamp(System.currentTimeMillis());
+			if (summonerDto.getId() > 0) {
+				summonerRepository.save(summonerDto);
+			}
+			return summonerDto;
+		}
+		else return null;
+	}
 }

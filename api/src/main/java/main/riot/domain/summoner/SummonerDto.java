@@ -17,17 +17,19 @@ public class SummonerDto extends Timestamp {
     private long summonerLevel;
 
     private String lowerCaseName;
+    private String locale;
 
 
     public SummonerDto() {
     }
 
-    public SummonerDto( LinkedHashMap summonerDto ) {
+    public SummonerDto( LinkedHashMap summonerDto, String locale ) {
         this.setId(Long.valueOf((Integer) summonerDto.get("id")));
         this.setName((String) summonerDto.get("name"));
         this.setProfileIconId((Integer) summonerDto.get("profileIconId"));
         this.setSummonerLevel(Long.valueOf((Integer)summonerDto.get("summonerLevel")));
         this.setLowerCaseName( this.getName().toLowerCase() );
+        this.setLocale(locale);
     }
 
 
@@ -70,4 +72,12 @@ public class SummonerDto extends Timestamp {
     public void setSummonerLevel( long summonerLevel ) {
         this.summonerLevel = summonerLevel;
     }
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 }

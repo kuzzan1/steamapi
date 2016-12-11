@@ -27,6 +27,7 @@ public class Match extends Timestamp implements IMatchInfo  {
     private List<Team> teams = new ArrayList<>(  );
     private List<ParticipantIdentity> participantIdentities = new ArrayList<>( );
     private List<Participant> participants = new ArrayList<>( );
+    private String locale;
 
     public int getMapId() {
         return mapId;
@@ -174,5 +175,13 @@ public class Match extends Timestamp implements IMatchInfo  {
 	@Override
 	public List<? extends IParticipant> getMatchParticipants() {
 		return participants;
+	}
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 }

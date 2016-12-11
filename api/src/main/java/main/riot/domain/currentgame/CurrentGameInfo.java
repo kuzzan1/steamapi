@@ -28,6 +28,7 @@ public class CurrentGameInfo extends Timestamp implements IMatchInfo {
     private List<BannedChampion> bannedChampions = new ArrayList<>();
     private List<CurrentGameParticipant> participants = new ArrayList<>();
     private long summonerId;
+    private String locale;
 
     public List<BannedChampion> getBannedChampions() {
         return bannedChampions;
@@ -134,4 +135,12 @@ public class CurrentGameInfo extends Timestamp implements IMatchInfo {
     public long getSummonerId() {
         return summonerId;
     }
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 }

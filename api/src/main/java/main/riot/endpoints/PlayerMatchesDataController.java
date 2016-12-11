@@ -22,62 +22,60 @@ import java.util.*;
 @RestController
 public class PlayerMatchesDataController {
 
+	@Autowired
+	private RestTemplateBean restTemplateBean;
 
-    @Autowired
-    private RestTemplateBean restTemplateBean;
+	@Autowired
+	private SummonerDataController summonerDataController;
 
-    @Autowired
-    private SummonerDataController summonerDataController;
+	@Autowired
+	private MatchDataController matchDataController;
 
-    @Autowired
-    private MatchDataController matchDataController;
+	@Autowired
+	private CurrentGameDataController currentGameDataController;
 
-    @Autowired
-    private CurrentGameDataController currentGameDataController;
+	@Autowired
+	private PlayerWinHelper playerWinHelper;
 
-    @Autowired
-    private PlayerWinHelper playerWinHelper;
+	@RequestMapping("/app/lol/{locale}/summoner/{summonerName}/matches")
+	public Object getPlayerMatchData(@PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
+		if (Locales.contains(locale)) {
+			SummonerDto summoner = summonerDataController.getSummonerByName(summonerName, locale);
 
-    @RequestMapping("/app/lol/{locale}/summoner/{summonerName}/matches")
-    public Object getPlayerMatchData(@PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
-        if( Locales.contains( locale )) {
-            SummonerDto summoner = summonerDataController.getSummonerByName( summonerName, locale );
+			if (summoner != null) {
+				sleep(1000);
+				MatchList matchList = matchDataController.getMatchList(summoner.getId(), locale);
+				List<Match> deeperMatchList = getLatestMatches(locale, matchList, 1);
+				sleep(1000);
 
-            sleep(1000);
+				CurrentGameInfo currentGameInfo = currentGameDataController.getCurrentGameInfo(summoner.getId(), locale);
 
-            MatchList matchList = matchDataController.getMatchList(summoner.getId(), locale);
-            List<Match> deeperMatchList = getLatestMatches(locale, matchList, 1);
-            sleep(1000);
+				return new SummonerWithMatches(summoner, matchList.getTotalGames(), currentGameInfo, deeperMatchList);
+			}
+		}
+		return null;
+	}
 
-            CurrentGameInfo currentGameInfo = currentGameDataController.getCurrentGameInfo(summoner.getId(), locale);
+	private List<Match> getLatestMatches(@PathVariable String locale, MatchList matchList, int number) throws UnsupportedLocaleException {
+		List<Match> deeperMatchList = new ArrayList<>();
+		for (int i = 0; i < number && i < matchList.getMatches().size(); i++) {
+			MatchReference matchReference = matchList.getMatches().get(i);
+			sleep(500);
+			deeperMatchList.add(matchDataController.getMatch(matchReference.getMatchId(), locale));
+		}
+		return deeperMatchList;
+	}
 
-            return new SummonerWithMatches(summoner, matchList.getTotalGames(), currentGameInfo, deeperMatchList);
-        }
-        return null;
-    }
-
-    private List<Match> getLatestMatches(@PathVariable String locale, MatchList matchList, int number) throws UnsupportedLocaleException {
-        List<Match> deeperMatchList = new ArrayList<>();
-        for (int i = 0; i < number && i < matchList.getMatches().size(); i++) {
-            MatchReference matchReference = matchList.getMatches().get(i);
-            sleep(500);
-            deeperMatchList.add(matchDataController.getMatch(matchReference.getMatchId(), locale));
-        }
-        return deeperMatchList;
-    }
-
-
-    @RequestMapping("/app/lol/{locale}/summoner/{summonerName}/winRate")
-    public double getSummonersWinRate(@PathVariable final String summonerName, @PathVariable final String locale ) throws UnsupportedLocaleException{
-        if(Locales.contains(locale)) {
-            SummonerDto summoner = summonerDataController.getSummonerByName( summonerName, locale );
-            sleep(1000);
-            List<Match> latestMatches = getLatestMatches(locale, matchDataController.getMatchList(summoner.getId(), locale), 1);
-            return getWinRateForSummoner(latestMatches, summoner.getId());
-        }
-        return -1;
-    }
-
+	@RequestMapping("/app/lol/{locale}/summoner/{summonerName}/winRate")
+	public double getSummonersWinRate(@PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
+		if (Locales.contains(locale)) {
+			SummonerDto summoner = summonerDataController.getSummonerByName(summonerName, locale);
+			sleep(1000);
+			List<Match> latestMatches = getLatestMatches(locale, matchDataController.getMatchList(summoner.getId(), locale), 1);
+			return getWinRateForSummoner(latestMatches, summoner.getId());
+		}
+		return -1;
+	}
 
 	@RequestMapping("/app/lol/{locale}/summoner/{summonerName}/winRate/currentMatch")
 	public List<Double> getSummonersWinRateCurrentMatch(@PathVariable final String summonerName, @PathVariable final String locale) throws UnsupportedLocaleException {
@@ -97,7 +95,7 @@ public class PlayerMatchesDataController {
 		return null;
 	}
 
-    private List<Double> getPercForCurrentOrLastMatch(final String locale, IMatchInfo currentGameInfo) throws UnsupportedLocaleException {
+	private List<Double> getPercForCurrentOrLastMatch(final String locale, IMatchInfo currentGameInfo) throws UnsupportedLocaleException {
 		Long homeTeamId = null;
 		Map<Long, List<Match>> homeTeamMatches = new HashMap<>();
 		Map<Long, List<Match>> awayTeamMatches = new HashMap<>();
@@ -131,7 +129,6 @@ public class PlayerMatchesDataController {
 		return WinPercentageCalculator.calculateTeamWinPercents(toDoubleArray(homeTeamWinRate), toDoubleArray(awayTeamWinRate));
 	}
 
-	
 	private double[] toDoubleArray(List<Double> list) {
 		double[] ret = new double[list.size()];
 		for (int i = 0; i < ret.length; i++)
@@ -139,18 +136,17 @@ public class PlayerMatchesDataController {
 		return ret;
 	}
 
+	private double getWinRateForSummoner(List<Match> lastMatches, long summonerId) {
+		Boolean[] playerLastMatches = playerWinHelper.getPlayerLastMatches(lastMatches, summonerId);
+		return WinPercentageCalculator.getWinPercentOnPlayer(playerLastMatches);
+	}
 
-    private double getWinRateForSummoner(List<Match> lastMatches, long summonerId) {
-        Boolean[] playerLastMatches = playerWinHelper.getPlayerLastMatches(lastMatches, summonerId);
-        return WinPercentageCalculator.getWinPercentOnPlayer(playerLastMatches);
-    }
+	private void sleep(long time) {
 
-    private void sleep(long time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
 
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-
-        }
-    }
+		}
+	}
 }

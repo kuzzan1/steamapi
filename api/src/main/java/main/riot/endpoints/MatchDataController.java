@@ -38,7 +38,7 @@ public class MatchDataController {
     @RequestMapping( "/app/lol/{locale}/match/{matchId}" )
     public Match getMatch( @PathVariable( "matchId" ) final Long matchId, @PathVariable final String locale ) throws UnsupportedLocaleException {
         if( Locales.contains( locale ) ) {
-            Match match = matchRepository.findByMatchId( matchId, locale );
+            Match match = matchRepository.findByMatchIdAndLocale( matchId, locale );
             if( match == null ) {
                 match = getMatchFromApi( matchId, locale );
             }
@@ -57,7 +57,7 @@ public class MatchDataController {
     @RequestMapping( "/app/lol/{locale}/match/summoner/{summonerId}" )
     public MatchList getMatchList( @PathVariable final long summonerId, @PathVariable final String locale ) throws UnsupportedLocaleException {
         if( Locales.contains( locale ) ) {
-            MatchList matchList = matchListRepository.findBySummonerId( summonerId, locale );
+            MatchList matchList = matchListRepository.findBySummonerIdAndLocale( summonerId, locale );
             if( matchList == null ) {
                 matchList = getMatchListFromApi( summonerId, locale );
             } else {
@@ -73,7 +73,7 @@ public class MatchDataController {
     @RequestMapping("/app/lol/{locale}/games/{summonerId}/recent")
     public RecentGamesDto getGamesData( @PathVariable("summonerId") final long summonerId, @PathVariable final String locale) throws UnsupportedLocaleException {
         if( Locales.contains(locale)) {
-            RecentGamesDto recentGamesDto = recentGamesDtoRepository.findBySummonerId( summonerId, locale );
+            RecentGamesDto recentGamesDto = recentGamesDtoRepository.findBySummonerIdAndLocale( summonerId, locale );
             if( recentGamesDto == null) {
                 recentGamesDto = getRecentGamesDtoFromAPI( summonerId, locale );
             } else if(recentGamesDto.getTimestamp() + 36000 <= System.currentTimeMillis()) {
@@ -89,6 +89,7 @@ public class MatchDataController {
         String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v1.3/game/by-summoner/" ).Path( summonerId ).Path( "recent" ).buildRiot();
         recentGamesDto = restTemplateBean.exchange(url, RecentGamesDto.class);
         recentGamesDto.setTimestamp(System.currentTimeMillis());
+        recentGamesDto.setLocale(locale);
         return recentGamesDto;
     }
 
@@ -97,6 +98,7 @@ public class MatchDataController {
         String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v2.2/matchlist/by-summoner" ).Path( String.valueOf( summonerId ) ).buildRiot();
         MatchList matchList = restTemplateBean.exchange( url, MatchList.class );
         matchList.setSummonerId( summonerId );
+        matchList.setLocale(locale);
         matchList.setTimestamp( System.currentTimeMillis() );
         if(matchList.getMatches().size() > 0 )
         {
@@ -110,6 +112,7 @@ public class MatchDataController {
         String url = new URLBuilder().baseUrl( "https://" + locale + ".api.pvp.net/api/lol/" + locale + "/v2.2/match" ).Path( String.valueOf( matchId ) ).buildRiot();
         Match match = restTemplateBean.exchange( url, Match.class );
         match.setTimestamp( System.currentTimeMillis() );
+        match.setLocale(locale);
         if(match.getId() > 0)
         {
         	matchRepository.save( match );
