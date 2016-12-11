@@ -87,6 +87,11 @@ var app = (function() {
 		callData = data;
 		callStatus = status;
 		
+		if(callData == null)
+		{
+			return;
+		}
+		
 		if(callData.currentGameInfo.gameId != 0)
 		{
 			setText("#gameId", callData.currentGameInfo.gameId);
@@ -116,7 +121,8 @@ var app = (function() {
 		setText("#summonerMatchNumber",callData.totalGames);
 		setText("#summonerLevel",callData.summoner.summonerLevel);
 		$("#summonerImage").attr("src", imageBase + callData.summoner.profileIconId + ".png");
-		//$(".matches").text("data:" + JSON.stringify(callData));	
+		setText("#redPerc", "Load.");
+		setText("#bluePerc", "Load.");	
 	}
 	
 	function getPercentages(summonerName)
@@ -151,7 +157,10 @@ var app = (function() {
 			app.showMatchView();
 			$(".matchViewContent").show();
 			app.setSummonerAndTeamData(data, status);
-			getPercentages(summonerName);
+			if(data!=null)
+			{
+				getPercentages(summonerName);
+			}
 		});
 		
 		summonerRequest.error(function(response, type, serverReply) {
@@ -159,11 +168,6 @@ var app = (function() {
 			app.showError("Error fetching page: " + summonerApiCall + "<br>" + serverReply + " " + response.status +  ":" + response.responseText);
 			console.log("Error:" + response.status + ":" + response.responseText);
 		});
-		
-			
-		setText("#redPerc", "Load.");
-		setText("#bluePerc", "Load.");
-
 	}
   
   return {
