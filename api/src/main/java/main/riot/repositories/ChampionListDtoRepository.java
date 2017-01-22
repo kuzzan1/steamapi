@@ -1,12 +1,37 @@
 package main.riot.repositories;
 
+import main.URLBuilder;
 import main.riot.domain.champion.ChampionListDto;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import main.steam.bean.RestTemplateBean;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by jonas on 2016-11-28.
  */
-public interface ChampionListDtoRepository extends MongoRepository<ChampionListDto, String > {
 
-    ChampionListDto findByUrl( String url );
+@Repository
+public class ChampionListDtoRepository
+{
+	 @Autowired
+	 private MongoChampionListDtoRepository mongochampionListDtoRepository;
+	 
+	 @Autowired
+	 private RestTemplateBean restTemplateBean;
+	
+	 public ChampionListDto findByUrl( String url ){
+	  ChampionListDto championListDto = mongochampionListDtoRepository.findByUrl( url );
+      if( championListDto == null) {
+          String newUrl = new URLBuilder().baseUrl( "https://global.api.pvp.net/api/lol/static-data/eune/v1.2/champion" ).Param( "champDat", "all" ).buildRiot();
+          championListDto = restTemplateBean.exchange( newUrl, ChampionListDto.class );
+          championListDto.setUrl( newUrl );
+          if(championListDto.getChampions().size() > 0) //Only save valid responses.
+          {
+        	  mongochampionListDtoRepository.save( championListDto );
+          }
+      }
+      return championListDto;
+	 }
 }
+
