@@ -15,11 +15,11 @@ import org.springframework.stereotype.Repository;
 public class ChampionListDtoRepository
 {
 	 @Autowired
-	 private MongoChampionListDtoRepository mongochampionListDtoRepository;
+	 private RestTemplateBean restTemplateBean;
 	 
 	 @Autowired
-	 private RestTemplateBean restTemplateBean;
-	
+	 private MongoChampionListDtoRepository mongochampionListDtoRepository;
+	 
 	 public ChampionListDto findByUrl( String url ){
 	  ChampionListDto championListDto = mongochampionListDtoRepository.findByUrl( url );
       if( championListDto == null) {

@@ -1,9 +1,10 @@
 package main.riot.domain.summoner;
 
-import main.riot.domain.Timestamp;
-import org.springframework.data.annotation.Id;
+import java.util.HashMap;
 
-import java.util.LinkedHashMap;
+import main.riot.domain.Timestamp;
+
+import org.springframework.data.annotation.Id;
 
 /**
  * Created by jonas on 2016-11-17.
@@ -23,7 +24,7 @@ public class SummonerDto extends Timestamp {
     public SummonerDto() {
     }
 
-    public SummonerDto( LinkedHashMap summonerDto, String locale ) {
+    public SummonerDto( HashMap<?, ?> summonerDto, String locale ) {
         this.setId(Long.valueOf((Integer) summonerDto.get("id")));
         this.setName((String) summonerDto.get("name"));
         this.setProfileIconId((Integer) summonerDto.get("profileIconId"));
