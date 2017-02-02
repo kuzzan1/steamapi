@@ -15,5 +15,7 @@ public class ApiKey {
     }
 
 
+    public static String getTwitchKey() {return "x7ncuh773uxh0s3op3n1rvugf0pf2p";}q
+
 
 }
